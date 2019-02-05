@@ -1,0 +1,42 @@
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.vbproj.ResolveComReference.cache
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\Interface Mode Opératoire.exe.manifest
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\Interface Mode Opératoire.application
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\Interface Mode Opératoire.exe
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\Interface Mode Opératoire.pdb
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\Interface Mode Opératoire.xml
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\ConfigBDD.dll
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\ConfigBox.dll
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\ConfigINI.dll
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\ConfigSize.dll
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface_Mode_Opératoire.Impression.resources
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface_Mode_Opératoire.main.resources
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface_Mode_Opératoire.Resources.resources
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.vbproj.GenerateResource.Cache
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.exe.manifest
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.application
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.exe
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.xml
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.pdb
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.vbprojResolveAssemblyReference.cache
+E:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface_Mode_Opératoire.SplashScreen.resources
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.vbproj.ResolveComReference.cache
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.exe
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.xml
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.pdb
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\Interface Mode Opératoire.exe.manifest
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\Interface Mode Opératoire.application
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\Interface Mode Opératoire.exe
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\Interface Mode Opératoire.pdb
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\Interface Mode Opératoire.xml
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\ConfigBDD.dll
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\ConfigBox.dll
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\ConfigINI.dll
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\bin\Release\ConfigSize.dll
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.vbprojResolveAssemblyReference.cache
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface_Mode_Opératoire.Impression.resources
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface_Mode_Opératoire.main.resources
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface_Mode_Opératoire.Resources.resources
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface_Mode_Opératoire.SplashScreen.resources
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.vbproj.GenerateResource.Cache
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.exe.manifest
+F:\Projects\Valdepharm\Interface Mode OP\Interface Mode Opératoire\Interface Mode Opératoire\obj\x86\Release\Interface Mode Opératoire.application

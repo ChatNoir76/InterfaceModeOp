@@ -1,0 +1,141 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+InterfaceModeOpératoire
+</name>
+</assembly>
+<members>
+<member name="M:Interface_Mode_Opératoire.SF.Tri(Microsoft.VisualBasic.Collection@,System.Boolean)">
+	<summary>
+ Tri une collection
+ </summary>
+	<param name="Col">Collection à trier</param>
+	<param name="Ascendant">Facultatif.Par défaut ordre ascendant</param>
+	<returns>Retourne la collection triée</returns>
+</member><member name="F:Interface_Mode_Opératoire.main._ArchitectureDossier">
+	<summary>
+ MasEC=0 ; MasApp=1 ; Modif=2 ; Aut=3 ; Off=4 ; Arch=5
+ </summary>
+	<remarks>MasEC=0 ; MasApp=1 ; Modif=2 ; Aut=3 ; Off=4 ; Arch=5</remarks>
+</member><member name="T:Interface_Mode_Opératoire.main.TypeFichier">
+	<summary>
+ lié à la collection _TypeFichier(index)
+ </summary>
+</member><member name="T:Interface_Mode_Opératoire.main.Dossier">
+	<summary>
+ lié à la collection _ArchitectureDossier(index)
+ </summary>
+</member><member name="M:Interface_Mode_Opératoire.main.GestionMenu(System.Boolean)">
+	<summary>
+ Gestion des menus d'en-tete
+ </summary>
+</member><member name="M:Interface_Mode_Opératoire.main.GestionMenu(System.Boolean,System.Windows.Forms.ToolStripMenuItem[])">
+	<summary>
+ Gestion des menus en fonction de la liste
+ </summary>
+	<param name="ListeTSMI">liste des menus affectés</param>
+	<remarks></remarks>
+</member><member name="M:Interface_Mode_Opératoire.main.GestionMenu(System.Boolean,System.Windows.Forms.ToolStripMenuItem)">
+	<summary>
+ Gestion des menus (mère/enfants)
+ </summary>
+	<param name="MenuMere">les menus mère / enfants seront affectés</param>
+	<remarks></remarks>
+</member><member name="M:Interface_Mode_Opératoire.main.Consultation(Interface_Mode_Opératoire.main.Dossier,System.String,System.String,System.Collections.Generic.List{System.Int32},System.String,Interface_Mode_Opératoire.main.Format)">
+	<summary>
+ consultation d'un fichier crypté en PDF
+ </summary>
+	<param name="DossierBase">répertoire d'origine du fichier à consulter</param>
+	<param name="BaseTxt">description de base pour affichageAction</param>
+	<param name="Filigrane">Filigrane à ajouter</param>
+	<param name="CouleurFiligrane">couleur du type {0,0,0}.tolist</param>
+	<param name="Description">description affiché lors du chargement du fichier</param>
+	<remarks></remarks>
+</member><member name="M:Interface_Mode_Opératoire.main.Impression(Interface_Mode_Opératoire.main.Dossier,System.String,System.String)">
+	<summary>
+ impression d'un fichier crypté
+ </summary>
+	<param name="DossierBase">répertoire d'origine du fichier à imprimer</param>
+	<param name="BaseTxt">description de base pour affichageAction</param>
+	<param name="Description">description affiché lors du chargement du fichier</param>
+</member><member name="M:Interface_Mode_Opératoire.main.Exportation(Interface_Mode_Opératoire.main.Dossier,Interface_Mode_Opératoire.main.Dossier,System.String,System.String,System.String,System.Single,System.Drawing.FontStyle,System.String,System.Boolean,System.Boolean,System.Boolean,System.String,System.String)">
+	<summary>
+ exportation depuis un fichier crypté vers le dossier d'exportation
+ </summary>
+	<param name="DossierBase">répertoire d'origine du fichier à imprimer</param>
+	<param name="destination">répertoire de destination du fichier exporté</param>
+	<param name="BaseTxt">description de base pour affichageAction</param>
+	<param name="DescriptionImportation">description affiché lors du chargement du fichier</param>
+	<param name="DescriptionEnregistrement">description affiché lors de l'exportation du fichier</param>
+	<remarks></remarks>
+</member><member name="M:Interface_Mode_Opératoire.main.ImportationMineure(Interface_Mode_Opératoire.main.Dossier,Interface_Mode_Opératoire.main.Dossier,System.String,System.String,System.String,Interface_Mode_Opératoire.main.TypeFichier,System.String)">
+	<summary>
+ importation depuis un fichier Word
+ </summary>
+	<param name="DossierBase">répertoire d'origine du fichier à imprimer</param>
+	<param name="Destination">répertoire de destination du fichier importé</param>
+	<param name="BaseTxt">description de base pour affichageAction</param>
+	<param name="DescriptionChargement">description affiché lors du chargement du fichier</param>
+	<param name="DescriptionEnregistrement">description affiché lors de l'importation du fichier</param>
+	<remarks></remarks>
+</member><member name="M:Interface_Mode_Opératoire.main.ChargementMyWord(System.String,System.String,System.String,System.Single,System.Drawing.FontStyle,System.String)">
+	<summary>
+ Chargement Word via BOF
+ </summary>
+</member><member name="P:Interface_Mode_Opératoire.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Interface_Mode_Opératoire.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:Interface_Mode_Opératoire.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="P:Interface_Mode_Opératoire.GWord.GWK">
+	<summary>
+ Détermine si Gword à besoin du mot de passe d'origine du word
+ </summary>
+	<value></value>
+	<returns>si true, les fonctions ayant besoin d'un mot de passe seront désactivées</returns>
+	<remarks></remarks>
+</member><member name="M:Interface_Mode_Opératoire.GWord.#ctor(System.String,System.String)">
+	<summary>
+ Ouverture d'un fichier Word dans un temp (destination)
+ </summary>
+	<param name="Word">Nom du fichier Word déprotégé</param>
+	<param name="Destination">Fichier de destination</param>
+	<remarks></remarks>
+</member><member name="M:Interface_Mode_Opératoire.GWord.#ctor(System.String,System.String,System.String)">
+	<summary>
+ Ouverture d'un fichier Word Crypté dans un temp (destination)
+ </summary>
+	<param name="WordCRP">Nom du fichier complet (.crp) </param>
+	<param name="MotDePasseCryptage">Mot de passe du cryptage</param>
+	<param name="Destination">Fichier de destination</param>
+	<remarks></remarks>
+</member><member name="M:Interface_Mode_Opératoire.GWord.Close">
+	<summary>
+ Ferme le classeur
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Interface_Mode_Opératoire.GWord.Dispose(Interface_Mode_Opératoire.GWord.Delete)">
+	<summary>
+ Ferme l'application et son classeur
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Interface_Mode_Opératoire.GWord.CopyTo(System.String,System.Boolean)">
+	<summary>
+ Copie vers un Word soit protégé avec une GWordKey, soit non protégé
+ </summary>
+</member><member name="M:Interface_Mode_Opératoire.GWord.CopyTo(System.String,System.String,System.Boolean)">
+	<summary>
+ Copie vers un Word Crypté. Extention *.crp ajouté automatiquement si ajouteCRP = true
+ </summary>
+</member>
+</members>
+</doc>
