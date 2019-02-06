@@ -1,0 +1,63 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+InterfaceModeOp2
+</name>
+</assembly>
+<members>
+<member name="T:InterfaceModeOp2.service.View">
+	<summary>
+ Détermine la vue à afficher
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.service.AccessFolder">
+	<summary>
+ Niveau d'access aux dossiers
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.service.CLEF_CRYPTAGE">
+	<summary>
+ Clef de cryptage des fichiers word
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.service.LISTE_MDP_PRODUCTION">
+	<summary>
+ Liste des mots de passe dans les fichiers Word Chimie avant importation dans l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.service.EXT_FICHIER_CRYPTER">
+	<summary>
+ extentions pour les fichiers cryptés
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.service.EXT_FICHIER_WORD">
+	<summary>
+ extentions pour les fichiers word
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Initialisation.FindFolderAccess">
+	<summary>
+	</summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Initialisation.BT_Open_Click">
+	<summary>
+ Ouverture de la page principale de l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="P:InterfaceModeOp2.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:InterfaceModeOp2.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:InterfaceModeOp2.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>
