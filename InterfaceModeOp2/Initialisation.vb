@@ -6,7 +6,7 @@ Public Class Initialisation
 
         InitializeComponent()
 
-        LBL_DossierBase.Text = "\" & "test"
+        LBL_DossierA.Text = Configuration.getInstance.GetValueFromKey("BaseRep")
 
 
     End Sub

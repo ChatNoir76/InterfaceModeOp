@@ -2,47 +2,74 @@
 
 ''' <summary>
 ''' Lecture et enregistrement des variables du fichier ini
+''' Variables d'environnements de l'interface
 ''' </summary>
 ''' <remarks></remarks>
 Public Class Configuration
 
     'instance du singleton
-    Private Shared instance As Configuration = Nothing
+    Private Shared _Instance As Configuration = Nothing
 
-    'Mots clef du fichier ini
-    Private _CONFIGURATION As String = "[Configuration]"
-    Private _DROITIT As String = "[DroitIT]"
-
+    'nom du fichier ini à la racine de l'interface
     Private _MonFichier As String
 
-    Private Sub New(ByVal CheminFichierINI As String)
-        _MonFichier = CheminFichierINI
+    'liste des combinaisons clef / valeur récupéré du fichier ini
+    Private _KeyValueList As Hashtable
+
+    'Caractère spéciaux du fichier ini
+    Private Const _COMMENTAIRE As String = ";"
+    Private Const _REGION As String = "["
+    Private Const _ATTRIBVAL As String = "="
+
+    Public ReadOnly Property getCurrentDir() As String
+        Get
+            Return Directory.GetCurrentDirectory
+        End Get
+    End Property
+
+    Private Sub New()
+        'récupère le nom du fichier décrit dans les constantes
+        _MonFichier = service.NOM_FICHIER_INI
+        _KeyValueList = getData()
     End Sub
 
-    Public Shared Function getInstance(ByVal CheminFichierINI As String) As Configuration
+    Public Shared Function getInstance() As Configuration
 
-        If instance Is Nothing Then
-            instance = New Configuration(CheminFichierINI)
+        If _Instance Is Nothing Then
+            _Instance = New Configuration()
         End If
 
-        Return instance
+        Return _Instance
 
     End Function
 
-    Public Function GetKey(ByVal Clef As String) As String
+    ''' <summary>
+    ''' Récupère les combinaisons clef / valeur du fichier ini
+    ''' </summary>
+    ''' <returns>une liste de combinaison clef / valeur</returns>
+    ''' <remarks></remarks>
+    Private Function getData() As Hashtable
+        Dim listeArgs As New Hashtable
+
         If File.Exists(_MonFichier) Then
             For Each Ligne As String In File.ReadAllLines(_MonFichier)
-                If Ligne.Split("=")(0) = Clef Then
-                    If Ligne.Split("=")(1) = Nothing Then
-                        Throw New Exception("Clef Fichier INI corrompue" & vbNewLine & Clef)
-                    Else
-                        Return Ligne.Split("=")(1)
-                    End If
+                If Ligne.Contains(_ATTRIBVAL) Then
+                    listeArgs.Add(Ligne.Split(_ATTRIBVAL)(0), Ligne.Split(_ATTRIBVAL)(1))
                 End If
             Next
         End If
 
-        Return Nothing
+        Return listeArgs
+    End Function
+
+    ''' <summary>
+    ''' Retourne la valeur d'une clef passé en paramètre
+    ''' </summary>
+    ''' <param name="Clef"></param>
+    ''' <returns>soit la valeur, soit nothing</returns>
+    ''' <remarks></remarks>
+    Public Function GetValueFromKey(ByVal Clef As String) As String
+        Return _KeyValueList(Clef)
     End Function
 
 

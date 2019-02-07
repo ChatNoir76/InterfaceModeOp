@@ -6,7 +6,19 @@ InterfaceModeOp2
 </name>
 </assembly>
 <members>
-<member name="T:InterfaceModeOp2.service.View">
+<member name="M:InterfaceModeOp2.Configuration.GetValueFromKey(System.String)">
+	<summary>
+ Retourne la valeur d'une clef passé en paramètre
+ </summary>
+	<param name="Clef"></param>
+	<returns>soit la valeur, soit nothing</returns>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Configuration">
+	<summary>
+ Lecture et enregistrement des variables du fichier ini
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.service.View">
 	<summary>
  Détermine la vue à afficher
  </summary>
@@ -34,6 +46,16 @@ InterfaceModeOp2
 </member><member name="F:InterfaceModeOp2.service.EXT_FICHIER_WORD">
 	<summary>
  extentions pour les fichiers word
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.service.NOM_FICHIER_INI">
+	<summary>
+ Nom du fichier de configuration attendu pour initialiser l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.service">
+	<summary>
+ Contient toutes les constantes et les énumérations
  </summary>
 	<remarks></remarks>
 </member><member name="M:InterfaceModeOp2.Initialisation.FindFolderAccess">
