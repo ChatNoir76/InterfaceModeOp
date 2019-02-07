@@ -42,6 +42,13 @@ Partial Class Initialisation
         Me.LBL_DossierBase = New System.Windows.Forms.Label()
         Me.LBL_Username = New System.Windows.Forms.Label()
         Me.LBL_Computer = New System.Windows.Forms.Label()
+        Me.LBL_DirAbs_Work = New System.Windows.Forms.Label()
+        Me.LBL_Droit_A = New System.Windows.Forms.Label()
+        Me.LBL_Droit_B = New System.Windows.Forms.Label()
+        Me.LBL_Droit_C = New System.Windows.Forms.Label()
+        Me.LBL_Droit_D = New System.Windows.Forms.Label()
+        Me.LBL_Droit_E = New System.Windows.Forms.Label()
+        Me.LBL_Droit_F = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'LBL_DossierA
@@ -200,7 +207,7 @@ Partial Class Initialisation
         'LBL_DossierBase
         '
         Me.LBL_DossierBase.AutoSize = True
-        Me.LBL_DossierBase.Location = New System.Drawing.Point(12, 79)
+        Me.LBL_DossierBase.Location = New System.Drawing.Point(124, 66)
         Me.LBL_DossierBase.Name = "LBL_DossierBase"
         Me.LBL_DossierBase.Size = New System.Drawing.Size(10, 13)
         Me.LBL_DossierBase.TabIndex = 18
@@ -224,11 +231,81 @@ Partial Class Initialisation
         Me.LBL_Computer.TabIndex = 20
         Me.LBL_Computer.Text = "-"
         '
+        'LBL_DirAbs_Work
+        '
+        Me.LBL_DirAbs_Work.AutoSize = True
+        Me.LBL_DirAbs_Work.Location = New System.Drawing.Point(12, 89)
+        Me.LBL_DirAbs_Work.Name = "LBL_DirAbs_Work"
+        Me.LBL_DirAbs_Work.Size = New System.Drawing.Size(10, 13)
+        Me.LBL_DirAbs_Work.TabIndex = 21
+        Me.LBL_DirAbs_Work.Text = "-"
+        '
+        'LBL_Droit_A
+        '
+        Me.LBL_Droit_A.AutoSize = True
+        Me.LBL_Droit_A.Location = New System.Drawing.Point(224, 114)
+        Me.LBL_Droit_A.Name = "LBL_Droit_A"
+        Me.LBL_Droit_A.Size = New System.Drawing.Size(10, 13)
+        Me.LBL_Droit_A.TabIndex = 22
+        Me.LBL_Droit_A.Text = "-"
+        '
+        'LBL_Droit_B
+        '
+        Me.LBL_Droit_B.AutoSize = True
+        Me.LBL_Droit_B.Location = New System.Drawing.Point(224, 127)
+        Me.LBL_Droit_B.Name = "LBL_Droit_B"
+        Me.LBL_Droit_B.Size = New System.Drawing.Size(10, 13)
+        Me.LBL_Droit_B.TabIndex = 23
+        Me.LBL_Droit_B.Text = "-"
+        '
+        'LBL_Droit_C
+        '
+        Me.LBL_Droit_C.AutoSize = True
+        Me.LBL_Droit_C.Location = New System.Drawing.Point(224, 140)
+        Me.LBL_Droit_C.Name = "LBL_Droit_C"
+        Me.LBL_Droit_C.Size = New System.Drawing.Size(10, 13)
+        Me.LBL_Droit_C.TabIndex = 24
+        Me.LBL_Droit_C.Text = "-"
+        '
+        'LBL_Droit_D
+        '
+        Me.LBL_Droit_D.AutoSize = True
+        Me.LBL_Droit_D.Location = New System.Drawing.Point(224, 153)
+        Me.LBL_Droit_D.Name = "LBL_Droit_D"
+        Me.LBL_Droit_D.Size = New System.Drawing.Size(10, 13)
+        Me.LBL_Droit_D.TabIndex = 25
+        Me.LBL_Droit_D.Text = "-"
+        '
+        'LBL_Droit_E
+        '
+        Me.LBL_Droit_E.AutoSize = True
+        Me.LBL_Droit_E.Location = New System.Drawing.Point(224, 166)
+        Me.LBL_Droit_E.Name = "LBL_Droit_E"
+        Me.LBL_Droit_E.Size = New System.Drawing.Size(10, 13)
+        Me.LBL_Droit_E.TabIndex = 26
+        Me.LBL_Droit_E.Text = "-"
+        '
+        'LBL_Droit_F
+        '
+        Me.LBL_Droit_F.AutoSize = True
+        Me.LBL_Droit_F.Location = New System.Drawing.Point(224, 179)
+        Me.LBL_Droit_F.Name = "LBL_Droit_F"
+        Me.LBL_Droit_F.Size = New System.Drawing.Size(10, 13)
+        Me.LBL_Droit_F.TabIndex = 27
+        Me.LBL_Droit_F.Text = "-"
+        '
         'Initialisation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(405, 260)
+        Me.Controls.Add(Me.LBL_Droit_F)
+        Me.Controls.Add(Me.LBL_Droit_E)
+        Me.Controls.Add(Me.LBL_Droit_D)
+        Me.Controls.Add(Me.LBL_Droit_C)
+        Me.Controls.Add(Me.LBL_Droit_B)
+        Me.Controls.Add(Me.LBL_Droit_A)
+        Me.Controls.Add(Me.LBL_DirAbs_Work)
         Me.Controls.Add(Me.LBL_Computer)
         Me.Controls.Add(Me.LBL_Username)
         Me.Controls.Add(Me.LBL_DossierBase)
@@ -275,5 +352,12 @@ Partial Class Initialisation
     Friend WithEvents LBL_DossierBase As System.Windows.Forms.Label
     Friend WithEvents LBL_Username As System.Windows.Forms.Label
     Friend WithEvents LBL_Computer As System.Windows.Forms.Label
+    Friend WithEvents LBL_DirAbs_Work As System.Windows.Forms.Label
+    Friend WithEvents LBL_Droit_A As System.Windows.Forms.Label
+    Friend WithEvents LBL_Droit_B As System.Windows.Forms.Label
+    Friend WithEvents LBL_Droit_C As System.Windows.Forms.Label
+    Friend WithEvents LBL_Droit_D As System.Windows.Forms.Label
+    Friend WithEvents LBL_Droit_E As System.Windows.Forms.Label
+    Friend WithEvents LBL_Droit_F As System.Windows.Forms.Label
 
 End Class

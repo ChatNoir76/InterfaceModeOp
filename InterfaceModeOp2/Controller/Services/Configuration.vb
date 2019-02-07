@@ -21,9 +21,14 @@ Public Class Configuration
     Private Const _REGION As String = "["
     Private Const _ATTRIBVAL As String = "="
 
-    Public ReadOnly Property getCurrentDir() As String
+    Public ReadOnly Property getBaseDir() As String
         Get
             Return Directory.GetCurrentDirectory
+        End Get
+    End Property
+    Public ReadOnly Property getWorkDir() As String
+        Get
+            Return Directory.GetCurrentDirectory & "\" & Me.GetValueFromKey(service.INI_KEY_REPBASE)
         End Get
     End Property
 
@@ -53,8 +58,12 @@ Public Class Configuration
 
         If File.Exists(_MonFichier) Then
             For Each Ligne As String In File.ReadAllLines(_MonFichier)
-                If Ligne.Contains(_ATTRIBVAL) Then
-                    listeArgs.Add(Ligne.Split(_ATTRIBVAL)(0), Ligne.Split(_ATTRIBVAL)(1))
+                '3 car c le minimum pour une combi C=V
+                If Ligne.Length >= 3 Then
+                    'si présence de = et que la ligne n'est pas un commentaire
+                    If Ligne.Contains(_ATTRIBVAL) And Not Ligne(1).Equals(_COMMENTAIRE) Then
+                        listeArgs.Add(Ligne.Split(_ATTRIBVAL)(0), Ligne.Split(_ATTRIBVAL)(1))
+                    End If
                 End If
             Next
         End If

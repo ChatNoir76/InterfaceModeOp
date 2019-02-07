@@ -6,7 +6,26 @@ InterfaceModeOp2
 </name>
 </assembly>
 <members>
-<member name="M:InterfaceModeOp2.Configuration.GetValueFromKey(System.String)">
+<member name="M:InterfaceModeOp2.ArchDossProd.#ctor(System.String)">
+	<summary>
+ Détermination en fonction des droits directs sur les dossiers Prod
+ </summary>
+	<param name="RepertoireTravail"></param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.#ctor(System.String,System.Char)">
+	<summary>
+ Prends le format ?01?22 par exemple
+ </summary>
+	<param name="CodeIni">le code en lui meme (?00?11)</param>
+	<param name="IgnoreDossier">le char qui correspond à ignorer (?)</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Configuration.getData">
+	<summary>
+ Récupère les combinaisons clef / valeur du fichier ini
+ </summary>
+	<returns>une liste de combinaison clef / valeur</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Configuration.GetValueFromKey(System.String)">
 	<summary>
  Retourne la valeur d'une clef passé en paramètre
  </summary>
@@ -16,6 +35,7 @@ InterfaceModeOp2
 </member><member name="T:InterfaceModeOp2.Configuration">
 	<summary>
  Lecture et enregistrement des variables du fichier ini
+ Variables d'environnements de l'interface
  </summary>
 	<remarks></remarks>
 </member><member name="T:InterfaceModeOp2.service.View">
@@ -56,11 +76,8 @@ InterfaceModeOp2
 </member><member name="T:InterfaceModeOp2.service">
 	<summary>
  Contient toutes les constantes et les énumérations
+ Contient également toutes les méthodes statiques
  </summary>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.Initialisation.FindFolderAccess">
-	<summary>
-	</summary>
 	<remarks></remarks>
 </member><member name="M:InterfaceModeOp2.Initialisation.BT_Open_Click">
 	<summary>

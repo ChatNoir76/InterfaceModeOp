@@ -1,8 +1,11 @@
 ﻿''' <summary>
 ''' Contient toutes les constantes et les énumérations
+''' Contient également toutes les méthodes statiques
 ''' </summary>
 ''' <remarks></remarks>
 Public Class service
+
+#Region "Enumération"
     ''' <summary>
     ''' Détermine la vue à afficher
     ''' </summary>
@@ -17,20 +20,27 @@ Public Class service
     ''' </summary>
     ''' <remarks></remarks>
     Enum AccessFolder As Integer
+        Probleme = -2
+        Ignore = -1
         None = 0
         Lecture = 1
         Ecriture = 2
     End Enum
 
+    Enum DossierProd As Integer
+        DossierA = 1
+        DossierB = 2
+        DossierC = 3
+        DossierD = 4
+        DossierE = 5
+        DossierF = 6
+    End Enum
+#End Region
+
+#Region "Constantes"
     'Constantes du fichier ini [configuration]
     Public Const INI_KEY_REPBASE As String = "BaseRep"
     Public Const INI_KEY_REPTMP As String = "Tmp"
-    Public Const INI_KEY_REP_A As String = "DossierA"
-    Public Const INI_KEY_REP_B As String = "DossierB"
-    Public Const INI_KEY_REP_C As String = "DossierC"
-    Public Const INI_KEY_REP_D As String = "DossierD"
-    Public Const INI_KEY_REP_E As String = "DossierE"
-    Public Const INI_KEY_REP_F As String = "DossierF"
 
     ''' <summary>
     ''' Clef de cryptage des fichiers word
@@ -61,4 +71,10 @@ Public Class service
     ''' </summary>
     ''' <remarks></remarks>
     Public Const NOM_FICHIER_INI As String = "InterfaceModeOp2.ini"
+#End Region
+
+#Region "Méthodes statiques"
+
+#End Region
+
 End Class
