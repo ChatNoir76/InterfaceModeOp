@@ -22,6 +22,16 @@ Public Class service
         Ecriture = 2
     End Enum
 
+    'Constantes du fichier ini [configuration]
+    Public Const INI_KEY_REPBASE As String = "BaseRep"
+    Public Const INI_KEY_REPTMP As String = "Tmp"
+    Public Const INI_KEY_REP_A As String = "DossierA"
+    Public Const INI_KEY_REP_B As String = "DossierB"
+    Public Const INI_KEY_REP_C As String = "DossierC"
+    Public Const INI_KEY_REP_D As String = "DossierD"
+    Public Const INI_KEY_REP_E As String = "DossierE"
+    Public Const INI_KEY_REP_F As String = "DossierF"
+
     ''' <summary>
     ''' Clef de cryptage des fichiers word
     ''' </summary>

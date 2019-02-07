@@ -1,7 +1,11 @@
 ﻿Public Class Utilisateur
 
+    'nom utilisateur
     Private _user As String
+    'pc utilisateur
     Private _nomPC As String
+
+
 
 
     Sub New()
