@@ -5,6 +5,13 @@ Public Class ArchDossProd
     Private Const _NBDossier As Integer = 6
     Private _mapDroit As New Hashtable
 
+    ''' <summary>
+    ''' Retourne l'accès d'un dossier qui a été déterminé au préalable
+    ''' </summary>
+    ''' <param name="monDossier"></param>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public ReadOnly Property getAccess(ByVal monDossier As service.DossierProd) As AccessFolder
         Get
             Return _mapDroit(monDossier.ToString)
@@ -14,14 +21,13 @@ Public Class ArchDossProd
     ''' <summary>
     ''' Détermination en fonction des droits directs sur les dossiers Prod
     ''' </summary>
-    ''' <param name="RepertoireTravail"></param>
     ''' <remarks></remarks>
-    Sub New(ByVal RepertoireTravail As String)
-        If Directory.Exists(RepertoireTravail) Then
+    Sub New()
+        If Directory.Exists(Configuration.getInstance.getBaseDir) Then
 
-            Dim ListeDossier = [Enum].GetNames(GetType(service.DossierProd))
-            For Each dossier As String In ListeDossier
-                _mapDroit.Add(dossier, getAccessFromFolder(RepertoireTravail & "\" & Configuration.getInstance.GetValueFromKey(dossier)))
+            Dim ListeDossier = [Enum].GetValues(GetType(service.DossierProd))
+            For Each dossier As service.DossierProd In ListeDossier
+                _mapDroit.Add(dossier.ToString, getAccessFromFolder(Configuration.getInstance.getProdDir(dossier)))
             Next
         End If
     End Sub
@@ -30,16 +36,21 @@ Public Class ArchDossProd
     ''' Prends le format ?01?22 par exemple
     ''' </summary>
     ''' <param name="CodeIni">le code en lui meme (?00?11)</param>
-    ''' <param name="IgnoreDossier">le char qui correspond à ignorer (?)</param>
     ''' <remarks></remarks>
-    Sub New(ByVal CodeIni As String, ByVal IgnoreDossier As Char)
+    Sub New(ByVal CodeIni As String)
         If CodeIni.Length = _NBDossier Then
             For i As service.DossierProd = 1 To _NBDossier
-                _mapDroit.Add(i.ToString, ToAccessFolder(CodeIni(i)))
+                _mapDroit.Add(i.ToString, ToAccessFolder(CodeIni(i - 1)))
             Next
         End If
     End Sub
 
+    ''' <summary>
+    ''' Réalise des test en accès / lecture / écriture sur un dossier passé en paramètre
+    ''' </summary>
+    ''' <param name="nomDossier"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Private Function getAccessFromFolder(ByVal nomDossier As String) As AccessFolder
         Const NOM_TEST As String = "\test.txt"
         Const NO_REP As String = "\"
@@ -69,8 +80,16 @@ endOfTest:
 
     End Function
 
+    ''' <summary>
+    ''' Converti les caractères provenant d'une string en élément accessFolder
+    ''' </summary>
+    ''' <param name="index">Elément d'une chaine de caractère du type 00?11?</param>
+    ''' <returns>L'équivalent en type AccessFolder</returns>
+    ''' <remarks></remarks>
     Private Function ToAccessFolder(ByVal index As Char) As AccessFolder
         Select Case index
+            Case service.INI_IGNORE_CHAR
+                Return AccessFolder.Ignore
             Case "-1"
                 Return AccessFolder.Ignore
             Case "0"
@@ -86,6 +105,44 @@ endOfTest:
 
     Public Overrides Function ToString() As String
         Return MyBase.ToString()
+    End Function
+
+    ''' <summary>
+    ''' Vérifie si les droits en ecriture ou lecture sont suffisant pour avoir les droitUser passé en parametre
+    ''' </summary>
+    ''' <param name="Droit">le droit voulu qui est testé</param>
+    ''' <returns>True si l'architecture permet ce droit</returns>
+    ''' <remarks></remarks>
+    Public Function isEnoughFor(ByVal Droit As service.DroitUser) As Boolean
+        Dim Arch As New ArchDossProd(Configuration.getInstance.GetValueFromKey(Droit))
+        Dim ListeDossier = [Enum].GetValues(GetType(service.DossierProd))
+
+        For Each dossier As service.DossierProd In ListeDossier
+            Dim DroitToUse As service.AccessFolder
+            Dim monDroit As service.AccessFolder
+
+            DroitToUse = Arch.getAccess(dossier)
+            monDroit = Me.getAccess(dossier)
+
+            If DroitToUse <> AccessFolder.Ignore Then
+                If monDroit < DroitToUse Then
+                    Return False
+                End If
+            End If
+        Next
+
+        Return True
+
+    End Function
+
+    Public Shared Function GetListeDroitUser() As List(Of ArchDossProd)
+        Dim maListe As New List(Of ArchDossProd)
+
+        For i As Byte = 0 To 5
+            maListe.Add(New ArchDossProd(Configuration.getInstance.GetValueFromKey(i)))
+        Next
+
+        Return maListe
     End Function
 
 End Class

@@ -6,6 +6,21 @@
 Public Class service
 
 #Region "Enumération"
+
+    ''' <summary>
+    ''' Représente les droits utilisateurs
+    ''' </summary>
+    ''' <remarks></remarks>
+    Enum DroitUser As Integer
+        NoUse = -1
+        Guest = 0
+        User = 1
+        KeyUser = 2
+        UserAQ = 3
+        AdminAQ = 4
+        AdminDvlp = 5
+    End Enum
+
     ''' <summary>
     ''' Détermine la vue à afficher
     ''' </summary>
@@ -27,6 +42,10 @@ Public Class service
         Ecriture = 2
     End Enum
 
+    ''' <summary>
+    ''' Label des 6 dossiers Prod du fichier INI
+    ''' </summary>
+    ''' <remarks></remarks>
     Enum DossierProd As Integer
         DossierA = 1
         DossierB = 2
@@ -41,6 +60,8 @@ Public Class service
     'Constantes du fichier ini [configuration]
     Public Const INI_KEY_REPBASE As String = "BaseRep"
     Public Const INI_KEY_REPTMP As String = "Tmp"
+
+    Public Const INI_IGNORE_CHAR As Char = "?"
 
     ''' <summary>
     ''' Clef de cryptage des fichiers word

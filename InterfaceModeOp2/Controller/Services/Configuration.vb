@@ -31,6 +31,11 @@ Public Class Configuration
             Return Directory.GetCurrentDirectory & "\" & Me.GetValueFromKey(service.INI_KEY_REPBASE)
         End Get
     End Property
+    Public ReadOnly Property getProdDir(ByVal dossierProd As service.DossierProd) As String
+        Get
+            Return Directory.GetCurrentDirectory & "\" & Me.GetValueFromKey(service.INI_KEY_REPBASE) & "\" & Me.GetValueFromKey(dossierProd.ToString)
+        End Get
+    End Property
 
     Private Sub New()
         'récupère le nom du fichier décrit dans les constantes

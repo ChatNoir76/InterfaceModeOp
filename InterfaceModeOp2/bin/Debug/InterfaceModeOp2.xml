@@ -6,20 +6,7 @@ InterfaceModeOp2
 </name>
 </assembly>
 <members>
-<member name="M:InterfaceModeOp2.ArchDossProd.#ctor(System.String)">
-	<summary>
- Détermination en fonction des droits directs sur les dossiers Prod
- </summary>
-	<param name="RepertoireTravail"></param>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.ArchDossProd.#ctor(System.String,System.Char)">
-	<summary>
- Prends le format ?01?22 par exemple
- </summary>
-	<param name="CodeIni">le code en lui meme (?00?11)</param>
-	<param name="IgnoreDossier">le char qui correspond à ignorer (?)</param>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.Configuration.getData">
+<member name="M:InterfaceModeOp2.Configuration.getData">
 	<summary>
  Récupère les combinaisons clef / valeur du fichier ini
  </summary>
@@ -38,6 +25,24 @@ InterfaceModeOp2
  Variables d'environnements de l'interface
  </summary>
 	<remarks></remarks>
+</member><member name="P:InterfaceModeOp2.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:InterfaceModeOp2.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:InterfaceModeOp2.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="T:InterfaceModeOp2.service.DroitUser">
+	<summary>
+ Représente les droits utilisateurs
+ </summary>
+	<remarks></remarks>
 </member><member name="T:InterfaceModeOp2.service.View">
 	<summary>
  Détermine la vue à afficher
@@ -46,6 +51,11 @@ InterfaceModeOp2
 </member><member name="T:InterfaceModeOp2.service.AccessFolder">
 	<summary>
  Niveau d'access aux dossiers
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.service.DossierProd">
+	<summary>
+ Label des 6 dossiers Prod du fichier INI
  </summary>
 	<remarks></remarks>
 </member><member name="F:InterfaceModeOp2.service.CLEF_CRYPTAGE">
@@ -84,19 +94,46 @@ InterfaceModeOp2
  Ouverture de la page principale de l'interface
  </summary>
 	<remarks></remarks>
-</member><member name="P:InterfaceModeOp2.My.Resources.Resources.ResourceManager">
+</member><member name="P:InterfaceModeOp2.ArchDossProd.getAccess(InterfaceModeOp2.service.DossierProd)">
 	<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member><member name="P:InterfaceModeOp2.My.Resources.Resources.Culture">
+ Retourne l'accès d'un dossier qui a été déterminé au préalable
+ </summary>
+	<param name="monDossier"></param>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.#ctor">
 	<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
-</member><member name="T:InterfaceModeOp2.My.Resources.Resources">
+ Détermination en fonction des droits directs sur les dossiers Prod
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.#ctor(System.String)">
 	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
+ Prends le format ?01?22 par exemple
+ </summary>
+	<param name="CodeIni">le code en lui meme (?00?11)</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.getAccessFromFolder(System.String)">
+	<summary>
+ Réalise des test en accès / lecture / écriture sur un dossier passé en paramètre
+ </summary>
+	<param name="nomDossier"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.ToAccessFolder(System.Char)">
+	<summary>
+ Converti les caractères provenant d'une string en élément accessFolder
+ </summary>
+	<param name="index">Elément d'une chaine de caractère du type 00?11?</param>
+	<returns>L'équivalent en type AccessFolder</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.isEnoughFor(InterfaceModeOp2.service.DroitUser)">
+	<summary>
+ Vérifie si les droits en ecriture ou lecture sont suffisant pour avoir les droitUser passé en parametre
+ </summary>
+	<param name="Droit">le droit voulu qui est testé</param>
+	<returns>True si l'architecture permet ce droit</returns>
+	<remarks></remarks>
 </member>
 </members>
 </doc>
