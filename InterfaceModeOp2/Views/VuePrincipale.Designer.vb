@@ -112,7 +112,7 @@ Partial Class vuePrincipale
         '
         Me.TSMI_Administrateur_Importation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Administrateur_Importation_DepuisMaster, Me.TSMI_Administrateur_Importation_DepuisModif})
         Me.TSMI_Administrateur_Importation.Name = "TSMI_Administrateur_Importation"
-        Me.TSMI_Administrateur_Importation.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Administrateur_Importation.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Administrateur_Importation.Text = "Importation"
         '
         'TSMI_Administrateur_Importation_DepuisMaster
@@ -131,7 +131,7 @@ Partial Class vuePrincipale
         '
         Me.TSMI_Administrateur_Exportation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Administrateur_Exportation_Officiel, Me.TSMI_Administrateur_Exportation_Archive})
         Me.TSMI_Administrateur_Exportation.Name = "TSMI_Administrateur_Exportation"
-        Me.TSMI_Administrateur_Exportation.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Administrateur_Exportation.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Administrateur_Exportation.Text = "Exportation"
         '
         'TSMI_Administrateur_Exportation_Officiel
@@ -149,7 +149,7 @@ Partial Class vuePrincipale
         'TSMI_Administrateur_Archivage
         '
         Me.TSMI_Administrateur_Archivage.Name = "TSMI_Administrateur_Archivage"
-        Me.TSMI_Administrateur_Archivage.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Administrateur_Archivage.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Administrateur_Archivage.Text = "Archivage"
         '
         'TSMI_Utilisateur
@@ -169,13 +169,13 @@ Partial Class vuePrincipale
         'TSMI_Utilisateur_Consultation_Officiel
         '
         Me.TSMI_Utilisateur_Consultation_Officiel.Name = "TSMI_Utilisateur_Consultation_Officiel"
-        Me.TSMI_Utilisateur_Consultation_Officiel.Size = New System.Drawing.Size(114, 22)
+        Me.TSMI_Utilisateur_Consultation_Officiel.Size = New System.Drawing.Size(152, 22)
         Me.TSMI_Utilisateur_Consultation_Officiel.Text = "Officiel"
         '
         'TSMI_Utilisateur_Consultation_Archive
         '
         Me.TSMI_Utilisateur_Consultation_Archive.Name = "TSMI_Utilisateur_Consultation_Archive"
-        Me.TSMI_Utilisateur_Consultation_Archive.Size = New System.Drawing.Size(114, 22)
+        Me.TSMI_Utilisateur_Consultation_Archive.Size = New System.Drawing.Size(152, 22)
         Me.TSMI_Utilisateur_Consultation_Archive.Text = "Archive"
         '
         'TSMI_Utilisateur_Impression
@@ -195,7 +195,7 @@ Partial Class vuePrincipale
         '
         Me.TSMI_Outils_AuditTrails.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Outils_AuditTrails_Impression, Me.TSMI_Outils_AuditTrails_Exportation, Me.TSMI_Outils_AuditTrails_Importation})
         Me.TSMI_Outils_AuditTrails.Name = "TSMI_Outils_AuditTrails"
-        Me.TSMI_Outils_AuditTrails.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Outils_AuditTrails.Size = New System.Drawing.Size(134, 22)
         Me.TSMI_Outils_AuditTrails.Text = "Audit Trails"
         '
         'TSMI_Outils_AuditTrails_Impression
@@ -220,7 +220,7 @@ Partial Class vuePrincipale
         '
         Me.TSMI_Outils_Parametre.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Outils_Parametre_PhrasePredef, Me.TSMI_Outils_Parametre_DroitUser})
         Me.TSMI_Outils_Parametre.Name = "TSMI_Outils_Parametre"
-        Me.TSMI_Outils_Parametre.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Outils_Parametre.Size = New System.Drawing.Size(134, 22)
         Me.TSMI_Outils_Parametre.Text = "Paramètres"
         '
         'TSMI_Outils_Parametre_PhrasePredef

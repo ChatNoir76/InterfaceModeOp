@@ -69,6 +69,7 @@ Public Class Initialisation
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub BT_Open_Click() Handles BT_Open.Click
+        Me.BT_Open.Visible = False
         controleur.gotoView(service.View.Principale)
     End Sub
 #End Region

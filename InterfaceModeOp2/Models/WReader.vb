@@ -1,13 +1,14 @@
 ﻿Imports Word = Microsoft.Office.Interop.Word
 Imports System.Reflection
 Imports System.IO
+Imports System.Security.Cryptography
 Imports System.Text
 
 Public Class WReader
     Private Shared _Instance As WReader = Nothing
     Private Shared _myWord As Word.Application
     Private Shared _myDoc As Word.Document
-    Private Shared _DocName As String = ""
+    Private Shared _FullName As String = ""
 
     Private _ListeSignet As New Hashtable
     Private Const _ERR_NOINSTANCE As String = "Il n'y a aucun document word ouvert"
@@ -18,7 +19,7 @@ Public Class WReader
 #Region "Property"
     Public Shared ReadOnly Property getDocName() As String
         Get
-            Return _DocName
+            Return Path.GetFileName(_FullName)
         End Get
     End Property
 
@@ -29,6 +30,20 @@ Public Class WReader
         Set(ByVal value As Boolean)
             _myWord.Visible = value
         End Set
+    End Property
+
+    Public ReadOnly Property getInfos() As String
+        Get
+            Dim infos As String = "Information : " & getDocName & vbNewLine
+            infos += "Nb Section : " & _myDoc.Sections.Count & vbNewLine
+
+            For Each sec As Word.Section In _myDoc.Sections
+                infos += "Section (" & sec.Index & ") Nb Header : " & sec.Headers.Count & " Nb Fields : " & sec.Range.Fields.Count & vbNewLine
+                infos += "Section (" & sec.Index & ") Nb Footer : " & sec.Footers.Count & vbNewLine
+            Next
+
+            Return infos
+        End Get
     End Property
 
     ''' <summary>
@@ -57,12 +72,15 @@ Public Class WReader
             Try
                 'variable vba
                 Dim wdNumberOfPagesInDocument As Integer = 4
+                Dim numPages As Integer = -1
                 'pour avoir le bon nombre de page avant impression
                 'nécessite d'avoir appelé la méthode extractionFields() 
                 'pour éviter d'avoir de nouveau les boites de dialogues
                 _myDoc.PrintPreview()
-                Return _myDoc.Range.Information(wdNumberOfPagesInDocument)
+                numPages = _myDoc.Range.Information(wdNumberOfPagesInDocument)
                 _myDoc.ClosePrintPreview()
+
+                Return numPages
             Catch ex As Exception
                 Throw New WReaderException("Erreur lors de la détermination du nombre de page du document word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
             End Try
@@ -89,7 +107,67 @@ Public Class WReader
     End Property
 #End Region
 
-#Region "Constructeur"
+#Region "Constructeur / Ouverture Doc Word"
+    ''' <summary>
+    ''' Méthode d'ouverture des modes opératoires
+    ''' </summary>
+    ''' <param name="fichier">Chemin fichier Word (ou crp)</param>
+    ''' <remarks></remarks>
+    Public Sub OpenWord(ByVal fichier As String)
+        Try
+            'ferme le word en cours
+            If Not NoInstance() Then
+                'Fermeture ancien word
+                Close()
+            End If
+        Catch ex As Exception
+            Throw New WReaderException("Erreur lors du processus de fermeture de l'ancien Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+        End Try
+
+        'vérification des données reçues
+        If IsNothing(fichier) Then
+            Throw New WReaderException("il n'y a pas de nom de fichier à ouvrir", System.Reflection.MethodBase.GetCurrentMethod().Name)
+        ElseIf Not File.Exists(fichier) Then
+            Throw New WReaderException("Le fichier demandé n'existe pas : " & vbNewLine & fichier, System.Reflection.MethodBase.GetCurrentMethod().Name)
+        Else
+            _FullName = fichier
+        End If
+
+        'détermine si word crypté ou non puis ouverture
+        If Path.GetExtension(fichier).ToLower = _CRP Then
+            Try
+                'décryptage
+                Dim monCRP As String = Decrypter(fichier)
+
+                'Ouverture du word décrypté
+                _myDoc = _myWord.Documents.Add(monCRP, True, True, False)
+
+                'Suppression du flux
+                File.Delete(monCRP)
+            Catch ex As Exception
+                Throw New WReaderException("Erreur lors du processus de décryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            End Try
+        Else
+            Try
+                'Ouverture d'un doc word
+                _myDoc = _myWord.Documents.Add(fichier, True, True, False)
+            Catch ex As Exception
+                Throw New WReaderException("Erreur lors de l'ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            End Try
+        End If
+        Try
+            'AJOUTER ICI LE UNPROTECT
+
+            'le doc est non visible
+            visible = False
+
+            'récupération des infos des signets
+            extractionFields()
+        Catch ex As Exception
+            Throw New WReaderException("Erreur lors du traitement post ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+        End Try
+    End Sub
+
     ''' <summary>
     ''' Récupération du fichier Word ouvert grace à la méthode openWord()
     ''' </summary>
@@ -143,64 +221,23 @@ Public Class WReader
 #End Region
 
 #Region "Methode Externe"
+    Public Sub CopyTo(ByVal destination As String, Optional ByVal crypter As Boolean = False)
+        If NoInstance() Then
+            Throw New WReaderException(_ERR_NOINSTANCE, System.Reflection.MethodBase.GetCurrentMethod().Name)
+        End If
 
-    ''' <summary>
-    ''' Méthode d'ouverture des modes opératoires
-    ''' </summary>
-    ''' <param name="fichier">Chemin fichier Word (ou crp)</param>
-    ''' <remarks></remarks>
-    Public Sub OpenWord(ByVal fichier As String)
+        If IsNothing(destination) Then Exit Sub
+
         Try
-            'ferme le word en cours
-            If Not NoInstance() Then
-                'Fermeture ancien word
-                Close()
+            'déverrouille les signets avant enregistrement
+            extractionFields(False)
+            If crypter Then
+                Cryptage(destination)
+            Else
+                _myDoc.SaveAs2(destination, ReadOnlyRecommended:=True)
             End If
         Catch ex As Exception
-            Throw New WReaderException("Erreur lors du processus de fermeture de l'ancien Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
-        End Try
-
-        'vérification des données reçues
-        If IsNothing(fichier) Then
-            Throw New WReaderException("il n'y a pas de nom de fichier à ouvrir", System.Reflection.MethodBase.GetCurrentMethod().Name)
-        ElseIf Not File.Exists(fichier) Then
-            Throw New WReaderException("Le fichier demandé n'existe pas : " & vbNewLine & fichier, System.Reflection.MethodBase.GetCurrentMethod().Name)
-        Else
-            _DocName = Path.GetFileName(fichier)
-        End If
-
-        'détermine si word crypté ou non puis ouverture
-        If Path.GetExtension(fichier).ToLower = _CRP Then
-            Try
-                'décryptage
-                Dim monCRP As String = Decrypter(fichier)
-
-                'Ouverture du word décrypté
-                _myDoc = _myWord.Documents.Add(monCRP, True, True, False)
-
-                'Suppression du flux
-                File.Delete(monCRP)
-            Catch ex As Exception
-                Throw New WReaderException("Erreur lors du processus de décryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
-            End Try
-        Else
-            Try
-                'Ouverture d'un doc word
-                _myDoc = _myWord.Documents.Add(fichier, True, True, False)
-            Catch ex As Exception
-                Throw New WReaderException("Erreur lors de l'ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
-            End Try
-        End If
-        Try
-            'AJOUTER ICI LE UNPROTECT
-
-            'le doc est non visible
-            visible = False
-
-            'récupération des infos des signets
-            extractionFields()
-        Catch ex As Exception
-            Throw New WReaderException("Erreur lors du traitement post ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("Erreur lors de la création d'une copie (" & destination & ")", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
         End Try
     End Sub
 
@@ -396,18 +433,31 @@ no:
     ''' </summary>
     ''' <param name="Texte">texte à ajouter</param>
     ''' <param name="Separtexte">String à ajouter entre l'ancien et le nouveau texte</param>
-    ''' <remarks></remarks>
+    ''' <remarks>Utiliser la méthode de nettoyage du bas de page avant d'utiliser cette méthode</remarks>
     Public Sub AjoutTexteBasPage(ByVal Texte As String, Optional ByVal Separtexte As String = " ")
         If NoInstance() Then
             Throw New WReaderException(_ERR_NOINSTANCE, System.Reflection.MethodBase.GetCurrentMethod().Name)
         End If
         If IsNothing(Texte) Then Exit Sub
         Try
+            Dim SecS, SecE As Integer
+
+            'on récupère la taille du 1er bas de page
+            With _myDoc.Sections(1).Footers(1).Range
+                SecS = .Start
+                SecE = .End
+            End With
+
             For Each sec As Word.Section In _myDoc.Sections
-                With sec.Footers(1).Range
-                    .Text = Replace(Replace(.Text & Separtexte & Texte, Chr(10), ""), Chr(13), "") 'remplace .Text & vbLf & Texte
-                    .Font.Size = 8.0
-                End With
+                If sec.Footers.Count >= 1 Then
+                    With sec.Footers(1).Range
+                        'Si ce bas de page est différent du 1er, c'est que le texte à déjà été ajouté
+                        If SecS = .Start And SecE = .End Then
+                            .Text = Replace(Replace(.Text & Separtexte & Texte, Chr(10), ""), Chr(13), "") 'remplace .Text & vbLf & Texte
+                            .Font.Size = 8.0
+                        End If
+                    End With
+                End If
             Next
         Catch ex As Exception
             Throw New WReaderException("erreur lors de l'ajout d'information en bas de page", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
@@ -450,29 +500,80 @@ no:
     ''' Récupère les signets renseignés par l'utilisateur
     ''' Généralement renseigné à l'ouverture du document grace à la méthode _myWord.document.add
     ''' </summary>
+    ''' <param name="Locked">Définie si les signets sont locké ou non à l'issue de la récupération</param>
     ''' <remarks></remarks>
-    Private Sub extractionFields()
+    Private Sub extractionFields(Optional ByRef Locked As Boolean = True)
         Try
             Dim listeSignet As New Hashtable
             'récupération dans le corps du document
             For Each element As Word.Field In _myDoc.Range.Fields
                 If element.Type = Word.WdFieldType.wdFieldSet Then
-                    If element.ShowCodes Then MsgBox("")
-                    listeSignet.Add(element.Code.Text, element.Result.Text)
-                    element.Locked = True 'pour bloquer l'ouverture type popup intempestif
+                    If Not listeSignet.ContainsKey(element.Code.Text) Then
+                        listeSignet.Add(element.Code.Text, element.Result.Text)
+                    End If
+                    element.Locked = Locked 'pour bloquer l'ouverture type popup intempestif
                 End If
             Next
-            'récupération dans l'entête du document
-            For Each element As Word.Field In _myDoc.Sections(1).Headers(1).Range.Fields
-                If element.Type = Word.WdFieldType.wdFieldSet Or element.Type = Word.WdFieldType.wdFieldFillIn Then
-                    If element.ShowCodes Then MsgBox("")
-                    listeSignet.Add(element.Code.Text, element.Result.Text)
-                    element.Locked = True 'pour bloquer l'ouverture type popup intempestif
-                End If
+
+            'For Each element As Word.Field In _myDoc.Sections(1).Headers(1).Range.Fields
+            'If element.Type = Word.WdFieldType.wdFieldSet Or element.Type = Word.WdFieldType.wdFieldFillIn Then
+            'listeSignet.Add(element.Code.Text, element.Result.Text)
+            'element.Locked = True 'pour bloquer l'ouverture type popup intempestif
+            'End If
+            'Next
+
+            For Each sec As Word.Section In _myDoc.Sections
+                For Each element As Word.Field In sec.Range.Fields
+                    If element.Type = Word.WdFieldType.wdFieldSet Or element.Type = Word.WdFieldType.wdFieldFillIn Then
+                        If Not listeSignet.ContainsKey(element.Code.Text) Then
+                            listeSignet.Add(element.Code.Text, element.Result.Text)
+                        End If
+                        element.Locked = Locked 'pour bloquer l'ouverture type popup intempestif
+                    End If
+                Next
             Next
+
             _ListeSignet = listeSignet.Clone
         Catch ex As Exception
             Throw New WReaderException("erreur lors de la récupération de la valeur des signets renseigné par l'utilisateur", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Crypte un fichier word en CRP
+    ''' </summary>
+    ''' <param name="destinationCRP">nom du fichier de destination</param>
+    ''' <remarks>l'instance du document est perdu à l'issue de cette méthode</remarks>
+    Private Sub Cryptage(ByRef destinationCRP As String)
+        Dim fichierInput As String = Path.GetTempFileName
+        Try
+            _myDoc.SaveAs2(fichierInput, ReadOnlyRecommended:=True)
+            'close pour permettre l'acces à fsInput
+            _myDoc.Close()
+        Catch ex As Exception
+            Throw New WReaderException("erreur lors de la création du fichier temporaire lors de l'opération de cryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+        End Try
+
+        Dim fsInput As FileStream = New FileStream(fichierInput, FileMode.Open, FileAccess.Read)
+        Dim fsEncrypted As New FileStream(destinationCRP, FileMode.Create, FileAccess.Write)
+        Dim DES As New DESCryptoServiceProvider()
+        DES.Key = ASCIIEncoding.ASCII.GetBytes(_sKey)
+        DES.IV = ASCIIEncoding.ASCII.GetBytes(_sKey)
+        Dim desencrypt As ICryptoTransform = DES.CreateEncryptor()
+        Dim cryptostream As CryptoStream = New CryptoStream(fsEncrypted, desencrypt, CryptoStreamMode.Write)
+        Try
+            'Lit le texte du fichier source dans le tableau d'octets
+            Dim bytearrayinput(fsInput.Length - 1) As Byte
+            fsInput.Read(bytearrayinput, 0, bytearrayinput.Length)
+
+            'écrit le fichier crypté à l'aide de DES
+            cryptostream.Write(bytearrayinput, 0, bytearrayinput.Length)
+        Catch ex As Exception
+            Throw New WReaderException("erreur lors du cryptage du document word temporaire", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+        Finally
+            CryptoStream.Close()
+            fsInput.Dispose()
+            File.Delete(fichierInput)
         End Try
     End Sub
 
@@ -504,7 +605,7 @@ no:
                 End If
             Loop
         Catch ex As Exception
-            Throw New WReaderException("erreur lors du processus de décryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("Erreur lors du processus de décryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
         Finally
             fsDecrypted.Write(buffer.ToArray, 0, buffer.Count)
             fsDecrypted.Flush()

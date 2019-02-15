@@ -54,6 +54,11 @@ Public Class service
         DossierE = 5
         DossierF = 6
     End Enum
+
+    Enum Action As Byte
+        ConsultationOfficiel = 0
+        ConsultationArchive = 1
+    End Enum
 #End Region
 
 #Region "Constantes"
