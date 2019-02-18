@@ -30,6 +30,8 @@ Public Class Initialisation
         'le profil utilisateur est défini sur
         __User.setDroitUser = service.DroitUser.AdminDvlp
 
+        Exit Sub
+
         'son env. de prod est
         __User.setArchDossProd = New ArchDossProd("222222")
 
@@ -70,8 +72,11 @@ Public Class Initialisation
     ''' <remarks></remarks>
     Private Sub BT_Open_Click() Handles BT_Open.Click
         Me.BT_Open.Visible = False
-        controleur.gotoView(service.View.Principale)
+        Me.Visible = False
+#If DEBUG Then
+        Me.Visible = True
+#End If
+        vuePrincipale.getVP.Show()
     End Sub
 #End Region
-
 End Class

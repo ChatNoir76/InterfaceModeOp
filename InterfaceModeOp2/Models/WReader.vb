@@ -6,6 +6,8 @@ Imports System.Text
 
 Public Class WReader
     Private Shared _Instance As WReader = Nothing
+    Private Shared ReadOnly mylock As New Object()
+
     Private Shared _myWord As Word.Application
     Private Shared _myDoc As Word.Document
     Private Shared _FullName As String = ""
@@ -156,7 +158,10 @@ Public Class WReader
             End Try
         End If
         Try
-            'AJOUTER ICI LE UNPROTECT
+            'déprotection du document
+            If _myDoc.ProtectionType <> Word.WdProtectionType.wdNoProtection Then
+                Unlocked(Configuration.getInstance.GetValueFromKey(service.LISTE_MDP_PRODUCTION).Split("|"))
+            End If
 
             'le doc est non visible
             visible = False
@@ -174,14 +179,16 @@ Public Class WReader
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Shared Function GetMyWord() As WReader
-        Try
-            If IsNothing(_Instance) Then
-                _Instance = New WReader()
-            End If
-            Return _Instance
-        Catch ex As Exception
-            Throw New WReaderException("Erreur lors de la récupération de l'instance de la classe WReader", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
-        End Try
+        SyncLock (mylock)
+            Try
+                If IsNothing(_Instance) Then
+                    _Instance = New WReader()
+                End If
+                Return _Instance
+            Catch ex As Exception
+                Throw New WReaderException("Erreur lors de la récupération de l'instance de la classe WReader", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            End Try
+        End SyncLock
     End Function
     Private Sub New()
         'Ouverture Word
@@ -482,7 +489,7 @@ no:
     ''' </summary>
     ''' <param name="ListeMDP">Liste des mots de passes potentiellement utilisés</param>
     ''' <remarks></remarks>
-    Public Sub Unlocked(ByVal ParamArray ListeMDP() As String)
+    Private Sub Unlocked(ByVal ParamArray ListeMDP() As String)
         'traitement fichier inconnu 
         On Error Resume Next
         Err.Clear()

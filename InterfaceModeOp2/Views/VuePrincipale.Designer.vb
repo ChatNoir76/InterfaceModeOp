@@ -169,13 +169,13 @@ Partial Class vuePrincipale
         'TSMI_Utilisateur_Consultation_Officiel
         '
         Me.TSMI_Utilisateur_Consultation_Officiel.Name = "TSMI_Utilisateur_Consultation_Officiel"
-        Me.TSMI_Utilisateur_Consultation_Officiel.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Utilisateur_Consultation_Officiel.Size = New System.Drawing.Size(114, 22)
         Me.TSMI_Utilisateur_Consultation_Officiel.Text = "Officiel"
         '
         'TSMI_Utilisateur_Consultation_Archive
         '
         Me.TSMI_Utilisateur_Consultation_Archive.Name = "TSMI_Utilisateur_Consultation_Archive"
-        Me.TSMI_Utilisateur_Consultation_Archive.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Utilisateur_Consultation_Archive.Size = New System.Drawing.Size(114, 22)
         Me.TSMI_Utilisateur_Consultation_Archive.Text = "Archive"
         '
         'TSMI_Utilisateur_Impression

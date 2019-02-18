@@ -5,17 +5,17 @@
     Private _ex As String
     Private _DocumentName As String = ""
 
-    Public ReadOnly Property getDocName() As String
+    Public ReadOnly Property getNomDocumentWordErreur() As String
         Get
             Return _DocumentName
         End Get
     End Property
-    Public ReadOnly Property getSubNameError() As String
+    Public ReadOnly Property getProcedureOrigineErreur() As String
         Get
             Return _errSubName
         End Get
     End Property
-    Public ReadOnly Property getMessageSource() As String
+    Public ReadOnly Property getErreurSource() As String
         Get
             Return _ex
         End Get
