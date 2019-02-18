@@ -1,15 +1,21 @@
 ﻿Imports ConfigBox.GBox
 Module WAction
-    Private _Rouge As New Color(0.8, 255, 0, 0)
+
+    'CONSTANTE FILIGRANE
     Private Const _FILIGRANE_NOTUSE As String = "PAS POUR UTILISATION"
     Private Const _FILIGRANE_PERIME As String = "PERIME"
 
+    'CONSTANTE D'ACTION
     Private Const _CONSULTATION As String = "Sélectionner le mode op à consulter"
+    Private Const _IMPRESSION As String = "Sélectionner le mode op à consulter"
 
+    'CONSTANTE DE MESSAGE ERREUR / OPERATION
     Private Const _MSG_FIN_OPERATION As String = "------Opération terminée------"
     Private Const _MSG_ERR_WREADER As String = "WREADER ERROR"
     Private Const _MSG_ERR_WACTION As String = "WACTION ERROR"
     Private Const _MSG_ERR_GENERALE As String = "GENERAL ERROR"
+
+    Private _Rouge As New Color(0.8, 255, 0, 0)
 
     Private Enum TypeConsultation As Byte
         Archive = 0
@@ -24,6 +30,10 @@ Module WAction
                     Consultation(TypeConsultation.Officiel)
                 Case service.Action.ConsultationArchive
                     Consultation(TypeConsultation.Archive)
+                Case service.Action.Impression
+                    Impression()
+                Case Else
+                    Throw New WActionException("Action Indéterminée")
             End Select
         Catch ex As WReaderException
             Info(_MSG_ERR_WREADER, True)
@@ -44,6 +54,46 @@ Module WAction
         End Try
     End Sub
 
+    Private Sub Impression()
+        Info("IMPRESSION POUR PRODUCTION", True)
+        Dim monDossierProd As service.DossierProd = service.DossierProd.DossierE
+        Dim NomDossier As String = Configuration.getInstance.getProdDir(monDossierProd)
+        Dim OpenFileDiag As New BoxOpenFile(NomDossier)
+        Dim nomFichier As String
+
+        'le word à chercher sera crypté
+        OpenFileDiag.ChoixExtension(service.EXT_FICHIER_CRYPTER)
+        'description de la boite de dialogue
+        OpenFileDiag.Description(_IMPRESSION)
+        'affichage de la boite de dialogue
+        OpenFileDiag.ShowDialog()
+
+        'récupération du résultat
+        nomFichier = OpenFileDiag.Resultat
+
+        If IsNothing(nomFichier) Then
+            Info("Impression : annulée")
+        Else
+            Info("Impression : " & OpenFileDiag.Result(BoxOpenFile.Donne.FichierSeul))
+            With WReader.GetMyWord
+                .OpenWord(nomFichier)
+
+
+
+                Info("Création du filigrane")
+
+                Info("Création du PDF")
+
+            End With
+        End If
+        OpenFileDiag = Nothing
+    End Sub
+
+    ''' <summary>
+    ''' Permet la consultation d'un mode op
+    ''' </summary>
+    ''' <param name="TConsultation">type de consultation</param>
+    ''' <remarks></remarks>
     Private Sub Consultation(ByVal TConsultation As TypeConsultation)
 
         Info("CONSULTATION -> " & TConsultation.ToString, True)

@@ -40,11 +40,12 @@ Public Class vuePrincipale
     Private Sub TSMI_Utilisateur_Consultation_Officiel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Utilisateur_Consultation_Officiel.Click
         WAction.doAction(service.Action.ConsultationOfficiel)
     End Sub
-
     Private Sub TSMI_Utilisateur_Consultation_Archive_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Utilisateur_Consultation_Archive.Click
         WAction.doAction(service.Action.ConsultationArchive)
     End Sub
-
+    Private Sub TSMI_Utilisateur_Impression_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Utilisateur_Impression.Click
+        WAction.doAction(service.Action.Impression)
+    End Sub
 #End Region
 
 #Region "FERMETURE INTERFACE"
@@ -54,6 +55,28 @@ Public Class vuePrincipale
     End Sub
 #End Region
 
+
+
+
+    Private Sub TSMI_Info_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Info.Click
+        Dim liste1 As New List(Of String)
+        Dim liste2 As New List(Of String)
+
+        liste1.Add("pas de signet")
+        liste2.Add("pas de phrase")
+
+        Dim test As New VueImpression(liste1, liste2, 82)
+        test.ShowDialog()
+
+        Dim str As String = Nothing
+        For Each page As Integer In test.getPageAImprimer
+            str += page & ";"
+        Next
+        MsgBox(str)
+        MsgBox(test.getNomPrinter)
+        MsgBox(test.getAuditTrails)
+
+    End Sub
 
 
 End Class

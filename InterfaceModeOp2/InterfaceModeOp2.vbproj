@@ -75,14 +75,14 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\Configuration.vb" />
-    <Compile Include="Services\Service.vb" />
-    <Compile Include="Services\WAction.vb" />
-    <Compile Include="Services\WActionException.vb" />
-    <Compile Include="Services\Initialisation.vb">
+    <Compile Include="Controller\Services\Configuration.vb" />
+    <Compile Include="Controller\Services\Service.vb" />
+    <Compile Include="Controller\WAction.vb" />
+    <Compile Include="Controller\WActionException.vb" />
+    <Compile Include="Controller\Services\Initialisation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Services\Initialisation.Designer.vb">
+    <Compile Include="Controller\Services\Initialisation.Designer.vb">
       <DependentUpon>Initialisation.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +106,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Views\VueImpression.designer.vb">
+      <DependentUpon>VueImpression.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VueImpression.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\VuePrincipale.Designer.vb">
       <DependentUpon>VuePrincipale.vb</DependentUpon>
     </Compile>
@@ -114,7 +120,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Services\Initialisation.resx">
+    <EmbeddedResource Include="Controller\Services\Initialisation.resx">
       <DependentUpon>Initialisation.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -122,6 +128,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\VueImpression.resx">
+      <DependentUpon>VueImpression.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\VuePrincipale.resx">
       <DependentUpon>VuePrincipale.vb</DependentUpon>

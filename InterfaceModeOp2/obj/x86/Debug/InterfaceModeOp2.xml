@@ -6,35 +6,9 @@ InterfaceModeOp2
 </name>
 </assembly>
 <members>
-<member name="M:InterfaceModeOp2.WActionException.#ctor(System.String,System.String)">
-	<summary>
- Permet l'identification précise d'une erreur généré par WAction
- </summary>
-	<param name="ex">Exception d'origine</param>
-	<param name="errmsg">Message d'erreur</param>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.Initialisation.BT_Open_Click">
+<member name="M:InterfaceModeOp2.Initialisation.BT_Open_Click">
 	<summary>
  Ouverture de la page principale de l'interface
- </summary>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.Configuration.getData">
-	<summary>
- Récupère les combinaisons clef / valeur du fichier ini
- </summary>
-	<returns>une liste de combinaison clef / valeur</returns>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.Configuration.GetValueFromKey(System.String)">
-	<summary>
- Retourne la valeur d'une clef passé en paramètre
- </summary>
-	<param name="Clef"></param>
-	<returns>soit la valeur, soit nothing</returns>
-	<remarks></remarks>
-</member><member name="T:InterfaceModeOp2.Configuration">
-	<summary>
- Lecture et enregistrement des variables du fichier ini
- Variables d'environnements de l'interface
  </summary>
 	<remarks></remarks>
 </member><member name="T:InterfaceModeOp2.service.DroitUser">
@@ -87,6 +61,38 @@ InterfaceModeOp2
  Contient toutes les constantes et les énumérations
  Contient également toutes les méthodes statiques
  </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Configuration.getData">
+	<summary>
+ Récupère les combinaisons clef / valeur du fichier ini
+ </summary>
+	<returns>une liste de combinaison clef / valeur</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Configuration.GetValueFromKey(System.String)">
+	<summary>
+ Retourne la valeur d'une clef passé en paramètre
+ </summary>
+	<param name="Clef"></param>
+	<returns>soit la valeur, soit nothing</returns>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Configuration">
+	<summary>
+ Lecture et enregistrement des variables du fichier ini
+ Variables d'environnements de l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WAction.Consultation(InterfaceModeOp2.WAction.TypeConsultation)">
+	<summary>
+ Permet la consultation d'un mode op
+ </summary>
+	<param name="TConsultation">type de consultation</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WActionException.#ctor(System.String,System.String)">
+	<summary>
+ Permet l'identification précise d'une erreur généré par WAction
+ </summary>
+	<param name="ex">Exception d'origine</param>
+	<param name="errmsg">Message d'erreur</param>
 	<remarks></remarks>
 </member><member name="P:InterfaceModeOp2.WReader.isOpen">
 	<summary>

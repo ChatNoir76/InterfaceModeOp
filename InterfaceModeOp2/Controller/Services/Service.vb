@@ -58,6 +58,7 @@ Public Class service
     Enum Action As Byte
         ConsultationOfficiel = 0
         ConsultationArchive = 1
+        Impression = 2
     End Enum
 #End Region
 
