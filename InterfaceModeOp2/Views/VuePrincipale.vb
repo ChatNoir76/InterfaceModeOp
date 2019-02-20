@@ -59,22 +59,7 @@ Public Class vuePrincipale
 
 
     Private Sub TSMI_Info_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Info.Click
-        Dim liste1 As New List(Of String)
-        Dim liste2 As New List(Of String)
 
-        liste1.Add("pas de signet")
-        liste2.Add("pas de phrase")
-
-        Dim test As New VueImpression(liste1, liste2, 82)
-        test.ShowDialog()
-
-        Dim str As String = Nothing
-        For Each page As Integer In test.getPageAImprimer
-            str += page & ";"
-        Next
-        MsgBox(str)
-        MsgBox(test.getNomPrinter)
-        MsgBox(test.getAuditTrails)
 
     End Sub
 

@@ -7,6 +7,7 @@ Public Class VueImpression
     Private _AuditTrails As String = Nothing
     Private _ZoneImpression As String = Nothing
     Private _PageToPrint As New List(Of Integer)
+    Private _FormulaireValid As Boolean = False
 
 #Region "Property"
     Public ReadOnly Property getNomPrinter As String
@@ -24,11 +25,15 @@ Public Class VueImpression
             Return _PageToPrint
         End Get
     End Property
-
+    Public ReadOnly Property isValidForPrinting As Boolean
+        Get
+            Return _FormulaireValid
+        End Get
+    End Property
 #End Region
 
 #Region "Constructeur"
-    Sub New(ByVal ListeSignet As List(Of String), ByVal ListePhraseAT As List(Of String), ByVal PageMax As Integer)
+    Sub New(ByVal ListeSignet As Hashtable, ByVal ListePhraseAT As List(Of String), ByVal PageMax As Integer)
 
         ' Cet appel est requis par le concepteur.
         InitializeComponent()
@@ -57,8 +62,9 @@ Public Class VueImpression
         Me.CB_ListeImp.Items.Clear()
         For x As Integer = 0 To printers.Count - 1
             _PrinterProperty.PrinterName = printers(x).ToString
+            'récupère uniquement l'imprimante par défault
             If _PrinterProperty.IsValid Then
-                If _PrinterProperty.CanDuplex Then Me.CB_ListeImp.Items.Add(printers(x))
+                If _PrinterProperty.IsDefaultPrinter Then Me.CB_ListeImp.Items.Add(printers(x))
             End If
         Next
     End Sub
@@ -73,10 +79,10 @@ Public Class VueImpression
 #End Region
 
 #Region "Méthodes publiques"
-    Public Sub DescriptionSignet(ByVal ListeSignet As List(Of String))
+    Public Sub DescriptionSignet(ByVal ListeSignet As Hashtable)
         TXT_Signets.Clear()
-        For Each Str As String In ListeSignet
-            TXT_Signets.Text += Str & vbNewLine
+        For Each Str As DictionaryEntry In ListeSignet
+            TXT_Signets.Text += Str.Key & "=" & Str.Value & vbNewLine
         Next
     End Sub
 #End Region
@@ -99,7 +105,6 @@ Public Class VueImpression
         isOk *= canPrint()
 
         Me.BT_Validation.Enabled = isOk
-
     End Sub
     Private Function canPrint() As Boolean
 
@@ -198,6 +203,7 @@ Public Class VueImpression
 #End Region
 
     Private Sub BT_Validation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BT_Validation.Click
+        _FormulaireValid = True
         Me.Close()
     End Sub
 End Class

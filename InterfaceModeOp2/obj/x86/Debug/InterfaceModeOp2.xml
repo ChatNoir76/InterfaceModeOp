@@ -81,6 +81,11 @@ InterfaceModeOp2
  Variables d'environnements de l'interface
  </summary>
 	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WAction.Impression">
+	<summary>
+ Permet l'impression d'un mode op pour utilisation en production
+ </summary>
+	<remarks></remarks>
 </member><member name="M:InterfaceModeOp2.WAction.Consultation(InterfaceModeOp2.WAction.TypeConsultation)">
 	<summary>
  Permet la consultation d'un mode op
@@ -158,16 +163,22 @@ InterfaceModeOp2
 	<remarks></remarks>
 </member><member name="M:InterfaceModeOp2.WReader.PrintDoc(System.Int32,System.Int32)">
 	<summary>
- Imprime un document Word
+ Imprime un document Word selon un interval de pages
  </summary>
-	<param name="FromPage"></param>
-	<param name="ToPage"></param>
+	<param name="FromPage">1ere page de l'interval à imprimer</param>
+	<param name="ToPage">dernière page de l'interval à imprimer</param>
 	<remarks></remarks>
 </member><member name="M:InterfaceModeOp2.WReader.PrintDoc(System.Int32)">
 	<summary>
  Imprime une page unique
  </summary>
-	<param name="Page"></param>
+	<param name="Page">Numéro de la page à imprimer</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.PrintDoc(System.Collections.Generic.List{System.Int32})">
+	<summary>
+ Imprime à partir d'une liste de numéro de page
+ </summary>
+	<param name="Pages">Liste de numéro de pages</param>
 	<remarks></remarks>
 </member><member name="M:InterfaceModeOp2.WReader.Filigrane(System.String,InterfaceModeOp2.Color)">
 	<summary>

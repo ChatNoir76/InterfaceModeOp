@@ -1,6 +1,9 @@
 ﻿Imports ConfigBox.GBox
 Module WAction
 
+    'CONSTANTE BAS DE PAGE
+    Private Const _FOOTER_IMPRESSION As String = "Bon pour utilisation n°"
+
     'CONSTANTE FILIGRANE
     Private Const _FILIGRANE_NOTUSE As String = "PAS POUR UTILISATION"
     Private Const _FILIGRANE_PERIME As String = "PERIME"
@@ -54,6 +57,10 @@ Module WAction
         End Try
     End Sub
 
+    ''' <summary>
+    ''' Permet l'impression d'un mode op pour utilisation en production
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub Impression()
         Info("IMPRESSION POUR PRODUCTION", True)
         Dim monDossierProd As service.DossierProd = service.DossierProd.DossierE
@@ -78,11 +85,28 @@ Module WAction
             With WReader.GetMyWord
                 .OpenWord(nomFichier)
 
+                'info à récup d'une bdd
+                Dim liste2 As New List(Of String)
+                liste2.Add("ceci est une phrase test d'audit trails")
 
+                Dim WPrinter As New VueImpression(.getFields, liste2, .getPages)
+                Info("Ouverture de la boite de dialogue d'impression")
+                WPrinter.ShowDialog()
 
-                Info("Création du filigrane")
+                If WPrinter.isValidForPrinting Then
+                    Info("Enregistrement de l'impression dans l'audit trails")
+                    Debug.Print("AT : " & WPrinter.getAuditTrails)
+                    Debug.Print("Imprimante : " & WPrinter.getNomPrinter)
+                    'ID = NumBDD
 
-                Info("Création du PDF")
+                    'ID à remplacer par le numéro renvoyé par la BDD
+                    .AjoutTexteBasPage(_FOOTER_IMPRESSION & "ID", " #")
+
+                    Info("Impression en cours sur imprimante " & WPrinter.getNomPrinter)
+                    .PrintDoc(WPrinter.getPageAImprimer)
+                Else
+                    Info("Impression : annulée")
+                End If
 
             End With
         End If

@@ -320,10 +320,10 @@ no:
     End Function
 
     ''' <summary>
-    ''' Imprime un document Word
+    ''' Imprime un document Word selon un interval de pages
     ''' </summary>
-    ''' <param name="FromPage"></param>
-    ''' <param name="ToPage"></param>
+    ''' <param name="FromPage">1ere page de l'interval à imprimer</param>
+    ''' <param name="ToPage">dernière page de l'interval à imprimer</param>
     ''' <remarks></remarks>
     ''' 
     Public Overloads Sub PrintDoc(ByVal FromPage As Integer, ByVal ToPage As Integer)
@@ -339,22 +339,49 @@ no:
         End Try
 
         Try
-            'impression Recto seul
             For i = FromPage To ToPage
-                _myDoc.PrintOut(Background:=False, Range:=4, Pages:=CStr(i))
+
             Next
         Catch ex As Exception
-            Throw New WReaderException("erreur lors de l'impression du document", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors de l'impression du document (int, int)", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
         End Try
     End Sub
 
     ''' <summary>
     ''' Imprime une page unique
     ''' </summary>
-    ''' <param name="Page"></param>
+    ''' <param name="Page">Numéro de la page à imprimer</param>
     ''' <remarks></remarks>
     Public Overloads Sub PrintDoc(ByVal Page As Integer)
-        PrintDoc(Page, Page)
+        If NoInstance() Then
+            Throw New WReaderException(_ERR_NOINSTANCE, System.Reflection.MethodBase.GetCurrentMethod().Name)
+        End If
+
+        Try
+            'impression Recto seul
+            _myDoc.PrintOut(Background:=False, Range:=4, Pages:=CStr(Page))
+        Catch ex As Exception
+            Throw New WReaderException("erreur lors de l'impression du document (int)", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Imprime à partir d'une liste de numéro de page
+    ''' </summary>
+    ''' <param name="Pages">Liste de numéro de pages</param>
+    ''' <remarks></remarks>
+    Public Overloads Sub PrintDoc(ByVal Pages As List(Of Integer))
+        If NoInstance() Then
+            Throw New WReaderException(_ERR_NOINSTANCE, System.Reflection.MethodBase.GetCurrentMethod().Name)
+        End If
+
+        Try
+            For Each Page As Integer In Pages
+                PrintDoc(Page)
+            Next
+        Catch ex As Exception
+            Throw New WReaderException("erreur lors de l'impression du document (List of int)", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+        End Try
     End Sub
 
     ''' <summary>
