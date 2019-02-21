@@ -5,7 +5,7 @@ Public Class vuePrincipale
     Private Shared ReadOnly mylock As New Object()
 
     Private Const _ESPACELIGNE As String = "___________________________________________________"
-    Private Const _MAX_CHAR_AFFICHAGE As Integer = 255
+    Private Const _MAX_CHAR_AFFICHAGE As Integer = 1024
 
 #Region "Constructeur"
     Private Sub New()
@@ -14,11 +14,69 @@ Public Class vuePrincipale
         InitializeComponent()
 
         ' Ajoutez une initialisation quelconque après l'appel InitializeComponent().
+        GestionMenuDroitUser()
         Me.TXT_LoginUtilisateur.Text = Initialisation.__User.getNom
         Me.TXT_Droits.Text = Initialisation.__User.getDroitReel.ToString
         Me.TXT_Action.Text = "Initialisation OK"
     End Sub
 
+    Private Sub GestionMenuDroitUser()
+        Select Case Initialisation.__User.getDroitReel
+            Case service.DroitUser.Guest 'consultation
+                GestionMenu(False)
+                GestionMenu(True, TSMI_Utilisateur)
+                GestionMenu(False, TSMI_Utilisateur_Impression)
+            Case service.DroitUser.User 'GUEST +impression
+                GestionMenu(False)
+                GestionMenu(True, TSMI_Utilisateur)
+            Case service.DroitUser.KeyUser 'USER +Export
+                GestionMenu(False)
+                GestionMenu(True, TSMI_Utilisateur, TSMI_Administrateur)
+                GestionMenu(False, TSMI_Administrateur_Importation)
+            Case service.DroitUser.UserAQ 'USER +outils
+                GestionMenu(False)
+                GestionMenu(True, TSMI_Utilisateur, TSMI_Outils)
+                GestionMenu(False, TSMI_Outils_Parametre_DroitUser)
+            Case service.DroitUser.AdminAQ '+ gestion droit utilisateur
+                GestionMenu(False, TSMI_Developpeur)
+            Case service.DroitUser.AdminDvlp
+                GestionMenu(True)
+            Case Else
+                GestionMenu(False)
+                AffichageTexteVuePrin("Droits indéterminés")
+        End Select
+    End Sub
+    ''' <summary>
+    ''' Gestion des menus d'en-tete
+    ''' </summary>
+    Private Overloads Sub GestionMenu(ByVal key As Boolean)
+        For Each item As ToolStripMenuItem In MenuStrip1.Items
+            item.Visible = key
+        Next
+    End Sub
+    ''' <summary>
+    ''' Gestion des menus en fonction de la liste
+    ''' </summary>
+    ''' <param name="ListeTSMI">liste des menus affectés</param>
+    ''' <remarks></remarks>
+    Private Overloads Sub GestionMenu(ByVal key As Boolean, ByVal ParamArray ListeTSMI() As ToolStripMenuItem)
+        For Each Menu As ToolStripMenuItem In ListeTSMI
+            Menu.Visible = key
+        Next
+    End Sub
+    ''' <summary>
+    ''' Gestion des menus (mère/enfants)
+    ''' </summary>
+    ''' <param name="MenuMere">les menus mère / enfants seront affectés</param>
+    ''' <remarks></remarks>
+    Private Overloads Sub GestionMenu(ByVal key As Boolean, ByVal MenuMere As ToolStripMenuItem)
+        For Each item As ToolStripMenuItem In MenuMere.DropDownItems
+            item.Visible = key
+        Next
+        MenuMere.Visible = key
+    End Sub
+
+    'accesseur de la vue principale
     Public Shared Function getVP() As vuePrincipale
         SyncLock (mylock)
             If IsNothing(_Instance) Then
@@ -62,6 +120,15 @@ Public Class vuePrincipale
     End Sub
     Private Sub TSMI_Administrateur_Importation_DepuisModif_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Administrateur_Importation_DepuisModif.Click
         WAction.doAction(service.Action.Importation)
+    End Sub
+    Private Sub TSMI_Administrateur_Archivage_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Administrateur_Archivage.Click
+        WAction.doAction(service.Action.Archivage)
+    End Sub
+    Private Sub TSMI_Administrateur_Exportation_Officiel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Administrateur_Exportation_Officiel.Click
+        WAction.doAction(service.Action.ExportationOfficiel)
+    End Sub
+    Private Sub TSMI_Administrateur_Exportation_Archive_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Administrateur_Exportation_Archive.Click
+        WAction.doAction(service.Action.ExportationArchive)
     End Sub
 #End Region
 

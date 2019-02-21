@@ -1,7 +1,7 @@
 ﻿<Assembly: Reflection.AssemblyVersion("2.0.0.0")> 
 
 Public Class Initialisation
-
+    'à l'initialisation récupère les données utilisateurs (nom windows)
     Public __User As New Utilisateur
 
     Sub New()
@@ -10,16 +10,17 @@ Public Class Initialisation
 
         Init()
 
+        'si mode debug, change la config déterminé par la méthode init()
 #If DEBUG Then
         ChangementConfiguration()
 #End If
-
+        'les infos sont ajoutées à la page
         remplissageLabel()
 
     End Sub
 
     Private Sub Init()
-
+        'détermine les droits de l'utilisateur sur les dossiers de prod
         __User.setArchDossProd = New ArchDossProd()
         Me.BT_Open.Visible = False
 

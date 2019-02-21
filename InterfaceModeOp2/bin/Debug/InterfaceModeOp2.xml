@@ -92,7 +92,7 @@ InterfaceModeOp2
  Permet l'impression d'un mode op pour utilisation en production
  </summary>
 	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.WAction.Consultation(InterfaceModeOp2.WAction.TypeConsultation)">
+</member><member name="M:InterfaceModeOp2.WAction.Consultation(InterfaceModeOp2.WAction.TypeModeOp)">
 	<summary>
  Permet la consultation d'un mode op
  </summary>
@@ -312,6 +312,22 @@ InterfaceModeOp2
 	<param name="ex">Exception d'origine</param>
 	<param name="errmsg">Message d'erreur</param>
 	<param name="subName">System.Reflection.MethodBase.GetCurrentMethod().Name</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.vuePrincipale.GestionMenu(System.Boolean)">
+	<summary>
+ Gestion des menus d'en-tete
+ </summary>
+</member><member name="M:InterfaceModeOp2.vuePrincipale.GestionMenu(System.Boolean,System.Windows.Forms.ToolStripMenuItem[])">
+	<summary>
+ Gestion des menus en fonction de la liste
+ </summary>
+	<param name="ListeTSMI">liste des menus affectés</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.vuePrincipale.GestionMenu(System.Boolean,System.Windows.Forms.ToolStripMenuItem)">
+	<summary>
+ Gestion des menus (mère/enfants)
+ </summary>
+	<param name="MenuMere">les menus mère / enfants seront affectés</param>
 	<remarks></remarks>
 </member><member name="M:InterfaceModeOp2.vuePrincipale.AffichageTexteVuePrin(System.String@,System.Boolean@)">
 	<summary>

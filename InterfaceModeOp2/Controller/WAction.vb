@@ -4,7 +4,7 @@ Module WAction
 #Region "CONSTANTES"
 
     'CONSTANTE BAS DE PAGE
-    Private Const _FOOTER_IMPRESSION As String = "Bon pour utilisation n°"
+    Private Const _FOOTER_IMPRESSION As String = "Bon pour utilisation n°{0}"
     Private Const _FOOTER_VERSION As String = "Date {0} {1}"
 
     'CONSTANTE FILIGRANE A AJOUTER AUX DOCS WORD
@@ -15,9 +15,12 @@ Module WAction
     Private Const _DESC_CONSULTATION As String = "Sélectionner le mode op à consulter"
     Private Const _DESC_IMPRESSION As String = "Sélectionner le mode op à imprimer"
     Private Const _DESC_IMPORTATION As String = "Sélectionner le mode op à importer"
+    Private Const _DESC_IMPORTATION_DOSS_C As String = "Sélectionner la destination du mode op à exporter"
+    Private Const _DESC_EXPORTATION As String = "Sélectionner le mode op à exporter"
     Private Const _DESC_IMPORTATION_DOSS_B As String = "Sélectionner la destination de la sauvegarde du mode opératoire à importer (cette version ne sera pas utilisable par la production)"
     Private Const _DESC_IMPORTATION_DOSS_E As String = "Sélectionner la destination du Duplicata utilisable en production"
     Private Const _DESC_ARCHIVAGE_DOSS_E As String = "Sélectionner le Duplicata crypté à archiver"
+    Private Const _DESC_ARCHIVAGE_DOSS_F As String = "Sélectionner la destination du duplicata à archiver"
 
     'CONSTANTE DE MESSAGE ERREUR / OPERATION
     Private Const _MSG_FIN_OPERATION As String = "------Opération terminée------"
@@ -28,6 +31,7 @@ Module WAction
     Private Const _MSG_ERR_EX_2 As String = "Importation annulée car le mot clef {0} n'est pas présent dans l'entête du document Word"
     Private Const _MSG_ERR_EX_3 As String = "Une importation nécessitant un archivage d'une version antérieure doit obligatoirement avoir un mode op archivé, l'importation est donc annulée"
     Private Const _MSG_ERR_EX_4 As String = "Mode de consultation indéterminé"
+    Private Const _MSG_ERR_EX_5 As String = "Mode d'exportation indéterminé"
 
     'CONSTANTE GENERALE DE TEXTE
     Private Const _GEN_INFO_FILIGRANE As String = "Création du filigrane"
@@ -62,12 +66,16 @@ Module WAction
     Private Const _GEN_CONSULTATION_2 As String = "Consultation : annulée"
     Private Const _GEN_CONSULTATION_3 As String = "Consultation : {0}"
 
+    Private Const _GEN_EXPORTATION_1 As String = "EXPORTATION -> {0}"
+    Private Const _GEN_EXPORTATION_2 As String = "Exportation : annulée"
+    Private Const _GEN_EXPORTATION_3 As String = "Exportation : {0}"
+
     Private _Rouge As New Color(0.8, 255, 0, 0)
     Private Const _Police As Single = 10
     Private Const _Style As Integer = FontStyle.Bold
 #End Region
 
-    Private Enum TypeConsultation As Byte
+    Private Enum TypeModeOp As Byte
         Archive = 0
         Officiel = 1
     End Enum
@@ -76,15 +84,19 @@ Module WAction
         Try
             Select Case monAction
                 Case service.Action.ConsultationOfficiel
-                    Consultation(TypeConsultation.Officiel)
+                    Consultation(TypeModeOp.Officiel)
                 Case service.Action.ConsultationArchive
-                    Consultation(TypeConsultation.Archive)
+                    Consultation(TypeModeOp.Archive)
                 Case service.Action.Impression
                     Impression()
                 Case service.Action.Importation
                     Importation()
                 Case service.Action.Archivage
                     Archivage()
+                Case service.Action.ExportationOfficiel
+                    Exportation(TypeModeOp.Officiel)
+                Case service.Action.ExportationArchive
+                    Exportation(TypeModeOp.Archive)
                 Case Else
                     Throw New WActionException("--Action Indéterminée--")
             End Select
@@ -108,6 +120,70 @@ Module WAction
     End Sub
 
 #Region "Traitement WAction"
+    Private Sub Exportation(ByVal TypeExport As TypeModeOp)
+
+        Info(String.Format(_GEN_EXPORTATION_1, TypeExport.ToString), True)
+        Dim monDossierProd As service.DossierProd
+
+        If TypeExport = TypeModeOp.Officiel Then
+            monDossierProd = service.DossierProd.DossierE
+        ElseIf TypeExport = TypeModeOp.Archive Then
+            monDossierProd = service.DossierProd.DossierF
+        Else
+            Throw New WActionException(_MSG_ERR_EX_5)
+        End If
+
+        'FICHIER A EXPORTER
+        Dim FileExp As New BoxOpenFile(Configuration.getInstance.getFullProdDir(monDossierProd))
+        'le word à chercher sera crypté
+        FileExp.ChoixExtension(service.EXT_FICHIER_CRYPTER)
+        'description de la boite de dialogue
+        FileExp.Description(_DESC_EXPORTATION, _Police, _Style)
+        'affichage de la boite de dialogue
+        FileExp.ShowDialog()
+        If IsNothing(FileExp.Resultat) Then
+            Info(_GEN_EXPORTATION_2)
+            Exit Sub
+        End If
+
+        'EMPLACEMENT D'EXPORTATION
+        Dim FileC As New BoxSaveFile(Configuration.getInstance.getFullProdDir(service.DossierProd.DossierC), System.IO.Path.GetFileNameWithoutExtension(FileExp.Resultat))
+        FileC.Description(_DESC_IMPORTATION_DOSS_C, _Police, _Style)
+        FileC.ShowDialog()
+        If IsNothing(FileC.Resultat) Then
+            Info(_GEN_EXPORTATION_2)
+            Exit Sub
+        End If
+
+        Info(String.Format(_GEN_EXPORTATION_3, FileExp.Result(BoxOpenFile.Donne.FichierSeul)))
+        With WReader.GetMyWord
+            .OpenWord(FileExp.Resultat)
+
+            'remplacement en entete
+            If TypeExport = TypeModeOp.Archive Then
+                Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, service.ET_PERIME, service.ET_ORIGINAL))
+                If Not .RemplaceTexteEntete(service.ET_PERIME, service.ET_ORIGINAL) Then
+                    Throw New WActionException(String.Format(_MSG_ERR_EX_1, service.ET_PERIME, service.ET_ORIGINAL))
+                End If
+            Else
+                Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, service.ET_DUPLICATA, service.ET_ORIGINAL))
+                If Not .RemplaceTexteEntete(service.ET_DUPLICATA, service.ET_ORIGINAL) Then
+                    Throw New WActionException(String.Format(_MSG_ERR_EX_1, service.ET_DUPLICATA, service.ET_ORIGINAL))
+                End If
+            End If
+
+            Info(_GEN_INFO_AJOUT_BASPAGE)
+            .AjoutTexteBasPage(String.Format(_FOOTER_VERSION, "Exportation", Now))
+
+            Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(service.DossierProd.DossierC)))
+            .CopyTo(FileC.Resultat)
+
+            Info(_GEN_INFO_DEL_SOURCE)
+            System.IO.File.Delete(FileExp.Resultat)
+
+        End With
+    End Sub
+
     Private Sub Archivage(Optional ByVal viaImportation As Boolean = False)
         If viaImportation Then
             Info(_GEN_ARCHIVAGE_2)
@@ -134,7 +210,7 @@ Module WAction
 
         'DOSSIER ENREGISTREMENT ARCHIVE
         Dim FileF As New BoxSaveFile(Configuration.getInstance.getFullProdDir(service.DossierProd.DossierF), OpenFileDiag.Resultat)
-        FileF.Description(_DESC_IMPORTATION_DOSS_B, _Police, _Style)
+        FileF.Description(_DESC_ARCHIVAGE_DOSS_F, _Police, _Style)
         FileF.ShowDialog()
 
         If IsNothing(FileF.Resultat) Then
@@ -195,7 +271,7 @@ Module WAction
 
         'DOSSIER ENREGISTREMENT SAUVEGARDE
         Dim FileB As New BoxSaveFile(Configuration.getInstance.getFullProdDir(service.DossierProd.DossierB), FileC.Resultat)
-        FileB.Description(_DESC_IMPORTATION_DOSS_B, 10, FontStyle.Bold)
+        FileB.Description(_DESC_IMPORTATION_DOSS_B, _Police, _Style)
         FileB.ShowDialog()
         If IsNothing(FileB.Resultat) Then
             Info(_GEN_IMPORTATION_1)
@@ -292,10 +368,9 @@ Module WAction
                     Info(_GEN_IMPRESSION_5)
                     Debug.Print("AT : " & WPrinter.getAuditTrails)
                     Debug.Print(String.Format(_GEN_IMPRESSION_6, WPrinter.getNomPrinter))
-                    'ID = NumBDD
 
                     'ID à remplacer par le numéro renvoyé par la BDD
-                    .AjoutTexteBasPage(_FOOTER_IMPRESSION & "ID", " #")
+                    .AjoutTexteBasPage(String.Format(_FOOTER_IMPRESSION, "id"), " #")
 
                     Info(String.Format(_GEN_IMPRESSION_7, WPrinter.getNomPrinter))
                     .PrintDoc(WPrinter.getPageAImprimer)
@@ -312,16 +387,16 @@ Module WAction
     ''' </summary>
     ''' <param name="TConsultation">type de consultation</param>
     ''' <remarks></remarks>
-    Private Sub Consultation(ByVal TConsultation As TypeConsultation)
+    Private Sub Consultation(ByVal TConsultation As TypeModeOp)
 
         Info(String.Format(_GEN_CONSULTATION_1, TConsultation.ToString), True)
         Dim monDossierProd As service.DossierProd
         Dim monFiligrane As String
         Select Case TConsultation
-            Case TypeConsultation.Archive
+            Case TypeModeOp.Archive
                 monDossierProd = service.DossierProd.DossierF
                 monFiligrane = _FILIGRANE_PERIME
-            Case TypeConsultation.Officiel
+            Case TypeModeOp.Officiel
                 monDossierProd = service.DossierProd.DossierE
                 monFiligrane = _FILIGRANE_NOTUSE
             Case Else

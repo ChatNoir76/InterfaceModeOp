@@ -38,11 +38,14 @@ Public Class ArchDossProd
     ''' <param name="CodeIni">le code en lui meme (?00?11)</param>
     ''' <remarks></remarks>
     Sub New(ByVal CodeIni As String)
-        If CodeIni.Length = _NBDossier Then
-            For i As service.DossierProd = 1 To _NBDossier
-                _mapDroit.Add(i.ToString, ToAccessFolder(CodeIni(i - 1)))
-            Next
+        If Not IsNothing(CodeIni) Then
+            If CodeIni.Length = _NBDossier Then
+                For i As service.DossierProd = 1 To _NBDossier
+                    _mapDroit.Add(i.ToString, ToAccessFolder(CodeIni(i - 1)))
+                Next
+            End If
         End If
+
     End Sub
 
     ''' <summary>
