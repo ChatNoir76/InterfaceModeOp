@@ -45,6 +45,7 @@ Public Class vuePrincipale
                 GestionMenu(False)
                 AffichageTexteVuePrin("Droits indéterminés")
         End Select
+        GestionMenu(True, TSMI_Info)
     End Sub
     ''' <summary>
     ''' Gestion des menus d'en-tete
@@ -130,6 +131,18 @@ Public Class vuePrincipale
     Private Sub TSMI_Administrateur_Exportation_Archive_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Administrateur_Exportation_Archive.Click
         WAction.doAction(service.Action.ExportationArchive)
     End Sub
+    Private Sub TSMI_Info_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Info.Click
+        With My.Application.Info
+            Dim mesInfo As New System.Text.StringBuilder(.AssemblyName)
+            mesInfo.AppendLine.AppendLine()
+            mesInfo.Append(.Copyright).AppendLine()
+            mesInfo.Append(String.Format("Version {0}.{1:00}", .Version.Major, .Version.Minor))
+#If DEBUG Then
+            mesInfo.AppendLine.Append("(Mode Debug)")
+#End If
+            MessageBox.Show(mesInfo.ToString, .Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End With
+    End Sub
 #End Region
 
 #Region "FERMETURE INTERFACE"
@@ -145,5 +158,6 @@ Public Class vuePrincipale
         Me.TXT_Action.Size = New Size(Me.Width - 44, Me.Height - 210)
     End Sub
 #End Region
+
 
 End Class
