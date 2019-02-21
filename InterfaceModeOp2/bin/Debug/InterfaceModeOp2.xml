@@ -150,6 +150,13 @@ InterfaceModeOp2
 	<param name="RemplacerPar"></param>
 	<returns></returns>
 	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.RechercheEnTete(System.String)">
+	<summary>
+ Recherche la présence d'un mot clef en entete du document
+ </summary>
+	<param name="motClef">mot à cherché</param>
+	<returns>True si mot présent</returns>
+	<remarks>Meme technique de recherche que la méthode de remplacement</remarks>
 </member><member name="M:InterfaceModeOp2.WReader.ExportAsPDF">
 	<summary>
  Conversion du word en PDF
@@ -299,6 +306,13 @@ InterfaceModeOp2
 	<param name="ex">Exception d'origine</param>
 	<param name="errmsg">Message d'erreur</param>
 	<param name="subName">System.Reflection.MethodBase.GetCurrentMethod().Name</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.vuePrincipale.AffichageTexteVuePrin(System.String@,System.Boolean@)">
+	<summary>
+ Affichage des informations à destination de l'utilisateur dans le TextBox 
+ </summary>
+	<param name="monTexte">Information à ajouter</param>
+	<param name="NouveauBloc">Défini un nouveau bloc d'information et permet d'effacer le TextBox si surchargé</param>
 	<remarks></remarks>
 </member>
 </members>

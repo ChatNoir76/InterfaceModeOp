@@ -5,7 +5,7 @@ Public Class vuePrincipale
     Private Shared ReadOnly mylock As New Object()
 
     Private Const _ESPACELIGNE As String = "___________________________________________________"
-    
+    Private Const _MAX_CHAR_AFFICHAGE As Integer = 255
 
 #Region "Constructeur"
     Private Sub New()
@@ -31,8 +31,23 @@ Public Class vuePrincipale
 #End Region
 
 #Region "Méthodes Externes"
-    Public Sub AffichageTexteVuePrin(ByVal monTexte As String, Optional ByVal InsertionLigne As Boolean = False)
-        Me.TXT_Action.Text = monTexte & If(InsertionLigne, vbNewLine & _ESPACELIGNE & vbNewLine, vbNewLine) & Me.TXT_Action.Text
+    ''' <summary>
+    ''' Affichage des informations à destination de l'utilisateur dans le TextBox 
+    ''' </summary>
+    ''' <param name="monTexte">Information à ajouter</param>
+    ''' <param name="NouveauBloc">Défini un nouveau bloc d'information et permet d'effacer le TextBox si surchargé</param>
+    ''' <remarks></remarks>
+    Public Sub AffichageTexteVuePrin(ByRef monTexte As String, Optional ByRef NouveauBloc As Boolean = False)
+        Dim Affichage As New System.Text.StringBuilder(monTexte)
+        With Affichage
+            .AppendLine()
+            If NouveauBloc Then
+                .Append(_ESPACELIGNE).AppendLine()
+                If Me.TXT_Action.Text.Length >= _MAX_CHAR_AFFICHAGE Then Me.TXT_Action.Clear()
+            End If
+            .Append(Me.TXT_Action.Text)
+            Me.TXT_Action.Text = .ToString
+        End With
     End Sub
 #End Region
 
@@ -45,6 +60,9 @@ Public Class vuePrincipale
     End Sub
     Private Sub TSMI_Utilisateur_Impression_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Utilisateur_Impression.Click
         WAction.doAction(service.Action.Impression)
+    End Sub
+    Private Sub TSMI_Administrateur_Importation_DepuisModif_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Administrateur_Importation_DepuisModif.Click
+        WAction.doAction(service.Action.Importation)
     End Sub
 #End Region
 
@@ -62,6 +80,7 @@ Public Class vuePrincipale
 
 
     End Sub
+
 
 
 End Class

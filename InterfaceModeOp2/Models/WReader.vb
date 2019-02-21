@@ -14,7 +14,6 @@ Public Class WReader
 
     Private _ListeSignet As New Hashtable
     Private Const _ERR_NOINSTANCE As String = "Il n'y a aucun document word ouvert"
-    Private Const _CRP As String = ".crp"
     Private Const _sKey As String = "f4ty52uG"
 
 
@@ -136,7 +135,7 @@ Public Class WReader
         End If
 
         'détermine si word crypté ou non puis ouverture
-        If Path.GetExtension(fichier).ToLower = _CRP Then
+        If Path.GetExtension(fichier).ToLower = service.EXT_SIMPLE_CRP Then
             Try
                 'décryptage
                 Dim monCRP As String = Decrypter(fichier)
@@ -269,6 +268,20 @@ Public Class WReader
         _myWord.ActiveWindow.ActivePane.View.SeekView = 0
 no:
         Return operation
+    End Function
+
+    ''' <summary>
+    ''' Recherche la présence d'un mot clef en entete du document
+    ''' </summary>
+    ''' <param name="motClef">mot à cherché</param>
+    ''' <returns>True si mot présent</returns>
+    ''' <remarks>Meme technique de recherche que la méthode de remplacement</remarks>
+    Public Function RechercheEnTete(ByVal motClef As String) As Boolean
+        Dim rep As Boolean = False
+        _myWord.ActiveWindow.ActivePane.View.SeekView = 1
+        rep = _myWord.Selection.Find.Execute(motClef)
+        _myWord.ActiveWindow.ActivePane.View.SeekView = 0
+        Return rep
     End Function
 
     ''' <summary>
@@ -607,6 +620,7 @@ no:
         Finally
             CryptoStream.Close()
             fsInput.Dispose()
+            'suppression du fichier temporaire
             File.Delete(fichierInput)
         End Try
     End Sub

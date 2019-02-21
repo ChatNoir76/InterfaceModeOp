@@ -30,7 +30,6 @@ Partial Class vuePrincipale
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.TSMI_Administrateur = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Administrateur_Importation = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TSMI_Administrateur_Importation_DepuisMaster = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Administrateur_Importation_DepuisModif = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Administrateur_Exportation = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Administrateur_Exportation_Officiel = New System.Windows.Forms.ToolStripMenuItem()
@@ -110,16 +109,10 @@ Partial Class vuePrincipale
         '
         'TSMI_Administrateur_Importation
         '
-        Me.TSMI_Administrateur_Importation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Administrateur_Importation_DepuisMaster, Me.TSMI_Administrateur_Importation_DepuisModif})
+        Me.TSMI_Administrateur_Importation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Administrateur_Importation_DepuisModif})
         Me.TSMI_Administrateur_Importation.Name = "TSMI_Administrateur_Importation"
-        Me.TSMI_Administrateur_Importation.Size = New System.Drawing.Size(137, 22)
+        Me.TSMI_Administrateur_Importation.Size = New System.Drawing.Size(152, 22)
         Me.TSMI_Administrateur_Importation.Text = "Importation"
-        '
-        'TSMI_Administrateur_Importation_DepuisMaster
-        '
-        Me.TSMI_Administrateur_Importation_DepuisMaster.Name = "TSMI_Administrateur_Importation_DepuisMaster"
-        Me.TSMI_Administrateur_Importation_DepuisMaster.Size = New System.Drawing.Size(181, 22)
-        Me.TSMI_Administrateur_Importation_DepuisMaster.Text = "Depuis Master"
         '
         'TSMI_Administrateur_Importation_DepuisModif
         '
@@ -131,7 +124,7 @@ Partial Class vuePrincipale
         '
         Me.TSMI_Administrateur_Exportation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Administrateur_Exportation_Officiel, Me.TSMI_Administrateur_Exportation_Archive})
         Me.TSMI_Administrateur_Exportation.Name = "TSMI_Administrateur_Exportation"
-        Me.TSMI_Administrateur_Exportation.Size = New System.Drawing.Size(137, 22)
+        Me.TSMI_Administrateur_Exportation.Size = New System.Drawing.Size(152, 22)
         Me.TSMI_Administrateur_Exportation.Text = "Exportation"
         '
         'TSMI_Administrateur_Exportation_Officiel
@@ -149,7 +142,7 @@ Partial Class vuePrincipale
         'TSMI_Administrateur_Archivage
         '
         Me.TSMI_Administrateur_Archivage.Name = "TSMI_Administrateur_Archivage"
-        Me.TSMI_Administrateur_Archivage.Size = New System.Drawing.Size(137, 22)
+        Me.TSMI_Administrateur_Archivage.Size = New System.Drawing.Size(152, 22)
         Me.TSMI_Administrateur_Archivage.Text = "Archivage"
         '
         'TSMI_Utilisateur
@@ -328,7 +321,6 @@ Partial Class vuePrincipale
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents TSMI_Administrateur As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Administrateur_Importation As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TSMI_Administrateur_Importation_DepuisMaster As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Administrateur_Importation_DepuisModif As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Administrateur_Exportation As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Administrateur_Exportation_Officiel As System.Windows.Forms.ToolStripMenuItem

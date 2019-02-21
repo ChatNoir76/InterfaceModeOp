@@ -59,14 +59,23 @@ Public Class service
         ConsultationOfficiel = 0
         ConsultationArchive = 1
         Impression = 2
+        Importation = 3
+        ExportationOfficiel = 4
+        ExportationArchive = 5
+        Archivage = 6
     End Enum
 #End Region
 
 #Region "Constantes"
+
+    'Constante des entetes des mode op de production
+    Public Const ET_DUPLICATA As String = "DUPLICATA"
+    Public Const ET_ORIGINAL As String = "ORIGINAL"
+    Public Const ET_PERIME As String = "PÉRIMÉ"
+
     'Constantes du fichier ini [configuration]
     Public Const INI_KEY_REPBASE As String = "BaseRep"
     Public Const INI_KEY_REPTMP As String = "Tmp"
-
     Public Const INI_IGNORE_CHAR As Char = "?"
 
     ''' <summary>
@@ -98,6 +107,8 @@ Public Class service
     ''' </summary>
     ''' <remarks></remarks>
     Public Const NOM_FICHIER_INI As String = "InterfaceModeOp2.ini"
+
+    Public Const EXT_SIMPLE_CRP As String = ".crp"
 #End Region
 
 #Region "Méthodes statiques"
