@@ -81,6 +81,12 @@ InterfaceModeOp2
  Variables d'environnements de l'interface
  </summary>
 	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WAction.Importation">
+	<summary>
+ Permet l'importation d'un mode op pour utilisation en production dossier E 
+ et copie dans un dossier de sauvegarde B en lecture seule
+ </summary>
+	<remarks>Le fichier source est détruit à l'issue de cette manipulation</remarks>
 </member><member name="M:InterfaceModeOp2.WAction.Impression">
 	<summary>
  Permet l'impression d'un mode op pour utilisation en production

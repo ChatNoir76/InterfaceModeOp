@@ -111,7 +111,7 @@ Partial Class vuePrincipale
         '
         Me.TSMI_Administrateur_Importation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Administrateur_Importation_DepuisModif})
         Me.TSMI_Administrateur_Importation.Name = "TSMI_Administrateur_Importation"
-        Me.TSMI_Administrateur_Importation.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Administrateur_Importation.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Administrateur_Importation.Text = "Importation"
         '
         'TSMI_Administrateur_Importation_DepuisModif
@@ -124,7 +124,7 @@ Partial Class vuePrincipale
         '
         Me.TSMI_Administrateur_Exportation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Administrateur_Exportation_Officiel, Me.TSMI_Administrateur_Exportation_Archive})
         Me.TSMI_Administrateur_Exportation.Name = "TSMI_Administrateur_Exportation"
-        Me.TSMI_Administrateur_Exportation.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Administrateur_Exportation.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Administrateur_Exportation.Text = "Exportation"
         '
         'TSMI_Administrateur_Exportation_Officiel
@@ -142,7 +142,7 @@ Partial Class vuePrincipale
         'TSMI_Administrateur_Archivage
         '
         Me.TSMI_Administrateur_Archivage.Name = "TSMI_Administrateur_Archivage"
-        Me.TSMI_Administrateur_Archivage.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Administrateur_Archivage.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Administrateur_Archivage.Text = "Archivage"
         '
         'TSMI_Utilisateur
@@ -303,7 +303,9 @@ Partial Class vuePrincipale
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.TXT_LoginUtilisateur)
         Me.Controls.Add(Me.Label1)
+        Me.MinimumSize = New System.Drawing.Size(406, 404)
         Me.Name = "vuePrincipale"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "vuePrincipale"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

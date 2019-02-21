@@ -24,7 +24,6 @@ Public Class vuePrincipale
             If IsNothing(_Instance) Then
                 _Instance = New vuePrincipale()
             End If
-
             Return _Instance
         End SyncLock
     End Function
@@ -73,14 +72,11 @@ Public Class vuePrincipale
     End Sub
 #End Region
 
-
-
-
-    Private Sub TSMI_Info_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Info.Click
-
-
+#Region "Méthode Interne"
+    Private Sub vuePrincipale_Resize() Handles MyBase.Resize
+        Me.GB_Main.Size = New Size(Me.Width - 30, Me.Height - 185)
+        Me.TXT_Action.Size = New Size(Me.Width - 44, Me.Height - 210)
     End Sub
-
-
+#End Region
 
 End Class

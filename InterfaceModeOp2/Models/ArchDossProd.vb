@@ -27,7 +27,7 @@ Public Class ArchDossProd
 
             Dim ListeDossier = [Enum].GetValues(GetType(service.DossierProd))
             For Each dossier As service.DossierProd In ListeDossier
-                _mapDroit.Add(dossier.ToString, getAccessFromFolder(Configuration.getInstance.getProdDir(dossier)))
+                _mapDroit.Add(dossier.ToString, getAccessFromFolder(Configuration.getInstance.getFullProdDir(dossier)))
             Next
         End If
     End Sub

@@ -28,12 +28,29 @@ Public Class Configuration
     End Property
     Public ReadOnly Property getWorkDir() As String
         Get
-            Return Directory.GetCurrentDirectory & "\" & Me.GetValueFromKey(service.INI_KEY_REPBASE)
+            Dim WorkDir As New System.Text.StringBuilder(Directory.GetCurrentDirectory)
+            With WorkDir
+                .Append("\")
+                .Append(Me.GetValueFromKey(service.INI_KEY_REPBASE))
+            End With
+            Return WorkDir.ToString
         End Get
     End Property
-    Public ReadOnly Property getProdDir(ByVal dossierProd As service.DossierProd) As String
+    Public ReadOnly Property getFullProdDir(ByVal dossierProd As service.DossierProd) As String
         Get
-            Return Directory.GetCurrentDirectory & "\" & Me.GetValueFromKey(service.INI_KEY_REPBASE) & "\" & Me.GetValueFromKey(dossierProd.ToString)
+            Dim FullDir As New System.Text.StringBuilder(Directory.GetCurrentDirectory)
+            With FullDir
+                .Append("\")
+                .Append(Me.GetValueFromKey(service.INI_KEY_REPBASE))
+                .Append("\")
+                .Append(Me.GetValueFromKey(dossierProd.ToString))
+            End With
+            Return FullDir.ToString
+        End Get
+    End Property
+    Public ReadOnly Property getSimpleProdDir(ByVal dossierProd As service.DossierProd) As String
+        Get
+            Return Me.GetValueFromKey(dossierProd.ToString)
         End Get
     End Property
 

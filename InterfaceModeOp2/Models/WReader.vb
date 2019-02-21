@@ -481,7 +481,7 @@ no:
     ''' <param name="Texte">texte à ajouter</param>
     ''' <param name="Separtexte">String à ajouter entre l'ancien et le nouveau texte</param>
     ''' <remarks>Utiliser la méthode de nettoyage du bas de page avant d'utiliser cette méthode</remarks>
-    Public Sub AjoutTexteBasPage(ByVal Texte As String, Optional ByVal Separtexte As String = " ")
+    Public Sub AjoutTexteBasPage(ByVal Texte As String, Optional ByVal Separtexte As String = "")
         If NoInstance() Then
             Throw New WReaderException(_ERR_NOINSTANCE, System.Reflection.MethodBase.GetCurrentMethod().Name)
         End If
