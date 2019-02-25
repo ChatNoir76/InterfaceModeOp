@@ -43,6 +43,7 @@ Partial Class vuePrincipale
         Me.TSMI_Outils_AuditTrails_Impression = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Outils_AuditTrails_Exportation = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Outils_AuditTrails_Importation = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TSMI_Outils_AuditTrails_Paramètres = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Outils_Parametre = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Outils_Parametre_DroitUser = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Info = New System.Windows.Forms.ToolStripMenuItem()
@@ -52,7 +53,6 @@ Partial Class vuePrincipale
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TXT_LoginUtilisateur = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TSMI_Outils_AuditTrails_Paramètres = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.GB_Main.SuspendLayout()
         Me.SuspendLayout()
@@ -97,7 +97,7 @@ Partial Class vuePrincipale
         '
         Me.TSMI_Administrateur_Importation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Administrateur_Importation_DepuisModif})
         Me.TSMI_Administrateur_Importation.Name = "TSMI_Administrateur_Importation"
-        Me.TSMI_Administrateur_Importation.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Administrateur_Importation.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Administrateur_Importation.Text = "Importation"
         '
         'TSMI_Administrateur_Importation_DepuisModif
@@ -110,7 +110,7 @@ Partial Class vuePrincipale
         '
         Me.TSMI_Administrateur_Exportation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Administrateur_Exportation_Officiel, Me.TSMI_Administrateur_Exportation_Archive})
         Me.TSMI_Administrateur_Exportation.Name = "TSMI_Administrateur_Exportation"
-        Me.TSMI_Administrateur_Exportation.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Administrateur_Exportation.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Administrateur_Exportation.Text = "Exportation"
         '
         'TSMI_Administrateur_Exportation_Officiel
@@ -128,7 +128,7 @@ Partial Class vuePrincipale
         'TSMI_Administrateur_Archivage
         '
         Me.TSMI_Administrateur_Archivage.Name = "TSMI_Administrateur_Archivage"
-        Me.TSMI_Administrateur_Archivage.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Administrateur_Archivage.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Administrateur_Archivage.Text = "Archivage"
         '
         'TSMI_Utilisateur
@@ -194,6 +194,12 @@ Partial Class vuePrincipale
         Me.TSMI_Outils_AuditTrails_Importation.Name = "TSMI_Outils_AuditTrails_Importation"
         Me.TSMI_Outils_AuditTrails_Importation.Size = New System.Drawing.Size(152, 22)
         Me.TSMI_Outils_AuditTrails_Importation.Text = "Importation"
+        '
+        'TSMI_Outils_AuditTrails_Paramètres
+        '
+        Me.TSMI_Outils_AuditTrails_Paramètres.Name = "TSMI_Outils_AuditTrails_Paramètres"
+        Me.TSMI_Outils_AuditTrails_Paramètres.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Outils_AuditTrails_Paramètres.Text = "Paramètres"
         '
         'TSMI_Outils_Parametre
         '
@@ -272,12 +278,6 @@ Partial Class vuePrincipale
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "Login Utilisateur : "
         '
-        'TSMI_Outils_AuditTrails_Paramètres
-        '
-        Me.TSMI_Outils_AuditTrails_Paramètres.Name = "TSMI_Outils_AuditTrails_Paramètres"
-        Me.TSMI_Outils_AuditTrails_Paramètres.Size = New System.Drawing.Size(152, 22)
-        Me.TSMI_Outils_AuditTrails_Paramètres.Text = "Paramètres"
-        '
         'vuePrincipale
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -292,7 +292,7 @@ Partial Class vuePrincipale
         Me.MinimumSize = New System.Drawing.Size(406, 404)
         Me.Name = "vuePrincipale"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "vuePrincipale"
+        Me.Text = "Interface Mode Op v2"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GB_Main.ResumeLayout(False)
