@@ -83,7 +83,7 @@ Public Class WReader
 
                 Return numPages
             Catch ex As Exception
-                Throw New WReaderException("Erreur lors de la détermination du nombre de page du document word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+                Throw New WReaderException("Erreur lors de la détermination du nombre de page du document word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
             End Try
         End Get
     End Property
@@ -102,7 +102,7 @@ Public Class WReader
             Try
                 Return _ListeSignet
             Catch ex As Exception
-                Throw New WReaderException("Erreur lors de la récupération de la liste des signets", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+                Throw New WReaderException("Erreur lors de la récupération de la liste des signets", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
             End Try
         End Get
     End Property
@@ -122,7 +122,7 @@ Public Class WReader
                 Close()
             End If
         Catch ex As Exception
-            Throw New WReaderException("Erreur lors du processus de fermeture de l'ancien Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("Erreur lors du processus de fermeture de l'ancien Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
 
         'vérification des données reçues
@@ -146,14 +146,14 @@ Public Class WReader
                 'Suppression du flux
                 File.Delete(monCRP)
             Catch ex As Exception
-                Throw New WReaderException("Erreur lors du processus de décryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+                Throw New WReaderException("Erreur lors du processus de décryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
             End Try
         Else
             Try
                 'Ouverture d'un doc word
                 _myDoc = _myWord.Documents.Add(fichier, True, True, False)
             Catch ex As Exception
-                Throw New WReaderException("Erreur lors de l'ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+                Throw New WReaderException("Erreur lors de l'ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
             End Try
         End If
         Try
@@ -168,7 +168,7 @@ Public Class WReader
             'récupération des infos des signets
             extractionFields()
         Catch ex As Exception
-            Throw New WReaderException("Erreur lors du traitement post ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("Erreur lors du traitement post ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
     End Sub
 
@@ -185,7 +185,7 @@ Public Class WReader
                 End If
                 Return _Instance
             Catch ex As Exception
-                Throw New WReaderException("Erreur lors de la récupération de l'instance de la classe WReader", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+                Throw New WReaderException("Erreur lors de la récupération de l'instance de la classe WReader", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
             End Try
         End SyncLock
     End Function
@@ -243,7 +243,7 @@ Public Class WReader
                 _myDoc.SaveAs2(destination, ReadOnlyRecommended:=True)
             End If
         Catch ex As Exception
-            Throw New WReaderException("Erreur lors de la création d'une copie (" & destination & ")", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("Erreur lors de la création d'une copie (" & destination & ")", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
     End Sub
 
@@ -296,7 +296,7 @@ no:
             Dim PDFFileName As String = Path.GetTempPath & "monPDF.pdf"
             _myDoc.ExportAsFixedFormat(PDFFileName, Word.WdExportFormat.wdExportFormatPDF, True)
         Catch ex As Exception
-            Throw New WReaderException("erreur lors de la création d'un PDF à partir du Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors de la création d'un PDF à partir du Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
 
     End Sub
@@ -323,7 +323,7 @@ no:
             retour = retour And Not _myDoc.Sections(1).Headers(1).Range.Fields.Update()
             _myDoc.Sections(1).Headers(1).Range.Fields.Locked = True
         Catch ex As Exception
-            Throw New WReaderException("erreur lors de la réactivation manuelle des signets via boites de dialogues word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors de la réactivation manuelle des signets via boites de dialogues word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         Finally
             visible = False
             extractionFields()
@@ -348,7 +348,7 @@ no:
             If FromPage < 0 Or ToPage < 0 Then Exit Sub
             If FromPage > ToPage Then Exit Sub
         Catch ex As Exception
-            Throw New WReaderException("erreur avec les numéros de page envoyés à l'impression", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur avec les numéros de page envoyés à l'impression", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
 
         Try
@@ -356,7 +356,7 @@ no:
 
             Next
         Catch ex As Exception
-            Throw New WReaderException("erreur lors de l'impression du document (int, int)", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors de l'impression du document (int, int)", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
     End Sub
 
@@ -374,7 +374,7 @@ no:
             'impression Recto seul
             _myDoc.PrintOut(Background:=False, Range:=4, Pages:=CStr(Page))
         Catch ex As Exception
-            Throw New WReaderException("erreur lors de l'impression du document (int)", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors de l'impression du document (int)", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
     End Sub
 
@@ -393,7 +393,7 @@ no:
                 PrintDoc(Page)
             Next
         Catch ex As Exception
-            Throw New WReaderException("erreur lors de l'impression du document (List of int)", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors de l'impression du document (List of int)", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
     End Sub
 
@@ -440,7 +440,7 @@ no:
                 _myDoc.ActiveWindow.ActivePane.View.SeekView = 0
             Next
         Catch ex As Exception
-            Throw New WReaderException("erreur lors de l'ajout d'un filigrane au document word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors de l'ajout d'un filigrane au document word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
     End Sub
 
@@ -470,7 +470,7 @@ no:
                 Next
             Next
         Catch ex As Exception
-            Throw New WReaderException("erreur lors du traitement du bas de page du document word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors du traitement du bas de page du document word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
 
     End Sub
@@ -507,7 +507,7 @@ no:
                 End If
             Next
         Catch ex As Exception
-            Throw New WReaderException("erreur lors de l'ajout d'information en bas de page", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors de l'ajout d'information en bas de page", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
     End Sub
 #End Region
@@ -582,7 +582,7 @@ no:
 
             _ListeSignet = listeSignet.Clone
         Catch ex As Exception
-            Throw New WReaderException("erreur lors de la récupération de la valeur des signets renseigné par l'utilisateur", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors de la récupération de la valeur des signets renseigné par l'utilisateur", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
     End Sub
 
@@ -598,7 +598,7 @@ no:
             'close pour permettre l'acces à fsInput
             _myDoc.Close()
         Catch ex As Exception
-            Throw New WReaderException("erreur lors de la création du fichier temporaire lors de l'opération de cryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors de la création du fichier temporaire lors de l'opération de cryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
 
         Dim fsInput As FileStream = New FileStream(fichierInput, FileMode.Open, FileAccess.Read)
@@ -616,7 +616,7 @@ no:
             'écrit le fichier crypté à l'aide de DES
             cryptostream.Write(bytearrayinput, 0, bytearrayinput.Length)
         Catch ex As Exception
-            Throw New WReaderException("erreur lors du cryptage du document word temporaire", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors du cryptage du document word temporaire", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         Finally
             CryptoStream.Close()
             fsInput.Dispose()
@@ -653,7 +653,7 @@ no:
                 End If
             Loop
         Catch ex As Exception
-            Throw New WReaderException("Erreur lors du processus de décryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("Erreur lors du processus de décryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         Finally
             fsDecrypted.Write(buffer.ToArray, 0, buffer.Count)
             fsDecrypted.Flush()
@@ -674,7 +674,7 @@ no:
         Try
             Return _myWord.Documents.Count <= 0
         Catch ex As Exception
-            Throw New WReaderException("erreur lors du controle d'instance", System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message)
+            Throw New WReaderException("erreur lors du controle d'instance", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
     End Function
 #End Region

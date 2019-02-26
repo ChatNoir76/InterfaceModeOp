@@ -1,23 +1,25 @@
 ﻿Public Class WReaderException
     Inherits Exception
 
-    Private _errSubName As String
-    Private _ex As String
-    Private _DocumentName As String = ""
+    Private _errModule As String
+    Private _errSource As String
+    Private _DocumentName As String = Nothing
+    Private Const _ERR_NOSOURCE = "Pas d'erreur source"
+    Private Const _ERR_NOWORDDOC = "nom du document word non déterminé"
 
     Public ReadOnly Property getNomDocumentWordErreur() As String
         Get
-            Return _DocumentName
+            Return If(IsNothing(_DocumentName), _ERR_NOWORDDOC, _DocumentName)
         End Get
     End Property
     Public ReadOnly Property getProcedureOrigineErreur() As String
         Get
-            Return _errSubName
+            Return _errModule
         End Get
     End Property
     Public ReadOnly Property getErreurSource() As String
         Get
-            Return _ex
+            Return _errSource
         End Get
     End Property
 
@@ -26,12 +28,12 @@
     ''' </summary>
     ''' <param name="ex">Exception d'origine</param>
     ''' <param name="errmsg">Message d'erreur</param>
-    ''' <param name="subName">System.Reflection.MethodBase.GetCurrentMethod().Name</param>
+    ''' <param name="errModule">System.Reflection.MethodBase.GetCurrentMethod().Name</param>
     ''' <remarks></remarks>
-    Sub New(ByVal errmsg As String, ByVal subName As String, Optional ByVal ex As String = "Pas d'erreur source")
+    Sub New(ByVal errmsg As String, ByVal errModule As String, Optional ByVal ex As Exception = Nothing)
         MyBase.New(errmsg)
-        _errSubName = subName
-        _ex = ex
+        _errModule = errModule
+        _errSource = ""
         _DocumentName = WReader.getDocName
         WReader.Dispose()
     End Sub
