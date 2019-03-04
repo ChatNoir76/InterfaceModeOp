@@ -174,38 +174,38 @@ Partial Class vuePrincipale
         '
         Me.TSMI_Outils_AuditTrails.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Outils_AuditTrails_Impression, Me.TSMI_Outils_AuditTrails_Exportation, Me.TSMI_Outils_AuditTrails_Importation, Me.TSMI_Outils_AuditTrails_Paramètres})
         Me.TSMI_Outils_AuditTrails.Name = "TSMI_Outils_AuditTrails"
-        Me.TSMI_Outils_AuditTrails.Size = New System.Drawing.Size(163, 22)
-        Me.TSMI_Outils_AuditTrails.Text = "Base de Données"
+        Me.TSMI_Outils_AuditTrails.Size = New System.Drawing.Size(134, 22)
+        Me.TSMI_Outils_AuditTrails.Text = "Audit Trails"
         '
         'TSMI_Outils_AuditTrails_Impression
         '
         Me.TSMI_Outils_AuditTrails_Impression.Name = "TSMI_Outils_AuditTrails_Impression"
-        Me.TSMI_Outils_AuditTrails_Impression.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Outils_AuditTrails_Impression.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Outils_AuditTrails_Impression.Text = "Impression"
         '
         'TSMI_Outils_AuditTrails_Exportation
         '
         Me.TSMI_Outils_AuditTrails_Exportation.Name = "TSMI_Outils_AuditTrails_Exportation"
-        Me.TSMI_Outils_AuditTrails_Exportation.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Outils_AuditTrails_Exportation.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Outils_AuditTrails_Exportation.Text = "Exportation"
         '
         'TSMI_Outils_AuditTrails_Importation
         '
         Me.TSMI_Outils_AuditTrails_Importation.Name = "TSMI_Outils_AuditTrails_Importation"
-        Me.TSMI_Outils_AuditTrails_Importation.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Outils_AuditTrails_Importation.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Outils_AuditTrails_Importation.Text = "Importation"
         '
         'TSMI_Outils_AuditTrails_Paramètres
         '
         Me.TSMI_Outils_AuditTrails_Paramètres.Name = "TSMI_Outils_AuditTrails_Paramètres"
-        Me.TSMI_Outils_AuditTrails_Paramètres.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Outils_AuditTrails_Paramètres.Size = New System.Drawing.Size(137, 22)
         Me.TSMI_Outils_AuditTrails_Paramètres.Text = "Paramètres"
         '
         'TSMI_Outils_Parametre
         '
         Me.TSMI_Outils_Parametre.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Outils_Parametre_DroitUser})
         Me.TSMI_Outils_Parametre.Name = "TSMI_Outils_Parametre"
-        Me.TSMI_Outils_Parametre.Size = New System.Drawing.Size(163, 22)
+        Me.TSMI_Outils_Parametre.Size = New System.Drawing.Size(134, 22)
         Me.TSMI_Outils_Parametre.Text = "Paramètres"
         '
         'TSMI_Outils_Parametre_DroitUser
@@ -282,6 +282,7 @@ Partial Class vuePrincipale
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(390, 366)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GB_Main)

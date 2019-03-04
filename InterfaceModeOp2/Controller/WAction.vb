@@ -429,7 +429,7 @@ Module WAction
 
     'appel de la zone d'affichage de la vue principale
     Private Sub Info(ByVal monTexte As String, Optional ByVal Serapation As Boolean = False)
-        vuePrincipale.getVP.AffichageTexteVuePrin(monTexte, Serapation)
+        vuePrincipale.getVP.Info(monTexte, Serapation)
     End Sub
 
 

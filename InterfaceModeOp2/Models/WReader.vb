@@ -139,7 +139,6 @@ Public Class WReader
             Try
                 'décryptage
                 Dim monCRP As String = Decrypter(fichier)
-
                 'Ouverture du word décrypté
                 _myDoc = _myWord.Documents.Add(monCRP, True, True, False)
 
@@ -150,6 +149,9 @@ Public Class WReader
             End Try
         Else
             Try
+                'OBSOLETE test pour pb macro de stockage => inefficace
+                'File.SetAttributes(fichier, FileAttributes.Normal)
+
                 'Ouverture d'un doc word
                 _myDoc = _myWord.Documents.Add(fichier, True, True, False)
             Catch ex As Exception
@@ -159,11 +161,10 @@ Public Class WReader
         Try
             'déprotection du document
             If _myDoc.ProtectionType <> Word.WdProtectionType.wdNoProtection Then
-                Unlocked(Configuration.getInstance.GetValueFromKey(service.LISTE_MDP_PRODUCTION).Split("|"))
+                Unlocked(service.LISTE_MDP_PRODUCTION.Split("|"))
             End If
-
             'le doc est non visible
-            visible = False
+            _myWord.Visible = False
 
             'récupération des infos des signets
             extractionFields()
@@ -240,7 +241,7 @@ Public Class WReader
             If crypter Then
                 Cryptage(destination)
             Else
-                _myDoc.SaveAs2(destination, ReadOnlyRecommended:=True)
+                _myDoc.SaveAs2(destination)
             End If
         Catch ex As Exception
             Throw New WReaderException("Erreur lors de la création d'une copie (" & destination & ")", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)

@@ -33,7 +33,11 @@
     Sub New(ByVal errmsg As String, ByVal errModule As String, Optional ByVal ex As Exception = Nothing)
         MyBase.New(errmsg)
         _errModule = errModule
-        _errSource = ""
+        If IsNothing(ex) Then
+            _errSource = _ERR_NOSOURCE
+        Else
+            _errSource = ex.Message
+        End If
         _DocumentName = WReader.getDocName
         WReader.Dispose()
     End Sub

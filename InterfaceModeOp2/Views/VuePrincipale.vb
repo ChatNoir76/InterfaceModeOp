@@ -18,6 +18,9 @@ Public Class vuePrincipale
         Me.TXT_LoginUtilisateur.Text = Initialisation.__User.getNom
         Me.TXT_Droits.Text = Initialisation.__User.getDroitReel.ToString
         Me.TXT_Action.Text = "Initialisation OK"
+#If DEBUG Then
+        Me.Info("--[MODE DEBUG]--", True)
+#End If
     End Sub
 
     Private Sub GestionMenuDroitUser()
@@ -43,7 +46,7 @@ Public Class vuePrincipale
                 GestionMenu(True)
             Case Else
                 GestionMenu(False)
-                AffichageTexteVuePrin("Droits indéterminés")
+                Info("Droits indéterminés")
         End Select
         GestionMenu(True, TSMI_Info)
     End Sub
@@ -95,8 +98,11 @@ Public Class vuePrincipale
     ''' <param name="monTexte">Information à ajouter</param>
     ''' <param name="NouveauBloc">Défini un nouveau bloc d'information et permet d'effacer le TextBox si surchargé</param>
     ''' <remarks></remarks>
-    Public Sub AffichageTexteVuePrin(ByRef monTexte As String, Optional ByRef NouveauBloc As Boolean = False)
+    Public Sub Info(ByRef monTexte As String, Optional ByRef NouveauBloc As Boolean = False)
         Dim Affichage As New System.Text.StringBuilder(monTexte)
+#If DEBUG Then
+        NouveauBloc = False
+#End If
         With Affichage
             .AppendLine()
             If NouveauBloc Then
@@ -158,6 +164,4 @@ Public Class vuePrincipale
         Me.TXT_Action.Size = New Size(Me.Width - 44, Me.Height - 210)
     End Sub
 #End Region
-
-
 End Class
