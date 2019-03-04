@@ -42,6 +42,21 @@ InterfaceModeOp2
  </summary>
 	<param name="TConsultation">type de consultation</param>
 	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.WReader.method.open">
+	<summary>
+ utilise la méthode Documents.Open sans ouverture des signets
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.WReader.method.add">
+	<summary>
+ utilise la méthode Documents.Add avec ouverture des signets
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.WReader.method">
+	<summary>
+ Détermine la méthode d'ouverture du document Word
+ </summary>
+	<remarks></remarks>
 </member><member name="P:InterfaceModeOp2.WReader.isOpen">
 	<summary>
  Détermine si un document word est ouvert
@@ -63,7 +78,7 @@ InterfaceModeOp2
 	<value></value>
 	<returns></returns>
 	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.WReader.OpenWord(System.String)">
+</member><member name="M:InterfaceModeOp2.WReader.OpenWord(System.String,InterfaceModeOp2.WReader.method)">
 	<summary>
  Méthode d'ouverture des modes opératoires
  </summary>

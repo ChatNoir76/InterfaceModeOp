@@ -16,6 +16,22 @@ Public Class WReader
     Private Const _ERR_NOINSTANCE As String = "Il n'y a aucun document word ouvert"
     Private Const _sKey As String = "f4ty52uG"
 
+    ''' <summary>
+    ''' Détermine la méthode d'ouverture du document Word
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Enum method
+        ''' <summary>
+        ''' utilise la méthode Documents.Open sans ouverture des signets
+        ''' </summary>
+        ''' <remarks></remarks>
+        open = 0
+        ''' <summary>
+        ''' utilise la méthode Documents.Add avec ouverture des signets
+        ''' </summary>
+        ''' <remarks></remarks>
+        add = 1
+    End Enum
 
 #Region "Property"
     Public Shared ReadOnly Property getDocName() As String
@@ -114,7 +130,7 @@ Public Class WReader
     ''' </summary>
     ''' <param name="fichier">Chemin fichier Word (ou crp)</param>
     ''' <remarks></remarks>
-    Public Sub OpenWord(ByVal fichier As String)
+    Public Sub OpenWord(ByVal fichier As String, ByVal methode As method)
         Try
             'ferme le word en cours
             If Not NoInstance() Then
@@ -140,10 +156,10 @@ Public Class WReader
                 'décryptage
                 Dim monCRP As String = Decrypter(fichier)
                 'Ouverture du word décrypté
-                _myDoc = _myWord.Documents.Add(monCRP, True, True, False)
+                ouverture(monCRP, methode)
 
                 'Suppression du flux
-                File.Delete(monCRP)
+                If methode = method.add Then File.Delete(monCRP)
             Catch ex As Exception
                 Throw New WReaderException("Erreur lors du processus de décryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
             End Try
@@ -153,7 +169,7 @@ Public Class WReader
                 'File.SetAttributes(fichier, FileAttributes.Normal)
 
                 'Ouverture d'un doc word
-                _myDoc = _myWord.Documents.Add(fichier, True, True, False)
+                ouverture(fichier, methode)
             Catch ex As Exception
                 Throw New WReaderException("Erreur lors de l'ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
             End Try
@@ -171,6 +187,15 @@ Public Class WReader
         Catch ex As Exception
             Throw New WReaderException("Erreur lors du traitement post ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
+    End Sub
+
+    Private Sub ouverture(ByVal fichier As String, ByVal methode As method)
+        If methode = method.add Then
+            _myDoc = _myWord.Documents.Add(fichier, True, True, False)
+        Else
+            _myDoc = _myWord.Documents.Open(fichier)
+            _myWord.Visible = False
+        End If
     End Sub
 
     ''' <summary>
@@ -595,7 +620,7 @@ no:
     Private Sub Cryptage(ByRef destinationCRP As String)
         Dim fichierInput As String = Path.GetTempFileName
         Try
-            _myDoc.SaveAs2(fichierInput, ReadOnlyRecommended:=True)
+            _myDoc.SaveAs2(fichierInput)
             'close pour permettre l'acces à fsInput
             _myDoc.Close()
         Catch ex As Exception
@@ -633,7 +658,7 @@ no:
     ''' <returns>Le chemin du fichier décrypté</returns>
     ''' <remarks></remarks>
     Private Function Decrypter(ByVal WordCrypter As String) As String
-        Dim Destination As String = Path.GetTempPath & Path.PathSeparator & Path.GetFileNameWithoutExtension(WordCrypter)
+        Dim Destination As String = Path.GetTempPath & Path.GetFileNameWithoutExtension(WordCrypter)
         Dim DES As New Security.Cryptography.DESCryptoServiceProvider()
         DES.Key() = ASCIIEncoding.ASCII.GetBytes(_sKey)
         DES.IV = ASCIIEncoding.ASCII.GetBytes(_sKey)

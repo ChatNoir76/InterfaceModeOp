@@ -157,7 +157,7 @@ Module WAction
 
         Info(String.Format(_GEN_EXPORTATION_3, FileExp.Result(BoxOpenFile.Donne.FichierSeul)))
         With WReader.GetMyWord
-            .OpenWord(FileExp.Resultat)
+            .OpenWord(FileExp.Resultat, WReader.method.open)
 
             'remplacement en entete
             If TypeExport = TypeModeOp.Archive Then
@@ -222,7 +222,7 @@ Module WAction
         Else
             Info(String.Format(_GEN_ARCHIVAGE_4, OpenFileDiag.Result(BoxOpenFile.Donne.FichierSeul)))
             With WReader.GetMyWord
-                .OpenWord(OpenFileDiag.Resultat)
+                .OpenWord(OpenFileDiag.Resultat, WReader.method.open)
 
                 'remplacement mot en entête
                 Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, service.ET_DUPLICATA, service.ET_PERIME))
@@ -301,7 +301,7 @@ Module WAction
 
         Info(String.Format(_GEN_IMPORTATION_3, FileC.Result(BoxOpenFile.Donne.FichierSeul)))
         With WReader.GetMyWord
-            .OpenWord(FileC.Resultat)
+            .OpenWord(FileC.Resultat, WReader.method.open)
 
             If Not .RechercheEnTete(service.ET_ORIGINAL) Then
                 Throw New WActionException(String.Format(_MSG_ERR_EX_2, service.ET_ORIGINAL))
@@ -354,7 +354,7 @@ Module WAction
         Else
             Info(String.Format(_GEN_IMPRESSION_3, OpenFileDiag.Result(BoxOpenFile.Donne.FichierSeul)))
             With WReader.GetMyWord
-                .OpenWord(OpenFileDiag.Resultat)
+                .OpenWord(OpenFileDiag.Resultat, WReader.method.add)
 
                 'info à récup d'une bdd
                 Dim liste2 As New List(Of String)
@@ -417,7 +417,7 @@ Module WAction
         Else
             Info(String.Format(_GEN_CONSULTATION_3, OpenFileDiag.Result(BoxOpenFile.Donne.FichierSeul)))
             With WReader.GetMyWord
-                .OpenWord(OpenFileDiag.Resultat)
+                .OpenWord(OpenFileDiag.Resultat, WReader.method.add)
                 Info(_GEN_INFO_FILIGRANE)
                 .Filigrane(monFiligrane, _Rouge)
                 Info(_GEN_INFO_PDF)
