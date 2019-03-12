@@ -6,12 +6,12 @@ Public Class DAOSpecificTransaction
     Public Sub dbInsertATPrinter(ByRef arg_auditrails As auditrails, ByRef arg_impression As Impression, ByRef arg_signets As List(Of signets))
 
         'pour une transaction SQLite
-        Using tr As SQLiteTransaction = DAOFactory.getCon.BeginTransaction
+        Using tr As SQLiteTransaction = DAOFactory.getConnexion.BeginTransaction
             Dim DAO_At As New DAOAuditrails
             Dim DAO_Imp As New DAOImpression
             Dim DAO_sig As New DAOSignet
 
-            Dim cmd_AT As SQLiteCommand = DAOFactory.getCon.CreateCommand
+            Dim cmd_AT As SQLiteCommand = DAOFactory.getConnexion.CreateCommand
             With cmd_AT
                 Try
                     'insertion dans la table audit trails
@@ -32,7 +32,7 @@ Public Class DAOSpecificTransaction
                 End If
             End With
 
-            Dim cmd_IMP As SQLiteCommand = DAOFactory.getCon.CreateCommand
+            Dim cmd_IMP As SQLiteCommand = DAOFactory.getConnexion.CreateCommand
             With cmd_IMP
                 Try
                     'insertion dans la table audit trails
@@ -53,7 +53,7 @@ Public Class DAOSpecificTransaction
 
             'insertion des signets
             For Each signet As signets In arg_signets
-                Dim cmd_signet As SQLiteCommand = DAOFactory.getCon.CreateCommand
+                Dim cmd_signet As SQLiteCommand = DAOFactory.getConnexion.CreateCommand
                 With cmd_signet
                     Try
                         signet.idImpression = arg_impression.idImpression

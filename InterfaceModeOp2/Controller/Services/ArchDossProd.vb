@@ -60,11 +60,11 @@ Public Class ArchDossProd
 
         Dim access As AccessFolder = AccessFolder.Probleme
 
-        On Error GoTo endOfTest
+        On Error GoTo EndOfFile
 
         If Not Directory.Exists(nomDossier) Then Throw New Exception
 
-        access = AccessFolder.Ignore
+            access = AccessFolder.Ignore
         If nomDossier.EndsWith(NO_REP) Then Throw New Exception
 
         'test de l'acces au dossier
@@ -77,10 +77,8 @@ Public Class ArchDossProd
         fsread.Dispose()
         File.Delete(nomDossier & NOM_TEST)
         access = AccessFolder.Ecriture
-
-endOfTest:
+EndOfFile:
         Return access
-
     End Function
 
     ''' <summary>

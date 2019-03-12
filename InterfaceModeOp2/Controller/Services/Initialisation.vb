@@ -3,6 +3,7 @@
 Public Class Initialisation
     'à l'initialisation récupère les données utilisateurs (nom windows)
     Public __User As New UtilisateurOLD
+    Private _openBT As Boolean = True
 
     Sub New()
 
@@ -20,10 +21,25 @@ Public Class Initialisation
     End Sub
 
     Private Sub Init()
-        'détermine les droits de l'utilisateur sur les dossiers de prod
-        __User.setArchDossProd = New ArchDossProd()
-        Me.BT_Open.Visible = False
-
+        Try
+            'détermine les droits de l'utilisateur sur les dossiers de prod
+            __User.setArchDossProd = New ArchDossProd()
+            Me.BT_Open.Visible = False
+        Catch ex As Exception
+            MessageBox.Show("Erreur lors de la détermination des droits utilisateurs sur les dossiers du répertoire de production" & vbNewLine & ex.Message, "Erreur à l'initialisation", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+        End Try
+        Try
+            'détermine les droits de l'utilisateur sur les dossiers de prod
+            If Not System.IO.File.Exists(Configuration.getInstance.GetValueFromKey(Singleton.DBFOLDER)) Then
+                Throw New Exception("La base de donnée n'a pas été trouvée")
+            End If
+            If IsNothing(DAOFactory.getConnexion()) Then
+                Throw New Exception("Pas de connexion avec la base de donnée")
+            End If
+        Catch ex As Exception
+            _openBT = False
+            MessageBox.Show("Erreur lors de la connexion à la base de donnée" & vbNewLine & ex.Message, "Erreur à l'initialisation", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+        End Try
     End Sub
 
     Private Sub ChangementConfiguration()
@@ -62,7 +78,9 @@ Public Class Initialisation
         TXT_PC.Text = __User.getPC
         TXT_Droit.Text = __User.getDroitReel.ToString
 
-        Me.BT_Open.Visible = __User.getDroitReel > service.DroitUser.NoUse
+        If _openBT Then
+            Me.BT_Open.Visible = __User.getDroitReel > service.DroitUser.NoUse
+        End If
 
     End Sub
 

@@ -6,41 +6,107 @@ InterfaceModeOp2
 </name>
 </assembly>
 <members>
-<member name="M:InterfaceModeOp2.Configuration.getData">
+<member name="M:InterfaceModeOp2.IDAO_Histo`1.dbInsert(`0@)">
 	<summary>
- Récupère les combinaisons clef / valeur du fichier ini
+ Enregistre un nouvel objet de type Histo dans la base de données
  </summary>
-	<returns>une liste de combinaison clef / valeur</returns>
+	<param name="value">objet de type Histo à enregistrer</param>
 	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.Configuration.GetValueFromKey(System.String)">
+</member><member name="M:InterfaceModeOp2.IDAO_Histo`1.dbGetAllStatutById(System.Int32@)">
 	<summary>
- Retourne la valeur d'une clef passé en paramètre
+ récupère l'historique d'un objet
  </summary>
-	<param name="Clef"></param>
-	<returns>soit la valeur, soit nothing</returns>
+</member><member name="M:InterfaceModeOp2.IDAO_Histo`1.dbGetLastStatutById(System.Int32@)">
+	<summary>
+ récupère le dernier statut d'un objet
+ </summary>
+</member><member name="M:InterfaceModeOp2.IDAO_Histo`1.dbUpdate(`0@)">
+	<summary>
+ Mise à jour du commentaire de l'historique
+ </summary>
+	<param name="value">Objet de type Histo à mettre à jour</param>
 	<remarks></remarks>
-</member><member name="T:InterfaceModeOp2.Configuration">
+</member><member name="T:InterfaceModeOp2.IDAO_Histo`1">
 	<summary>
- Lecture et enregistrement des variables du fichier ini
- Variables d'environnements de l'interface
+ Interface pour les tables/bean commençant par histo_
+ </summary>
+	<typeparam name="Histo">nom de l'objet histo</typeparam>
+	<remarks></remarks>
+</member><member name="P:InterfaceModeOp2.Singleton.connString">
+	<summary>
+ chaine de connexion à la base de données
+ </summary>
+	<value></value>
+	<returns>Chaine de connexion SQLite</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Singleton.#ctor">
+	<summary>
+ Constructeur en mode singleton
  </summary>
 	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.WAction.Importation">
+</member><member name="M:InterfaceModeOp2.Singleton.getInstance">
 	<summary>
- Permet l'importation d'un mode op pour utilisation en production dossier E 
- et copie dans un dossier de sauvegarde B en lecture seule
+ Récupération de l'instance de connexion
  </summary>
-	<remarks>Le fichier source est détruit à l'issue de cette manipulation</remarks>
-</member><member name="M:InterfaceModeOp2.WAction.Impression">
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Singleton.close">
 	<summary>
- Permet l'impression d'un mode op pour utilisation en production
+ fermeture de la connexion
  </summary>
 	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.WAction.Consultation(InterfaceModeOp2.WAction.TypeModeOp)">
+</member><member name="T:InterfaceModeOp2.Singleton">
 	<summary>
- Permet la consultation d'un mode op
+ Singleton de connexion base SQLite
  </summary>
-	<param name="TConsultation">type de consultation</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2._Service.DateToString(System.DateTime)">
+	<summary>
+ Renvoie la date au format Text SQLite
+ </summary>
+</member><member name="M:InterfaceModeOp2.auditrails.#ctor">
+	<summary>
+ Un id à Zéro signifie "pas de vérif"
+ </summary>
+</member><member name="P:InterfaceModeOp2.ArchDossProd.getAccess(InterfaceModeOp2.service.DossierProd)">
+	<summary>
+ Retourne l'accès d'un dossier qui a été déterminé au préalable
+ </summary>
+	<param name="monDossier"></param>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.#ctor">
+	<summary>
+ Détermination en fonction des droits directs sur les dossiers Prod
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.#ctor(System.String)">
+	<summary>
+ Prends le format ?01?22 par exemple
+ </summary>
+	<param name="CodeIni">le code en lui meme (?00?11)</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.getAccessFromFolder(System.String)">
+	<summary>
+ Réalise des test en accès / lecture / écriture sur un dossier passé en paramètre
+ </summary>
+	<param name="nomDossier"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.ToAccessFolder(System.Char)">
+	<summary>
+ Converti les caractères provenant d'une string en élément accessFolder
+ </summary>
+	<param name="index">Elément d'une chaine de caractère du type 00?11?</param>
+	<returns>L'équivalent en type AccessFolder</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.isEnoughFor(InterfaceModeOp2.service.DroitUser)">
+	<summary>
+ Vérifie si les droits en ecriture ou lecture sont suffisant pour avoir les droitUser passé en parametre
+ </summary>
+	<param name="Droit">le droit voulu qui est testé</param>
+	<returns>True si l'architecture permet ce droit</returns>
 	<remarks></remarks>
 </member><member name="F:InterfaceModeOp2.WReader.method.open">
 	<summary>
@@ -204,6 +270,50 @@ InterfaceModeOp2
  </summary>
 	<returns>true si aucune instance sinon false</returns>
 	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReaderException.#ctor(System.String,System.String,System.Exception)">
+	<summary>
+ Permet l'identification précise d'une erreur généré par WReader
+ </summary>
+	<param name="ex">Exception d'origine</param>
+	<param name="errmsg">Message d'erreur</param>
+	<param name="errModule">System.Reflection.MethodBase.GetCurrentMethod().Name</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Configuration.getData">
+	<summary>
+ Récupère les combinaisons clef / valeur du fichier ini
+ </summary>
+	<returns>une liste de combinaison clef / valeur</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Configuration.GetValueFromKey(System.String)">
+	<summary>
+ Retourne la valeur d'une clef passé en paramètre
+ </summary>
+	<param name="Clef"></param>
+	<returns>soit la valeur, soit nothing</returns>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Configuration">
+	<summary>
+ Lecture et enregistrement des variables du fichier ini
+ Variables d'environnements de l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WAction.Importation">
+	<summary>
+ Permet l'importation d'un mode op pour utilisation en production dossier E 
+ et copie dans un dossier de sauvegarde B en lecture seule
+ </summary>
+	<remarks>Le fichier source est détruit à l'issue de cette manipulation</remarks>
+</member><member name="M:InterfaceModeOp2.WAction.Impression">
+	<summary>
+ Permet l'impression d'un mode op pour utilisation en production
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WAction.Consultation(InterfaceModeOp2.WAction.TypeModeOp)">
+	<summary>
+ Permet la consultation d'un mode op
+ </summary>
+	<param name="TConsultation">type de consultation</param>
+	<remarks></remarks>
 </member><member name="P:InterfaceModeOp2.My.Resources.Resources.ResourceManager">
 	<summary>
   Returns the cached ResourceManager instance used by this class.
@@ -267,54 +377,6 @@ InterfaceModeOp2
  Contient toutes les constantes et les énumérations
  Contient également toutes les méthodes statiques
  </summary>
-	<remarks></remarks>
-</member><member name="P:InterfaceModeOp2.ArchDossProd.getAccess(InterfaceModeOp2.service.DossierProd)">
-	<summary>
- Retourne l'accès d'un dossier qui a été déterminé au préalable
- </summary>
-	<param name="monDossier"></param>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.ArchDossProd.#ctor">
-	<summary>
- Détermination en fonction des droits directs sur les dossiers Prod
- </summary>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.ArchDossProd.#ctor(System.String)">
-	<summary>
- Prends le format ?01?22 par exemple
- </summary>
-	<param name="CodeIni">le code en lui meme (?00?11)</param>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.ArchDossProd.getAccessFromFolder(System.String)">
-	<summary>
- Réalise des test en accès / lecture / écriture sur un dossier passé en paramètre
- </summary>
-	<param name="nomDossier"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.ArchDossProd.ToAccessFolder(System.Char)">
-	<summary>
- Converti les caractères provenant d'une string en élément accessFolder
- </summary>
-	<param name="index">Elément d'une chaine de caractère du type 00?11?</param>
-	<returns>L'équivalent en type AccessFolder</returns>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.ArchDossProd.isEnoughFor(InterfaceModeOp2.service.DroitUser)">
-	<summary>
- Vérifie si les droits en ecriture ou lecture sont suffisant pour avoir les droitUser passé en parametre
- </summary>
-	<param name="Droit">le droit voulu qui est testé</param>
-	<returns>True si l'architecture permet ce droit</returns>
-	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.WReaderException.#ctor(System.String,System.String,System.Exception)">
-	<summary>
- Permet l'identification précise d'une erreur généré par WReader
- </summary>
-	<param name="ex">Exception d'origine</param>
-	<param name="errmsg">Message d'erreur</param>
-	<param name="errModule">System.Reflection.MethodBase.GetCurrentMethod().Name</param>
 	<remarks></remarks>
 </member><member name="M:InterfaceModeOp2.Initialisation.BT_Open_Click">
 	<summary>

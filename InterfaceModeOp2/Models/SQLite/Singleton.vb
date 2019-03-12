@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SQLite
+Imports System.IO
 
 ''' <summary>
 ''' Singleton de connexion base SQLite
@@ -6,7 +7,8 @@
 ''' <remarks></remarks>
 Public Class Singleton
     'Paramètres de connexion
-    Private Const DATASOURCE = "Data Source=BDDModeOp.db3;"
+    Private Const DATASOURCE = "Data Source="
+    Public Const DBFOLDER = "dbFolder"
     Private Const VERSION = "Version=3;"
     Private Const PASSWORD = "Password="
     Private pwd As String = ""
@@ -23,10 +25,11 @@ Public Class Singleton
     ''' <remarks></remarks>
     Private ReadOnly Property connString() As String
         Get
+            Dim DBFILE = Configuration.getInstance.GetValueFromKey(DBFOLDER)
             If pwd.Equals(String.Empty) Then
-                Return DATASOURCE & VERSION
+                Return DATASOURCE & DBFILE & VERSION
             Else
-                Return DATASOURCE & VERSION & PASSWORD & pwd
+                Return DATASOURCE & DBFILE & VERSION & PASSWORD & pwd
             End If
         End Get
     End Property
@@ -44,7 +47,6 @@ Public Class Singleton
             _Connexion.Open()
 
             '_Connexion.ChangePassword("newPwd")
-            
         Catch ex As Exception
             Throw New DAOException("Problème lors de la connexion à la base de données", ex)
         End Try
@@ -56,13 +58,15 @@ Public Class Singleton
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Shared Function getInstance() As SQLiteConnection
-
-        If _Connexion Is Nothing Then
-            Instance = New Singleton()
-            'Console.WriteLine("Connexion bdd ok : " & vbNewLine & _Connexion.FileName)
-
-        End If
-        Return _Connexion
+        Try
+            If _Connexion Is Nothing Then
+                Instance = New Singleton()
+                'Console.WriteLine("Connexion bdd ok : " & vbNewLine & _Connexion.FileName)
+            End If
+            Return _Connexion
+        Catch ex As Exception
+            Return Nothing
+        End Try
     End Function
 
     ''' <summary>

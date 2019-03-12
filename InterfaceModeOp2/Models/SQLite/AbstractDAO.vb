@@ -22,7 +22,7 @@ Public MustInherit Class AbstractDAO
         Dim newID As Double = -1
 
         'définition de la requete
-        Using tr As SQLiteTransaction = DAOFactory.getCon.BeginTransaction
+        Using tr As SQLiteTransaction = DAOFactory.getConnexion.BeginTransaction
             Using requete As SQLiteCommand = New SQLiteCommand()
                 Try
                     'ajout dans la table
@@ -47,7 +47,7 @@ Public MustInherit Class AbstractDAO
 
     Protected Function DAOGetAll(ByVal RQ_SELECTALL As String) As SQLiteDataReader
         'définition de la requete
-        Using requete As SQLiteCommand = New SQLiteCommand(RQ_SELECTALL, DAOFactory.getCon)
+        Using requete As SQLiteCommand = New SQLiteCommand(RQ_SELECTALL, DAOFactory.getConnexion)
 
             Try
                 'execution de la requete
@@ -64,7 +64,7 @@ Public MustInherit Class AbstractDAO
 
     Protected Function DAOGetById(ByRef id As Integer, ByVal RQ_GETID As String) As SQLiteDataReader
         'définition de la requete
-        Using requete As SQLiteCommand = New SQLiteCommand(RQ_GETID, DAOFactory.getCon)
+        Using requete As SQLiteCommand = New SQLiteCommand(RQ_GETID, DAOFactory.getConnexion)
             Try
 
                 'définition des paramètres à mettre à jour
@@ -89,7 +89,7 @@ Public MustInherit Class AbstractDAO
 
     Protected Sub DAOUpdate(ByVal RQ_UPDATE As String, ByVal ParamArray ParamList() As SQLiteParameter)
         'définition de la requete
-        Using requete As SQLiteCommand = New SQLiteCommand(RQ_UPDATE, DAOFactory.getCon)
+        Using requete As SQLiteCommand = New SQLiteCommand(RQ_UPDATE, DAOFactory.getConnexion)
 
             Try
 
@@ -110,7 +110,7 @@ Public MustInherit Class AbstractDAO
         Dim SuppObj As Boolean = False
 
         'définition de la requete
-        Using requete As SQLiteCommand = New SQLiteCommand(RQ_DELETE, DAOFactory.getCon)
+        Using requete As SQLiteCommand = New SQLiteCommand(RQ_DELETE, DAOFactory.getConnexion)
 
             Try
 
