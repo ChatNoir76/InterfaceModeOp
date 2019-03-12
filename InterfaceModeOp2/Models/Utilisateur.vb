@@ -1,77 +1,63 @@
 ﻿Public Class Utilisateur
 
-    'nom utilisateur
-    Private _nomUser As String
-    'pc utilisateur
-    Private _nomPC As String
-    'droit architecture de production
-    Private _archiDossProd As ArchDossProd
-    'droit acces interface
-    Private _DroitReelInterface As service.DroitUser = service.DroitUser.Guest
-    'droit défini dans la base de données
-    Private _DroitPrevu As service.DroitUser = service.DroitUser.Guest
+    Private _idUtilisateur As Integer
+    Private _nomUtilisateur As String
 
 #Region "Property"
-    'GETTER
-    Public ReadOnly Property getNom() As String
+    Public Property idUtilisateur As Integer
         Get
-            Return _nomUser
+            Return _idUtilisateur
         End Get
-    End Property
-    Public ReadOnly Property getPC() As String
-        Get
-            Return _nomPC
-        End Get
-    End Property
-    Public ReadOnly Property getArchDossProd() As ArchDossProd
-        Get
-            Return _archiDossProd
-        End Get
-    End Property
-    Public ReadOnly Property getDroitPrevu() As service.DroitUser
-        Get
-            Return _DroitPrevu
-        End Get
-    End Property
-    Public ReadOnly Property getDroitReel() As service.DroitUser
-        Get
-            Return _DroitReelInterface
-        End Get
-    End Property
-
-    'SETTER
-    Public WriteOnly Property setArchDossProd As ArchDossProd
-        Set(ByVal value As ArchDossProd)
-            _archiDossProd = value
-            _DroitReelInterface = DetermineDroitReel()
+        Set(ByVal value As Integer)
+            _idUtilisateur = value
         End Set
     End Property
-    Public WriteOnly Property setDroitUser As service.DroitUser
-        Set(ByVal value As service.DroitUser)
-            _DroitPrevu = value
-            _DroitReelInterface = DetermineDroitReel()
-        End Set
+    Public ReadOnly Property getNomUtilisateur As String
+        Get
+            Return _nomUtilisateur
+        End Get
     End Property
 #End Region
 
+#Region "Constructeur"
     Sub New()
-        _nomUser = UCase(Environment.UserName)
-        _nomPC = UCase(Environment.MachineName)
+        Me._idUtilisateur = -1
+        Me._nomUtilisateur = Nothing
     End Sub
 
-    Private Function DetermineDroitReel() As service.DroitUser
-        If Not IsNothing(_archiDossProd) Then
+    Sub New(ByVal nomUtilisateur As String)
+        Me._idUtilisateur = -1
+        Me._nomUtilisateur = nomUtilisateur
+    End Sub
 
-            If _archiDossProd.isEnoughFor(_DroitPrevu) Then
-                Return _DroitPrevu
+    Sub New(ByVal idUtilisateur As Integer, ByVal nomUtilisateur As String)
+        Me._idUtilisateur = idUtilisateur
+        Me._nomUtilisateur = nomUtilisateur
+    End Sub
+#End Region
+
+#Region "Méthodes Publiques"
+    Public Overrides Function toString() As String
+        Dim description As New System.Text.StringBuilder("Utilisateur n°")
+        With description
+            .Append(Me._idUtilisateur)
+            If IsNothing(_nomUtilisateur) Then
+                .Append(" (pas de nom)")
+                .Append(" (pas de droit)")
             Else
-                Return If(_archiDossProd.isEnoughFor(service.DroitUser.Guest), service.DroitUser.Guest, service.DroitUser.NoUse)
+                .Append(" (nom : ").Append(Me._nomUtilisateur.ToUpper).Append(")")
             End If
 
-        End If
-
-        Return service.DroitUser.NoUse
-
+        End With
+        Return description.ToString
     End Function
+
+
+
+
+#End Region
+
+
+
 
 End Class

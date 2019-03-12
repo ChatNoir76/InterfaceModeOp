@@ -2,7 +2,7 @@
 
 Public Class Initialisation
     'à l'initialisation récupère les données utilisateurs (nom windows)
-    Public __User As New Utilisateur
+    Public __User As New UtilisateurOLD
 
     Sub New()
 
