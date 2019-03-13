@@ -9,8 +9,9 @@ Public Class Singleton
     'Paramètres de connexion
     Private Const DATASOURCE = "Data Source="
     Public Const DBFOLDER = "dbFolder"
-    Private Const VERSION = "Version=3;"
+    Private Const VERSION = "Version=3"
     Private Const PASSWORD = "Password="
+    Private Const SEPARATOR = ";"
     Private pwd As String = ""
 
     'Objet de type connexion SQLite
@@ -27,9 +28,9 @@ Public Class Singleton
         Get
             Dim DBFILE = Configuration.getInstance.GetValueFromKey(DBFOLDER)
             If pwd.Equals(String.Empty) Then
-                Return DATASOURCE & DBFILE & VERSION
+                Return DATASOURCE & DBFILE & SEPARATOR & VERSION
             Else
-                Return DATASOURCE & DBFILE & VERSION & PASSWORD & pwd
+                Return DATASOURCE & DBFILE & SEPARATOR & VERSION & SEPARATOR & PASSWORD & pwd
             End If
         End Get
     End Property

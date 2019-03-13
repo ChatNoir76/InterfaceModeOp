@@ -151,7 +151,7 @@ Public Class WReader
         End If
 
         'détermine si word crypté ou non puis ouverture
-        If Path.GetExtension(fichier).ToLower = service.EXT_SIMPLE_CRP Then
+        If Path.GetExtension(fichier).ToLower = Outils.EXT_SIMPLE_CRP Then
             Try
                 'décryptage
                 Dim monCRP As String = Decrypter(fichier)
@@ -177,7 +177,7 @@ Public Class WReader
         Try
             'déprotection du document
             If _myDoc.ProtectionType <> Word.WdProtectionType.wdNoProtection Then
-                Unlocked(service.LISTE_MDP_PRODUCTION.Split("|"))
+                Unlocked(Outils.LISTE_MDP_PRODUCTION.Split("|"))
             End If
             'le doc est non visible
             _myWord.Visible = False

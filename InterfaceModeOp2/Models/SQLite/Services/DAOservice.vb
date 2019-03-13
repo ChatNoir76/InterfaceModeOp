@@ -1,4 +1,4 @@
-﻿Module _Service
+﻿Module DAOservice
     ''' <summary>
     ''' Renvoie la date au format Text SQLite
     ''' </summary>

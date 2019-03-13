@@ -3,7 +3,7 @@
 ''' Contient également toutes les méthodes statiques
 ''' </summary>
 ''' <remarks></remarks>
-Public Class service
+Public Class Outils
 
 #Region "Enumération"
 

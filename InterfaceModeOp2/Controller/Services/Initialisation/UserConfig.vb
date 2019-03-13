@@ -1,4 +1,4 @@
-﻿Public Class UtilisateurOLD
+﻿Public Class UserConfig
 
     'nom utilisateur
     Private _nomUser As String
@@ -7,9 +7,9 @@
     'droit architecture de production
     Private _archiDossProd As ArchDossProd
     'droit acces interface
-    Private _DroitReelInterface As service.DroitUser = service.DroitUser.Guest
+    Private _DroitReelInterface As Outils.DroitUser = Outils.DroitUser.Guest
     'droit défini dans la base de données
-    Private _DroitPrevu As service.DroitUser = service.DroitUser.Guest
+    Private _DroitBDD As Outils.DroitUser = Outils.DroitUser.Guest
 
 #Region "Property"
     'GETTER
@@ -28,12 +28,12 @@
             Return _archiDossProd
         End Get
     End Property
-    Public ReadOnly Property getDroitPrevu() As service.DroitUser
+    Public ReadOnly Property getDroitBDD() As Outils.DroitUser
         Get
-            Return _DroitPrevu
+            Return _DroitBDD
         End Get
     End Property
-    Public ReadOnly Property getDroitReel() As service.DroitUser
+    Public ReadOnly Property getDroitReel() As Outils.DroitUser
         Get
             Return _DroitReelInterface
         End Get
@@ -46,9 +46,9 @@
             _DroitReelInterface = DetermineDroitReel()
         End Set
     End Property
-    Public WriteOnly Property setDroitUser As service.DroitUser
-        Set(ByVal value As service.DroitUser)
-            _DroitPrevu = value
+    Public WriteOnly Property setDroitUser As Outils.DroitUser
+        Set(ByVal value As Outils.DroitUser)
+            _DroitBDD = value
             _DroitReelInterface = DetermineDroitReel()
         End Set
     End Property
@@ -59,18 +59,18 @@
         _nomPC = UCase(Environment.MachineName)
     End Sub
 
-    Private Function DetermineDroitReel() As service.DroitUser
+    Private Function DetermineDroitReel() As Outils.DroitUser
         If Not IsNothing(_archiDossProd) Then
 
-            If _archiDossProd.isEnoughFor(_DroitPrevu) Then
-                Return _DroitPrevu
+            If _archiDossProd.isEnoughFor(_DroitBDD) Then
+                Return _DroitBDD
             Else
-                Return If(_archiDossProd.isEnoughFor(service.DroitUser.Guest), service.DroitUser.Guest, service.DroitUser.NoUse)
+                Return If(_archiDossProd.isEnoughFor(Outils.DroitUser.Guest), Outils.DroitUser.Guest, Outils.DroitUser.NoUse)
             End If
 
         End If
 
-        Return service.DroitUser.NoUse
+        Return Outils.DroitUser.NoUse
 
     End Function
 

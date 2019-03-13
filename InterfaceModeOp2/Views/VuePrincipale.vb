@@ -25,24 +25,24 @@ Public Class vuePrincipale
 
     Private Sub GestionMenuDroitUser()
         Select Case Initialisation.__User.getDroitReel
-            Case service.DroitUser.Guest 'consultation
+            Case Outils.DroitUser.Guest 'consultation
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur)
                 GestionMenu(False, TSMI_Utilisateur_Impression)
-            Case service.DroitUser.User 'GUEST +impression
+            Case Outils.DroitUser.User 'GUEST +impression
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur)
-            Case service.DroitUser.KeyUser 'USER +Export
+            Case Outils.DroitUser.KeyUser 'USER +Export
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur, TSMI_Administrateur)
                 GestionMenu(False, TSMI_Administrateur_Importation)
-            Case service.DroitUser.UserAQ 'USER +outils
+            Case Outils.DroitUser.UserAQ 'USER +outils
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur, TSMI_Outils)
                 GestionMenu(False, TSMI_Outils_Parametre_DroitUser)
-            Case service.DroitUser.AdminAQ '+ gestion droit utilisateur
+            Case Outils.DroitUser.AdminAQ '+ gestion droit utilisateur
                 GestionMenu(False, TSMI_Developpeur)
-            Case service.DroitUser.AdminDvlp
+            Case Outils.DroitUser.AdminDvlp
                 GestionMenu(True)
             Case Else
                 GestionMenu(False)
@@ -117,25 +117,25 @@ Public Class vuePrincipale
 
 #Region "Evenement Menu/interface"
     Private Sub TSMI_Utilisateur_Consultation_Officiel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Utilisateur_Consultation_Officiel.Click
-        WAction.doAction(service.Action.ConsultationOfficiel)
+        WAction.doAction(Outils.Action.ConsultationOfficiel)
     End Sub
     Private Sub TSMI_Utilisateur_Consultation_Archive_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Utilisateur_Consultation_Archive.Click
-        WAction.doAction(service.Action.ConsultationArchive)
+        WAction.doAction(Outils.Action.ConsultationArchive)
     End Sub
     Private Sub TSMI_Utilisateur_Impression_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Utilisateur_Impression.Click
-        WAction.doAction(service.Action.Impression)
+        WAction.doAction(Outils.Action.Impression)
     End Sub
     Private Sub TSMI_Administrateur_Importation_DepuisModif_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Administrateur_Importation_DepuisModif.Click
-        WAction.doAction(service.Action.Importation)
+        WAction.doAction(Outils.Action.Importation)
     End Sub
     Private Sub TSMI_Administrateur_Archivage_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Administrateur_Archivage.Click
-        WAction.doAction(service.Action.Archivage)
+        WAction.doAction(Outils.Action.Archivage)
     End Sub
     Private Sub TSMI_Administrateur_Exportation_Officiel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Administrateur_Exportation_Officiel.Click
-        WAction.doAction(service.Action.ExportationOfficiel)
+        WAction.doAction(Outils.Action.ExportationOfficiel)
     End Sub
     Private Sub TSMI_Administrateur_Exportation_Archive_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Administrateur_Exportation_Archive.Click
-        WAction.doAction(service.Action.ExportationArchive)
+        WAction.doAction(Outils.Action.ExportationArchive)
     End Sub
     Private Sub TSMI_Info_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Info.Click
         With My.Application.Info

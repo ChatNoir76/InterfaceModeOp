@@ -1,4 +1,4 @@
-﻿Module _Requetes
+﻿Module DAORequetes
     'Fonctions du CRUD statut_Vérification
     Public Const VRF_CREATE = "INSERT INTO statut_verification values (null,?)"
     Public Const VRF_READ = "SELECT * FROM statut_verification"
@@ -11,6 +11,7 @@
     Public Const USR_CREATE = "PRAGMA foreign_keys = ON;INSERT INTO utilisateur values (null,?)"
     Public Const USR_READ = "SELECT * FROM utilisateur"
     Public Const USR_READBYID = "SELECT * FROM utilisateur where id_utilisateur = ? "
+    Public Const USR_READBYNAME = "SELECT * FROM utilisateur where nom_utilisateur = ? "
     Public Const USR_UPDATE = "UPDATE utilisateur SET nom_utilisateur=? WHERE id_utilisateur=?"
     Public Const USR_DELETE = "DELETE FROM utilisateur WHERE id_utilisateur=?"
     Public Const USR_ERR_TYPEOF = "Utilisateur"

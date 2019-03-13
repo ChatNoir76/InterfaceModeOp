@@ -83,19 +83,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Services\Configuration.vb" />
-    <Compile Include="Controller\Services\Service.vb" />
+    <Compile Include="Controller\Services\Outils.vb" />
     <Compile Include="Controller\WAction.vb" />
     <Compile Include="Controller\WActionException.vb" />
-    <Compile Include="Controller\Services\Initialisation.vb">
+    <Compile Include="Views\Initialisation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controller\Services\Initialisation.Designer.vb">
+    <Compile Include="Views\Initialisation.Designer.vb">
       <DependentUpon>Initialisation.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controller\Services\ArchDossProd.vb" />
+    <Compile Include="Controller\Services\Initialisation\ArchDossProd.vb" />
     <Compile Include="Controller\Services\Color.vb" />
-    <Compile Include="Controller\Services\UtilisateurOLD.vb" />
+    <Compile Include="Controller\Services\Initialisation\UserConfig.vb" />
     <Compile Include="Controller\WReader.vb" />
     <Compile Include="Controller\WReaderException.vb" />
     <Compile Include="Models\Auditrails.vb" />
@@ -118,11 +118,11 @@
     <Compile Include="Models\SQLite\IDAO.vb" />
     <Compile Include="Models\SQLite\IDAO_Histo.vb" />
     <Compile Include="Models\SQLite\Singleton.vb" />
-    <Compile Include="Models\SQLite\_Requetes.vb" />
+    <Compile Include="Models\SQLite\Services\DAORequetes.vb" />
     <Compile Include="Models\StatutDroit.vb" />
     <Compile Include="Models\StatutVerification.vb" />
     <Compile Include="Models\Utilisateur.vb" />
-    <Compile Include="Models\_Service.vb" />
+    <Compile Include="Models\SQLite\Services\DAOservice.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -152,7 +152,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controller\Services\Initialisation.resx">
+    <EmbeddedResource Include="Views\Initialisation.resx">
       <DependentUpon>Initialisation.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">

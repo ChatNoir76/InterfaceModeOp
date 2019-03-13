@@ -134,6 +134,35 @@ Public MustInherit Class AbstractDAO
         End Using
     End Function
 
+    Protected Function DAOGetByString(ByRef str As String, ByVal RQ_GETByStr As String) As SQLiteDataReader
+        'définition de la requete
+        Using requete As SQLiteCommand = New SQLiteCommand(RQ_GETByStr, DAOFactory.getConnexion)
+            Try
+
+                'définition des paramètres à mettre à jour
+                Dim p1 = New SQLiteParameter()
+                p1.DbType = DbType.String
+                p1.Value = str
+
+                'intégration des paramètres à la requete
+                requete.Parameters.Add(p1)
+
+                'execution de la requete
+                requete.Prepare()
+                Dim reader As SQLiteDataReader = Nothing
+                Try
+                    reader = requete.ExecuteReader()
+                Catch ex As Exception
+                    Return Nothing
+                End Try
+                Return reader
+
+            Catch ex As Exception
+                Throw New DAOException(getErrorMsg(RQ_GETByStr, ex.Message, str))
+            End Try
+        End Using
+    End Function
+
     Private Overloads Function getErrorMsg(ByVal requete As String, ByVal errmsg As String, Optional ByVal id As Integer = -1)
         Dim msg As New System.Text.StringBuilder(requete)
         With msg

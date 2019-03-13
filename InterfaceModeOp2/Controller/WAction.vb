@@ -80,22 +80,22 @@ Module WAction
         Officiel = 1
     End Enum
 
-    Public Sub doAction(ByVal monAction As service.Action)
+    Public Sub doAction(ByVal monAction As Outils.Action)
         Try
             Select Case monAction
-                Case service.Action.ConsultationOfficiel
+                Case Outils.Action.ConsultationOfficiel
                     Consultation(TypeModeOp.Officiel)
-                Case service.Action.ConsultationArchive
+                Case Outils.Action.ConsultationArchive
                     Consultation(TypeModeOp.Archive)
-                Case service.Action.Impression
+                Case Outils.Action.Impression
                     Impression()
-                Case service.Action.Importation
+                Case Outils.Action.Importation
                     Importation()
-                Case service.Action.Archivage
+                Case Outils.Action.Archivage
                     Archivage()
-                Case service.Action.ExportationOfficiel
+                Case Outils.Action.ExportationOfficiel
                     Exportation(TypeModeOp.Officiel)
-                Case service.Action.ExportationArchive
+                Case Outils.Action.ExportationArchive
                     Exportation(TypeModeOp.Archive)
                 Case Else
                     Throw New WActionException("--Action Indéterminée--")
@@ -123,12 +123,12 @@ Module WAction
     Private Sub Exportation(ByVal TypeExport As TypeModeOp)
 
         Info(String.Format(_GEN_EXPORTATION_1, TypeExport.ToString), True)
-        Dim monDossierProd As service.DossierProd
+        Dim monDossierProd As Outils.DossierProd
 
         If TypeExport = TypeModeOp.Officiel Then
-            monDossierProd = service.DossierProd.DossierE
+            monDossierProd = Outils.DossierProd.DossierE
         ElseIf TypeExport = TypeModeOp.Archive Then
-            monDossierProd = service.DossierProd.DossierF
+            monDossierProd = Outils.DossierProd.DossierF
         Else
             Throw New WActionException(_MSG_ERR_EX_5)
         End If
@@ -136,7 +136,7 @@ Module WAction
         'FICHIER A EXPORTER
         Dim FileExp As New BoxOpenFile(Configuration.getInstance.getFullProdDir(monDossierProd))
         'le word à chercher sera crypté
-        FileExp.ChoixExtension(service.EXT_FICHIER_CRYPTER)
+        FileExp.ChoixExtension(Outils.EXT_FICHIER_CRYPTER)
         'description de la boite de dialogue
         FileExp.Description(_DESC_EXPORTATION, _Police, _Style)
         'affichage de la boite de dialogue
@@ -147,7 +147,7 @@ Module WAction
         End If
 
         'EMPLACEMENT D'EXPORTATION
-        Dim FileC As New BoxSaveFile(Configuration.getInstance.getFullProdDir(service.DossierProd.DossierC), System.IO.Path.GetFileNameWithoutExtension(FileExp.Resultat))
+        Dim FileC As New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierC), System.IO.Path.GetFileNameWithoutExtension(FileExp.Resultat))
         FileC.Description(_DESC_IMPORTATION_DOSS_C, _Police, _Style)
         FileC.ShowDialog()
         If IsNothing(FileC.Resultat) Then
@@ -161,21 +161,21 @@ Module WAction
 
             'remplacement en entete
             If TypeExport = TypeModeOp.Archive Then
-                Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, service.ET_PERIME, service.ET_ORIGINAL))
-                If Not .RemplaceTexteEntete(service.ET_PERIME, service.ET_ORIGINAL) Then
-                    Throw New WActionException(String.Format(_MSG_ERR_EX_1, service.ET_PERIME, service.ET_ORIGINAL))
+                Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, Outils.ET_PERIME, Outils.ET_ORIGINAL))
+                If Not .RemplaceTexteEntete(Outils.ET_PERIME, Outils.ET_ORIGINAL) Then
+                    Throw New WActionException(String.Format(_MSG_ERR_EX_1, Outils.ET_PERIME, Outils.ET_ORIGINAL))
                 End If
             Else
-                Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, service.ET_DUPLICATA, service.ET_ORIGINAL))
-                If Not .RemplaceTexteEntete(service.ET_DUPLICATA, service.ET_ORIGINAL) Then
-                    Throw New WActionException(String.Format(_MSG_ERR_EX_1, service.ET_DUPLICATA, service.ET_ORIGINAL))
+                Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, Outils.ET_DUPLICATA, Outils.ET_ORIGINAL))
+                If Not .RemplaceTexteEntete(Outils.ET_DUPLICATA, Outils.ET_ORIGINAL) Then
+                    Throw New WActionException(String.Format(_MSG_ERR_EX_1, Outils.ET_DUPLICATA, Outils.ET_ORIGINAL))
                 End If
             End If
 
             Info(_GEN_INFO_AJOUT_BASPAGE)
             .AjoutTexteBasPage(String.Format(_FOOTER_VERSION, "Exportation", Now))
 
-            Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(service.DossierProd.DossierC)))
+            Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(Outils.DossierProd.DossierC)))
             .CopyTo(FileC.Resultat)
 
             Info(_GEN_INFO_DEL_SOURCE)
@@ -192,9 +192,9 @@ Module WAction
         End If
 
         'MODE OP A ARCHIVER
-        Dim OpenFileDiag As New BoxOpenFile(Configuration.getInstance.getFullProdDir(service.DossierProd.DossierE))
+        Dim OpenFileDiag As New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE))
         'le word à chercher sera crypté
-        OpenFileDiag.ChoixExtension(service.EXT_FICHIER_CRYPTER)
+        OpenFileDiag.ChoixExtension(Outils.EXT_FICHIER_CRYPTER)
         'description de la boite de dialogue
         OpenFileDiag.Description(_DESC_ARCHIVAGE_DOSS_E, _Police, _Style)
         'affichage de la boite de dialogue
@@ -209,7 +209,7 @@ Module WAction
         End If
 
         'DOSSIER ENREGISTREMENT ARCHIVE
-        Dim FileF As New BoxSaveFile(Configuration.getInstance.getFullProdDir(service.DossierProd.DossierF), OpenFileDiag.Resultat)
+        Dim FileF As New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierF), OpenFileDiag.Resultat)
         FileF.Description(_DESC_ARCHIVAGE_DOSS_F, _Police, _Style)
         FileF.ShowDialog()
 
@@ -225,17 +225,17 @@ Module WAction
                 .OpenWord(OpenFileDiag.Resultat, WReader.method.open)
 
                 'remplacement mot en entête
-                Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, service.ET_DUPLICATA, service.ET_PERIME))
-                If Not .RemplaceTexteEntete(service.ET_DUPLICATA, service.ET_PERIME) Then
-                    Throw New WActionException(String.Format(_MSG_ERR_EX_1, service.ET_DUPLICATA, service.ET_PERIME))
+                Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, Outils.ET_DUPLICATA, Outils.ET_PERIME))
+                If Not .RemplaceTexteEntete(Outils.ET_DUPLICATA, Outils.ET_PERIME) Then
+                    Throw New WActionException(String.Format(_MSG_ERR_EX_1, Outils.ET_DUPLICATA, Outils.ET_PERIME))
                 End If
 
                 'ajout texte en bas de page
                 Info(_GEN_INFO_AJOUT_BASPAGE)
-                .AjoutTexteBasPage(String.Format(_FOOTER_VERSION, service.Action.Archivage.ToString, Now()), " #")
+                .AjoutTexteBasPage(String.Format(_FOOTER_VERSION, Outils.Action.Archivage.ToString, Now()), " #")
 
                 'copy vers dossier archive
-                Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(service.DossierProd.DossierF)))
+                Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(Outils.DossierProd.DossierF)))
                 .CopyTo(FileF.Resultat, True)
 
                 'Suppression de la source
@@ -256,9 +256,9 @@ Module WAction
         Dim NeedArchivage As DialogResult
 
         'DOSSIER IMPORTATION
-        Dim FileC As New BoxOpenFile(Configuration.getInstance.getFullProdDir(service.DossierProd.DossierC))
+        Dim FileC As New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierC))
         'le word à chercher sera sous format Word
-        FileC.ChoixExtension(service.EXT_FICHIER_WORD)
+        FileC.ChoixExtension(Outils.EXT_FICHIER_WORD)
         'description de la boite de dialogue
         FileC.Description(_DESC_IMPORTATION, _Police, _Style)
         'affichage de la boite de dialogue
@@ -270,7 +270,7 @@ Module WAction
         End If
 
         'DOSSIER ENREGISTREMENT SAUVEGARDE
-        Dim FileB As New BoxSaveFile(Configuration.getInstance.getFullProdDir(service.DossierProd.DossierB), FileC.Resultat)
+        Dim FileB As New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierB), FileC.Resultat)
         FileB.Description(_DESC_IMPORTATION_DOSS_B, _Police, _Style)
         FileB.ShowDialog()
         If IsNothing(FileB.Resultat) Then
@@ -279,7 +279,7 @@ Module WAction
         End If
 
         'DOSSIER ENREGISTREMENT OFFICIEL
-        Dim FileE As New BoxSaveFile(Configuration.getInstance.getFullProdDir(service.DossierProd.DossierE), FileC.Resultat, service.EXT_SIMPLE_CRP, BoxSaveFile.ext.Ajoute)
+        Dim FileE As New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE), FileC.Resultat, Outils.EXT_SIMPLE_CRP, BoxSaveFile.ext.Ajoute)
         FileE.Description(_DESC_IMPORTATION_DOSS_E, _Police, _Style)
         FileE.ShowDialog()
         If IsNothing(FileE.Resultat) Then
@@ -303,8 +303,8 @@ Module WAction
         With WReader.GetMyWord
             .OpenWord(FileC.Resultat, WReader.method.open)
 
-            If Not .RechercheEnTete(service.ET_ORIGINAL) Then
-                Throw New WActionException(String.Format(_MSG_ERR_EX_2, service.ET_ORIGINAL))
+            If Not .RechercheEnTete(Outils.ET_ORIGINAL) Then
+                Throw New WActionException(String.Format(_MSG_ERR_EX_2, Outils.ET_ORIGINAL))
             End If
 
             Info(_GEN_INFO_NETTBASPAGE)
@@ -313,17 +313,17 @@ Module WAction
 
             Info(_GEN_IMPORTATION_2)
             'Ajout de la date d'importation
-            .AjoutTexteBasPage(String.Format(_FOOTER_VERSION, service.Action.Importation.ToString(), Now()))
+            .AjoutTexteBasPage(String.Format(_FOOTER_VERSION, Outils.Action.Importation.ToString(), Now()))
 
-            Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(service.DossierProd.DossierB)))
+            Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(Outils.DossierProd.DossierB)))
             .CopyTo(FileB.Resultat)
 
-            Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, service.ET_ORIGINAL, service.ET_DUPLICATA))
-            If Not .RemplaceTexteEntete(service.ET_ORIGINAL, service.ET_DUPLICATA) Then
-                Throw New WActionException(String.Format(_MSG_ERR_EX_1, service.ET_ORIGINAL, service.ET_DUPLICATA))
+            Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, Outils.ET_ORIGINAL, Outils.ET_DUPLICATA))
+            If Not .RemplaceTexteEntete(Outils.ET_ORIGINAL, Outils.ET_DUPLICATA) Then
+                Throw New WActionException(String.Format(_MSG_ERR_EX_1, Outils.ET_ORIGINAL, Outils.ET_DUPLICATA))
             End If
 
-            Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(service.DossierProd.DossierE)))
+            Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(Outils.DossierProd.DossierE)))
             'copyTo + cryptage = doc word déchargé de la mémoire via myDoc.close()
             .CopyTo(FileE.Resultat, True)
 
@@ -340,10 +340,10 @@ Module WAction
     ''' <remarks></remarks>
     Private Sub Impression()
         Info(_GEN_IMPRESSION_1, True)
-        Dim OpenFileDiag As New BoxOpenFile(Configuration.getInstance.getFullProdDir(service.DossierProd.DossierE))
+        Dim OpenFileDiag As New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE))
 
         'le word à chercher sera crypté
-        OpenFileDiag.ChoixExtension(service.EXT_FICHIER_CRYPTER)
+        OpenFileDiag.ChoixExtension(Outils.EXT_FICHIER_CRYPTER)
         'description de la boite de dialogue
         OpenFileDiag.Description(_DESC_IMPRESSION, _Police, _Style)
         'affichage de la boite de dialogue
@@ -390,14 +390,14 @@ Module WAction
     Private Sub Consultation(ByVal TConsultation As TypeModeOp)
 
         Info(String.Format(_GEN_CONSULTATION_1, TConsultation.ToString), True)
-        Dim monDossierProd As service.DossierProd
+        Dim monDossierProd As Outils.DossierProd
         Dim monFiligrane As String
         Select Case TConsultation
             Case TypeModeOp.Archive
-                monDossierProd = service.DossierProd.DossierF
+                monDossierProd = Outils.DossierProd.DossierF
                 monFiligrane = _FILIGRANE_PERIME
             Case TypeModeOp.Officiel
-                monDossierProd = service.DossierProd.DossierE
+                monDossierProd = Outils.DossierProd.DossierE
                 monFiligrane = _FILIGRANE_NOTUSE
             Case Else
                 Throw New WActionException(_MSG_ERR_EX_4)
@@ -406,7 +406,7 @@ Module WAction
         Dim OpenFileDiag As New BoxOpenFile(Configuration.getInstance.getFullProdDir(monDossierProd))
 
         'le word à chercher sera crypté
-        OpenFileDiag.ChoixExtension(service.EXT_FICHIER_CRYPTER)
+        OpenFileDiag.ChoixExtension(Outils.EXT_FICHIER_CRYPTER)
         'description de la boite de dialogue
         OpenFileDiag.Description(_DESC_CONSULTATION, _Police, _Style)
         'affichage de la boite de dialogue

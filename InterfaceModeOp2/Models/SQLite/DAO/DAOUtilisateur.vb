@@ -3,6 +3,33 @@ Public Class DAOUtilisateur
     Inherits AbstractDAO
     Implements IDAO(Of Utilisateur)
 
+    Public Function dbGetByName(ByRef Name As String) As Utilisateur
+        Dim monUtilisateur As Utilisateur = Nothing
+
+        Try
+
+            Dim reader As SQLiteDataReader = MyBase.DAOGetByString(Name, USR_READBYNAME)
+
+            If IsNothing(reader) Then
+                Return Nothing
+            End If
+            'récupération du résultat
+            If reader.Read() Then
+                monUtilisateur = (New Utilisateur(reader(0).ToString,
+                                                   reader(1).ToString))
+            End If
+
+            'libération des objets
+            reader.Close()
+
+        Catch ex As Exception
+            Throw New DAOException(String.Format(ERR_GETID, USR_ERR_TYPEOF, Name), ex)
+        End Try
+
+        Return monUtilisateur
+
+    End Function
+
     Public Sub dbInsert(ByRef value As Utilisateur) Implements IDAO(Of Utilisateur).dbInsert
         Try
 
@@ -40,12 +67,6 @@ Public Class DAOUtilisateur
         Dim monUtilisateur As Utilisateur = Nothing
 
         Try
-
-            'définition des paramètres à mettre à jour
-            Dim p1 = New SQLiteParameter()
-            p1.DbType = DbType.Double
-            p1.Value = id
-
             Dim reader As SQLiteDataReader = MyBase.DAOGetById(id, USR_READBYID)
 
             'récupération du résultat

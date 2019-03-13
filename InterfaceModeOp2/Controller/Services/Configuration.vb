@@ -31,24 +31,24 @@ Public Class Configuration
             Dim WorkDir As New System.Text.StringBuilder(Directory.GetCurrentDirectory)
             With WorkDir
                 .Append("\")
-                .Append(Me.GetValueFromKey(service.INI_KEY_REPBASE))
+                .Append(Me.GetValueFromKey(Outils.INI_KEY_REPBASE))
             End With
             Return WorkDir.ToString
         End Get
     End Property
-    Public ReadOnly Property getFullProdDir(ByVal dossierProd As service.DossierProd) As String
+    Public ReadOnly Property getFullProdDir(ByVal dossierProd As Outils.DossierProd) As String
         Get
             Dim FullDir As New System.Text.StringBuilder(Directory.GetCurrentDirectory)
             With FullDir
                 .Append("\")
-                .Append(Me.GetValueFromKey(service.INI_KEY_REPBASE))
+                .Append(Me.GetValueFromKey(Outils.INI_KEY_REPBASE))
                 .Append("\")
                 .Append(Me.GetValueFromKey(dossierProd.ToString))
             End With
             Return FullDir.ToString
         End Get
     End Property
-    Public ReadOnly Property getSimpleProdDir(ByVal dossierProd As service.DossierProd) As String
+    Public ReadOnly Property getSimpleProdDir(ByVal dossierProd As Outils.DossierProd) As String
         Get
             Return Me.GetValueFromKey(dossierProd.ToString)
         End Get
@@ -56,7 +56,7 @@ Public Class Configuration
 
     Private Sub New()
         'récupère le nom du fichier décrit dans les constantes
-        _MonFichier = service.NOM_FICHIER_INI
+        _MonFichier = Outils.NOM_FICHIER_INI
         _KeyValueList = getData()
     End Sub
 

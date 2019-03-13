@@ -1,5 +1,5 @@
 ﻿Imports System.IO
-Imports InterfaceModeOp2.service
+Imports InterfaceModeOp2.Outils
 
 Public Class ArchDossProd
     Private Const _NBDossier As Integer = 6
@@ -12,7 +12,7 @@ Public Class ArchDossProd
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public ReadOnly Property getAccess(ByVal monDossier As service.DossierProd) As AccessFolder
+    Public ReadOnly Property getAccess(ByVal monDossier As Outils.DossierProd) As AccessFolder
         Get
             Return _mapDroit(monDossier.ToString)
         End Get
@@ -25,8 +25,8 @@ Public Class ArchDossProd
     Sub New()
         If Directory.Exists(Configuration.getInstance.getBaseDir) Then
 
-            Dim ListeDossier = [Enum].GetValues(GetType(service.DossierProd))
-            For Each dossier As service.DossierProd In ListeDossier
+            Dim ListeDossier = [Enum].GetValues(GetType(Outils.DossierProd))
+            For Each dossier As Outils.DossierProd In ListeDossier
                 _mapDroit.Add(dossier.ToString, getAccessFromFolder(Configuration.getInstance.getFullProdDir(dossier)))
             Next
         End If
@@ -40,7 +40,7 @@ Public Class ArchDossProd
     Sub New(ByVal CodeIni As String)
         If Not IsNothing(CodeIni) Then
             If CodeIni.Length = _NBDossier Then
-                For i As service.DossierProd = 1 To _NBDossier
+                For i As Outils.DossierProd = 1 To _NBDossier
                     _mapDroit.Add(i.ToString, ToAccessFolder(CodeIni(i - 1)))
                 Next
             End If
@@ -64,7 +64,7 @@ Public Class ArchDossProd
 
         If Not Directory.Exists(nomDossier) Then Throw New Exception
 
-            access = AccessFolder.Ignore
+        access = AccessFolder.Ignore
         If nomDossier.EndsWith(NO_REP) Then Throw New Exception
 
         'test de l'acces au dossier
@@ -89,7 +89,7 @@ EndOfFile:
     ''' <remarks></remarks>
     Private Function ToAccessFolder(ByVal index As Char) As AccessFolder
         Select Case index
-            Case service.INI_IGNORE_CHAR
+            Case Outils.INI_IGNORE_CHAR
                 Return AccessFolder.Ignore
             Case "-1"
                 Return AccessFolder.Ignore
@@ -114,13 +114,13 @@ EndOfFile:
     ''' <param name="Droit">le droit voulu qui est testé</param>
     ''' <returns>True si l'architecture permet ce droit</returns>
     ''' <remarks></remarks>
-    Public Function isEnoughFor(ByVal Droit As service.DroitUser) As Boolean
+    Public Function isEnoughFor(ByVal Droit As Outils.DroitUser) As Boolean
         Dim Arch As New ArchDossProd(Configuration.getInstance.GetValueFromKey(Droit))
-        Dim ListeDossier = [Enum].GetValues(GetType(service.DossierProd))
+        Dim ListeDossier = [Enum].GetValues(GetType(Outils.DossierProd))
 
-        For Each dossier As service.DossierProd In ListeDossier
-            Dim DroitToUse As service.AccessFolder
-            Dim monDroit As service.AccessFolder
+        For Each dossier As Outils.DossierProd In ListeDossier
+            Dim DroitToUse As Outils.AccessFolder
+            Dim monDroit As Outils.AccessFolder
 
             DroitToUse = Arch.getAccess(dossier)
             monDroit = Me.getAccess(dossier)
