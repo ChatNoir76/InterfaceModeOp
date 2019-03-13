@@ -35,6 +35,9 @@ Module WAction
     Private Const _MSG_ERR_EX_5 As String = "Mode d'exportation indéterminé"
 
     'CONSTANTE GENERALE DE TEXTE
+    Private Const _GEN_BDD_1 As String = "Enregistrement dans la base de donnée"
+    Private Const _GEN_BDD_2 As String = "Enregistrement n°{0}"
+
     Private Const _GEN_INFO_FILIGRANE As String = "Création du filigrane"
     Private Const _GEN_INFO_NETTBASPAGE As String = "Nettoyage du bas de page"
     Private Const _GEN_INFO_COPYTO As String = "Copie dans le dossier {0}"
@@ -183,6 +186,11 @@ Module WAction
             Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(Outils.DossierProd.DossierC)))
             .CopyTo(FileC.Resultat)
 
+            Info(_GEN_BDD_1)
+            Dim at As New auditrails(FileExp.Resultat, String.Format(_GEN_EXPORTATION_3, TypeExport.ToString), Now, Initialisation.__User.getUserId)
+            DAOFactory.getAuditrails.dbInsert(at)
+            Info(String.Format(_GEN_BDD_2, at.idAuditrails))
+
             Info(_GEN_INFO_DEL_SOURCE)
             System.IO.File.Delete(FileExp.Resultat)
 
@@ -242,6 +250,11 @@ Module WAction
                 'copy vers dossier archive
                 Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(Outils.DossierProd.DossierF)))
                 .CopyTo(FileF.Resultat, True)
+
+                Info(_GEN_BDD_1)
+                Dim at As New auditrails(OpenFileDiag.Resultat, _GEN_ARCHIVAGE_1, Now, Initialisation.__User.getUserId)
+                DAOFactory.getAuditrails.dbInsert(at)
+                Info(String.Format(_GEN_BDD_2, at.idAuditrails))
 
                 'Suppression de la source
                 Info(_GEN_INFO_DEL_SOURCE)
@@ -332,6 +345,11 @@ Module WAction
             'copyTo + cryptage = doc word déchargé de la mémoire via myDoc.close()
             .CopyTo(FileE.Resultat, True)
 
+            Info(_GEN_BDD_1)
+            Dim at As New auditrails(FileC.Resultat, _GEN_IMPORTATION_6, Now, Initialisation.__User.getUserId)
+            DAOFactory.getAuditrails.dbInsert(at)
+            Info(String.Format(_GEN_BDD_2, at.idAuditrails))
+
             Info(_GEN_INFO_DEL_SOURCE)
             System.IO.File.Delete(FileC.Resultat)
 
@@ -361,7 +379,6 @@ Module WAction
             With WReader.GetMyWord
                 .OpenWord(OpenFileDiag.Resultat, WReader.method.add)
 
-
                 'info à récup d'une bdd
                 Dim liste2 As New List(Of String)
                 liste2.Add("ceci est une phrase test d'audit trails")
@@ -372,13 +389,16 @@ Module WAction
 
                 If WPrinter.isValidForPrinting Then
                     Info(_GEN_IMPRESSION_5)
-                    Debug.Print("AT : " & WPrinter.getAuditTrails)
-                    Debug.Print(String.Format(_GEN_IMPRESSION_6, WPrinter.getNomPrinter))
 
-                    Dim PT_at As New auditrails()
+                    Dim PT_at As New auditrails(OpenFileDiag.Resultat, WPrinter.getAuditTrails, Now(), Initialisation.__User.getUserId)
+                    Dim PT_imp As New Impression(WPrinter.getNomPrinter, WPrinter.getPageAImprimer.ToArray.ToString)
+                    Dim PT_signet As New List(Of signets)
+                    For Each element As DictionaryEntry In .getFields
+                        PT_signet.Add(New signets(element.Key, element.Value, element.ToString))
+                    Next
+                    DAOFactory.getATPrinter.dbInsertATPrinter(PT_at, PT_imp, PT_signet)
 
-                    'ID à remplacer par le numéro renvoyé par la BDD
-                    .AjoutTexteBasPage(String.Format(_FOOTER_IMPRESSION, "id"), " #")
+                    .AjoutTexteBasPage(String.Format(_FOOTER_IMPRESSION, PT_at.idAuditrails), " #")
 
                     Info(String.Format(_GEN_IMPRESSION_7, WPrinter.getNomPrinter))
                     .PrintDoc(WPrinter.getPageAImprimer)

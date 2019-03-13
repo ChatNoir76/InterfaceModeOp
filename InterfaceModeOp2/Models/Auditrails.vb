@@ -35,9 +35,6 @@
             Return _idUtilisateur
         End Get
     End Property
-    ''' <summary>
-    ''' Un id à Zéro signifie "pas de vérif"
-    ''' </summary>
 #End Region
 
 #Region "Constructeurs"
@@ -56,28 +53,12 @@
         _dateAuditrails = dateAuditrails
         _idUtilisateur = idUtilisateur
     End Sub
-    Sub New(ByVal nomFichierAuditrails As String, ByVal commentaireAuditrails As String, ByVal dateAuditrailsAsDouble As Double, _
-    ByVal idUtilisateur As Integer)
-        _idAuditrails = -1
-        _nomFichierAuditrails = nomFichierAuditrails
-        _commentaireAuditrails = commentaireAuditrails
-        _dateAuditrails = New DateTime(dateAuditrailsAsDouble)
-        _idUtilisateur = idUtilisateur
-    End Sub
     Sub New(ByVal idAuditrails As Integer, ByVal nomFichierAuditrails As String, ByVal commentaireAuditrails As String, _
             ByVal dateAuditrails As DateTime, ByVal idUtilisateur As Integer)
         _idAuditrails = idAuditrails
         _nomFichierAuditrails = nomFichierAuditrails
         _commentaireAuditrails = commentaireAuditrails
         _dateAuditrails = dateAuditrails
-        _idUtilisateur = idUtilisateur
-    End Sub
-    Sub New(ByVal idAuditrails As Integer, ByVal nomFichierAuditrails As String, ByVal commentaireAuditrails As String, _
-        ByVal dateAuditrailsAsDouble As Double, ByVal idUtilisateur As Integer)
-        _idAuditrails = idAuditrails
-        _nomFichierAuditrails = nomFichierAuditrails
-        _commentaireAuditrails = commentaireAuditrails
-        _dateAuditrails = New DateTime(dateAuditrailsAsDouble)
         _idUtilisateur = idUtilisateur
     End Sub
 #End Region

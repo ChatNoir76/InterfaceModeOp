@@ -417,10 +417,6 @@ InterfaceModeOp2
 	<param name="monTexte">Information à ajouter</param>
 	<param name="NouveauBloc">Défini un nouveau bloc d'information et permet d'effacer le TextBox si surchargé</param>
 	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.auditrails.#ctor">
-	<summary>
- Un id à Zéro signifie "pas de vérif"
- </summary>
 </member>
 </members>
 </doc>

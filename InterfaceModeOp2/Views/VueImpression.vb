@@ -4,10 +4,12 @@ Public Class VueImpression
     Private Const _AT_NBCAR_MIN As Byte = 20
     Private _PrinterProperty As PS.PrinterSettings
     Private _NomPrinter As String = Nothing
-    Private _AuditTrails As String = Nothing
+    Private _AuditTrails As String = "en cours de construction"
     Private _ZoneImpression As String = Nothing
     Private _PageToPrint As New List(Of Integer)
     Private _FormulaireValid As Boolean = False
+
+    Private Const _PAGES = "1-{0}"
 
 #Region "Property"
     Public ReadOnly Property getNomPrinter As String
@@ -43,7 +45,9 @@ Public Class VueImpression
         ChercheImprimantes()
         ChargeListePhraseAT(ListePhraseAT)
         DescriptionSignet(ListeSignet)
-        _ZoneImpression = "1-" & PageMax
+
+        _ZoneImpression = String.Format(_PAGES, PageMax)
+
         TXT_PrintZone.Text = _ZoneImpression
         Me.BT_Validation.Enabled = False
     End Sub
