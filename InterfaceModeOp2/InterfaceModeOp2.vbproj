@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A175870-12EF-422E-B320-580F8D9200A4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>InterfaceModeOp2.My.MyApplication</StartupObject>
+    <RootNamespace>InterfaceModeOp2</RootNamespace>
+    <AssemblyName>InterfaceModeOp2</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>InterfaceModeOp2.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>InterfaceModeOp2.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ModeOP.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ConfigBox">
+      <HintPath>..\..\..\..\DLL\ConfigBox.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\Services\Configuration.vb" />
+    <Compile Include="Controller\Services\Outils.vb" />
+    <Compile Include="Controller\WAction.vb" />
+    <Compile Include="Controller\WActionException.vb" />
+    <Compile Include="Views\Initialisation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Initialisation.Designer.vb">
+      <DependentUpon>Initialisation.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controller\Services\Initialisation\ArchDossProd.vb" />
+    <Compile Include="Controller\Services\Color.vb" />
+    <Compile Include="Controller\Services\Initialisation\UserConfig.vb" />
+    <Compile Include="Controller\WReader.vb" />
+    <Compile Include="Controller\WReaderException.vb" />
+    <Compile Include="Models\Auditrails.vb" />
+    <Compile Include="Models\HistoDroits.vb" />
+    <Compile Include="Models\HistoVerification.vb" />
+    <Compile Include="Models\Impression.vb" />
+    <Compile Include="Models\signets.vb" />
+    <Compile Include="Models\SQLite\AbstractDAO.vb" />
+    <Compile Include="Models\SQLite\DAOException.vb" />
+    <Compile Include="Models\SQLite\DAOFactory.vb" />
+    <Compile Include="Models\SQLite\DAO\DAOAuditrails.vb" />
+    <Compile Include="Models\SQLite\DAO\DAODroits.vb" />
+    <Compile Include="Models\SQLite\DAO\DAOHisto\DAO_HDroit.vb" />
+    <Compile Include="Models\SQLite\DAO\DAOHisto\DAO_HVerif.vb" />
+    <Compile Include="Models\SQLite\DAO\DAOImpression.vb" />
+    <Compile Include="Models\SQLite\DAO\DAOSignet.vb" />
+    <Compile Include="Models\SQLite\DAO\DAOTransac\DAOSpecificTransaction.vb" />
+    <Compile Include="Models\SQLite\DAO\DAOUtilisateur.vb" />
+    <Compile Include="Models\SQLite\DAO\DAOVerification.vb" />
+    <Compile Include="Models\SQLite\IDAO.vb" />
+    <Compile Include="Models\SQLite\IDAO_Histo.vb" />
+    <Compile Include="Models\SQLite\Singleton.vb" />
+    <Compile Include="Models\SQLite\Services\DAORequetes.vb" />
+    <Compile Include="Models\StatutDroit.vb" />
+    <Compile Include="Models\StatutVerification.vb" />
+    <Compile Include="Models\Utilisateur.vb" />
+    <Compile Include="Models\SQLite\Services\DAOservice.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Views\VueImpression.designer.vb">
+      <DependentUpon>VueImpression.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VueImpression.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\VuePrincipale.Designer.vb">
+      <DependentUpon>VuePrincipale.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VuePrincipale.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Initialisation.resx">
+      <DependentUpon>Initialisation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\VueImpression.resx">
+      <DependentUpon>VueImpression.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\VuePrincipale.resx">
+      <DependentUpon>VuePrincipale.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModeOP.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

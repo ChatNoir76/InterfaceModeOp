@@ -1,0 +1,426 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+InterfaceModeOp2
+</name>
+</assembly>
+<members>
+<member name="M:InterfaceModeOp2.DAOservice.DateToString(System.DateTime)">
+	<summary>
+ Renvoie la date au format Text SQLite
+ </summary>
+</member><member name="T:InterfaceModeOp2.Outils.DroitUser">
+	<summary>
+ Représente les droits utilisateurs
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils.View">
+	<summary>
+ Détermine la vue à afficher
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils.AccessFolder">
+	<summary>
+ Niveau d'access aux dossiers
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils.DossierProd">
+	<summary>
+ Label des 6 dossiers Prod du fichier INI
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.CLEF_CRYPTAGE">
+	<summary>
+ Clef de cryptage des fichiers word
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.LISTE_MDP_PRODUCTION">
+	<summary>
+ Liste des mots de passe dans les fichiers Word Chimie avant importation dans l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.EXT_FICHIER_CRYPTER">
+	<summary>
+ extentions pour les fichiers cryptés
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.EXT_FICHIER_WORD">
+	<summary>
+ extentions pour les fichiers word
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.NOM_FICHIER_INI">
+	<summary>
+ Nom du fichier de configuration attendu pour initialiser l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils">
+	<summary>
+ Contient toutes les constantes et les énumérations
+ Contient également toutes les méthodes statiques
+ </summary>
+	<remarks></remarks>
+</member><member name="P:InterfaceModeOp2.ArchDossProd.getAccess(InterfaceModeOp2.Outils.DossierProd)">
+	<summary>
+ Retourne l'accès d'un dossier qui a été déterminé au préalable
+ </summary>
+	<param name="monDossier"></param>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.#ctor">
+	<summary>
+ Détermination en fonction des droits directs sur les dossiers Prod
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.#ctor(System.String)">
+	<summary>
+ Prends le format ?01?22 par exemple
+ </summary>
+	<param name="CodeIni">le code en lui meme (?00?11)</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.getAccessFromFolder(System.String)">
+	<summary>
+ Réalise des test en accès / lecture / écriture sur un dossier passé en paramètre
+ </summary>
+	<param name="nomDossier"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.ToAccessFolder(System.Char)">
+	<summary>
+ Converti les caractères provenant d'une string en élément accessFolder
+ </summary>
+	<param name="index">Elément d'une chaine de caractère du type 00?11?</param>
+	<returns>L'équivalent en type AccessFolder</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.ArchDossProd.isEnoughFor(InterfaceModeOp2.Outils.DroitUser)">
+	<summary>
+ Vérifie si les droits en ecriture ou lecture sont suffisant pour avoir les droitUser passé en parametre
+ </summary>
+	<param name="Droit">le droit voulu qui est testé</param>
+	<returns>True si l'architecture permet ce droit</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Configuration.getData">
+	<summary>
+ Récupère les combinaisons clef / valeur du fichier ini
+ </summary>
+	<returns>une liste de combinaison clef / valeur</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Configuration.GetValueFromKey(System.String)">
+	<summary>
+ Retourne la valeur d'une clef passé en paramètre
+ </summary>
+	<param name="Clef"></param>
+	<returns>soit la valeur, soit nothing</returns>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Configuration">
+	<summary>
+ Lecture et enregistrement des variables du fichier ini
+ Variables d'environnements de l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WAction.Importation">
+	<summary>
+ Permet l'importation d'un mode op pour utilisation en production dossier E 
+ et copie dans un dossier de sauvegarde B en lecture seule
+ </summary>
+	<remarks>Le fichier source est détruit à l'issue de cette manipulation</remarks>
+</member><member name="M:InterfaceModeOp2.WAction.Impression">
+	<summary>
+ Permet l'impression d'un mode op pour utilisation en production
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WAction.Consultation(InterfaceModeOp2.WAction.TypeModeOp)">
+	<summary>
+ Permet la consultation d'un mode op
+ </summary>
+	<param name="TConsultation">type de consultation</param>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.WReader.method.open">
+	<summary>
+ utilise la méthode Documents.Open sans ouverture des signets
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.WReader.method.add">
+	<summary>
+ utilise la méthode Documents.Add avec ouverture des signets
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.WReader.method">
+	<summary>
+ Détermine la méthode d'ouverture du document Word
+ </summary>
+	<remarks></remarks>
+</member><member name="P:InterfaceModeOp2.WReader.isOpen">
+	<summary>
+ Détermine si un document word est ouvert
+ </summary>
+	<value></value>
+	<returns>True si document ouvert</returns>
+	<remarks></remarks>
+</member><member name="P:InterfaceModeOp2.WReader.getPages">
+	<summary>
+ Retourne le nombre de page du document word
+ </summary>
+	<value></value>
+	<returns>Object renvoyé par la méthode Doc.Range.Information(wdNumberOfPagesInDocument)</returns>
+	<remarks></remarks>
+</member><member name="P:InterfaceModeOp2.WReader.getFields">
+	<summary>
+ Liste des signets renseignés par l'utilisateur
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.OpenWord(System.String,InterfaceModeOp2.WReader.method)">
+	<summary>
+ Méthode d'ouverture des modes opératoires
+ </summary>
+	<param name="fichier">Chemin fichier Word (ou crp)</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.GetMyWord">
+	<summary>
+ Récupération du fichier Word ouvert grace à la méthode openWord()
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.Close">
+	<summary>
+ Ferme le document Word actif
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.Dispose">
+	<summary>
+ libère les ressources de la classe
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.RemplaceTexteEntete(System.String,System.String)">
+	<summary>
+ Remplace un texte par un autre dans l'entete du document
+ </summary>
+	<param name="TexteARemplacer"></param>
+	<param name="RemplacerPar"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.RechercheEnTete(System.String)">
+	<summary>
+ Recherche la présence d'un mot clef en entete du document
+ </summary>
+	<param name="motClef">mot à cherché</param>
+	<returns>True si mot présent</returns>
+	<remarks>Meme technique de recherche que la méthode de remplacement</remarks>
+</member><member name="M:InterfaceModeOp2.WReader.ExportAsPDF">
+	<summary>
+ Conversion du word en PDF
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.ActiveFields">
+	<summary>
+ Relance les boites de dialogue de renseignement des signets
+ </summary>
+	<returns>Vrai si pas d'erreur</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.PrintDoc(System.Int32,System.Int32)">
+	<summary>
+ Imprime un document Word selon un interval de pages
+ </summary>
+	<param name="FromPage">1ere page de l'interval à imprimer</param>
+	<param name="ToPage">dernière page de l'interval à imprimer</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.PrintDoc(System.Int32)">
+	<summary>
+ Imprime une page unique
+ </summary>
+	<param name="Page">Numéro de la page à imprimer</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.PrintDoc(System.Collections.Generic.List{System.Int32})">
+	<summary>
+ Imprime à partir d'une liste de numéro de page
+ </summary>
+	<param name="Pages">Liste de numéro de pages</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.Filigrane(System.String,InterfaceModeOp2.Color)">
+	<summary>
+ Ajoute un filigrane dans le doc word
+ </summary>
+	<param name="TexteFiligrane">Texte du filigrane</param>
+	<param name="Couleur">Objet de type Transparence/Couleur </param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.NettoyageTexteBasPage">
+	<summary>
+ Nettoyage du bas de page du document word
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.AjoutTexteBasPage(System.String,System.String)">
+	<summary>
+ Ajout d'un texte en bas de page du document word
+ </summary>
+	<param name="Texte">texte à ajouter</param>
+	<param name="Separtexte">String à ajouter entre l'ancien et le nouveau texte</param>
+	<remarks>Utiliser la méthode de nettoyage du bas de page avant d'utiliser cette méthode</remarks>
+</member><member name="M:InterfaceModeOp2.WReader.CentimetersToPoints(System.Int64@)">
+	<summary>
+ Méthode de conversion centimetre en point
+ </summary>
+	<param name="value">valeur en centimetre</param>
+	<returns>valeur en point</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.Unlocked(System.String[])">
+	<summary>
+ Méthode de déprotection en utilisant une liste de mot clef
+ généralement ce sont les password de production
+ </summary>
+	<param name="ListeMDP">Liste des mots de passes potentiellement utilisés</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.extractionFields(System.Boolean@)">
+	<summary>
+ Récupère les signets renseignés par l'utilisateur
+ Généralement renseigné à l'ouverture du document grace à la méthode _myWord.document.add
+ </summary>
+	<param name="Locked">Définie si les signets sont locké ou non à l'issue de la récupération</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.Cryptage(System.String@)">
+	<summary>
+ Crypte un fichier word en CRP
+ </summary>
+	<param name="destinationCRP">nom du fichier de destination</param>
+	<remarks>l'instance du document est perdu à l'issue de cette méthode</remarks>
+</member><member name="M:InterfaceModeOp2.WReader.Decrypter(System.String)">
+	<summary>
+ Décrypte un fichier word CRP dans un dossier temporaire (GetTempPath)
+ </summary>
+	<param name="WordCrypter">Le chemin du fichier crypté</param>
+	<returns>Le chemin du fichier décrypté</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReader.NoInstance">
+	<summary>
+ Vérifie qu'un fichier word est bien ouvert
+ </summary>
+	<returns>true si aucune instance sinon false</returns>
+	<remarks></remarks>
+</member><member name="P:InterfaceModeOp2.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:InterfaceModeOp2.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:InterfaceModeOp2.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="M:InterfaceModeOp2.IDAO_Histo`1.dbInsert(`0@)">
+	<summary>
+ Enregistre un nouvel objet de type Histo dans la base de données
+ </summary>
+	<param name="value">objet de type Histo à enregistrer</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.IDAO_Histo`1.dbGetAllStatutById(System.Int32@)">
+	<summary>
+ récupère l'historique d'un objet
+ </summary>
+</member><member name="M:InterfaceModeOp2.IDAO_Histo`1.dbGetLastStatutById(System.Int32@)">
+	<summary>
+ récupère le dernier statut d'un objet
+ </summary>
+</member><member name="M:InterfaceModeOp2.IDAO_Histo`1.dbUpdate(`0@)">
+	<summary>
+ Mise à jour du commentaire de l'historique
+ </summary>
+	<param name="value">Objet de type Histo à mettre à jour</param>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.IDAO_Histo`1">
+	<summary>
+ Interface pour les tables/bean commençant par histo_
+ </summary>
+	<typeparam name="Histo">nom de l'objet histo</typeparam>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WReaderException.#ctor(System.String,System.String,System.Exception)">
+	<summary>
+ Permet l'identification précise d'une erreur généré par WReader
+ </summary>
+	<param name="ex">Exception d'origine</param>
+	<param name="errmsg">Message d'erreur</param>
+	<param name="errModule">System.Reflection.MethodBase.GetCurrentMethod().Name</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Initialisation.DebugConfiguration(System.Byte,InterfaceModeOp2.Outils.DroitUser,System.String)">
+	<summary>
+ 1 : DroitBDD
+ 2 : envTravail
+ les deux 1+2 = 3
+ </summary>
+	<param name="level"></param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Initialisation.BT_Open_Click">
+	<summary>
+ Ouverture de la page principale de l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="P:InterfaceModeOp2.Singleton.connString">
+	<summary>
+ chaine de connexion à la base de données
+ </summary>
+	<value></value>
+	<returns>Chaine de connexion SQLite</returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Singleton.#ctor">
+	<summary>
+ Constructeur en mode singleton
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Singleton.getInstance">
+	<summary>
+ Récupération de l'instance de connexion
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.Singleton.close">
+	<summary>
+ fermeture de la connexion
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Singleton">
+	<summary>
+ Singleton de connexion base SQLite
+ </summary>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.WActionException.#ctor(System.String,System.String)">
+	<summary>
+ Permet l'identification précise d'une erreur généré par WAction
+ </summary>
+	<param name="ex">Exception d'origine</param>
+	<param name="errmsg">Message d'erreur</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.vuePrincipale.GestionMenu(System.Boolean)">
+	<summary>
+ Gestion des menus d'en-tete
+ </summary>
+</member><member name="M:InterfaceModeOp2.vuePrincipale.GestionMenu(System.Boolean,System.Windows.Forms.ToolStripMenuItem[])">
+	<summary>
+ Gestion des menus en fonction de la liste
+ </summary>
+	<param name="ListeTSMI">liste des menus affectés</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.vuePrincipale.GestionMenu(System.Boolean,System.Windows.Forms.ToolStripMenuItem)">
+	<summary>
+ Gestion des menus (mère/enfants)
+ </summary>
+	<param name="MenuMere">les menus mère / enfants seront affectés</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.vuePrincipale.Info(System.String@,System.Boolean@)">
+	<summary>
+ Affichage des informations à destination de l'utilisateur dans le TextBox 
+ </summary>
+	<param name="monTexte">Information à ajouter</param>
+	<param name="NouveauBloc">Défini un nouveau bloc d'information et permet d'effacer le TextBox si surchargé</param>
+	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.auditrails.#ctor">
+	<summary>
+ Un id à Zéro signifie "pas de vérif"
+ </summary>
+</member>
+</members>
+</doc>
