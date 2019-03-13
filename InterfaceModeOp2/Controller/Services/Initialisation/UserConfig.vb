@@ -1,7 +1,6 @@
 ﻿Public Class UserConfig
 
-    'nom utilisateur
-    Private _nomUser As String
+    Private _utilisateur As Utilisateur
     'pc utilisateur
     Private _nomPC As String
     'droit architecture de production
@@ -13,9 +12,14 @@
 
 #Region "Property"
     'GETTER
-    Public ReadOnly Property getNom() As String
+    Public ReadOnly Property getUserName() As String
         Get
-            Return _nomUser
+            Return _utilisateur.getNomUtilisateur
+        End Get
+    End Property
+    Public ReadOnly Property getUserId() As Double
+        Get
+            Return _utilisateur.idUtilisateur
         End Get
     End Property
     Public ReadOnly Property getPC() As String
@@ -33,45 +37,61 @@
             Return _DroitBDD
         End Get
     End Property
-    Public ReadOnly Property getDroitReel() As Outils.DroitUser
+    Public ReadOnly Property getDroitDetermine() As Outils.DroitUser
         Get
             Return _DroitReelInterface
         End Get
     End Property
 
     'SETTER
-    Public WriteOnly Property setArchDossProd As ArchDossProd
-        Set(ByVal value As ArchDossProd)
-            _archiDossProd = value
-            _DroitReelInterface = DetermineDroitReel()
+    Public WriteOnly Property setArchDossProd As String
+        Set(ByVal value As String)
+            _archiDossProd = New ArchDossProd(value)
+            DetermineDroitReel()
         End Set
     End Property
     Public WriteOnly Property setDroitUser As Outils.DroitUser
         Set(ByVal value As Outils.DroitUser)
             _DroitBDD = value
-            _DroitReelInterface = DetermineDroitReel()
+            DetermineDroitReel()
+        End Set
+    End Property
+    Public WriteOnly Property setUserId() As Double
+        Set(ByVal value As Double)
+            _utilisateur.idUtilisateur = value
         End Set
     End Property
 #End Region
 
     Sub New()
-        _nomUser = UCase(Environment.UserName)
+        'détermination des droits utilisateurs sur dossiers de prod
+        _archiDossProd = New ArchDossProd()
+
+        'détermination de l'utilisateur
+        _utilisateur = New Utilisateur(Environment.UserName)
+
+        'détermine le nom du pc
         _nomPC = UCase(Environment.MachineName)
+
+        'calcul des droits interface
+        DetermineDroitReel()
     End Sub
 
-    Private Function DetermineDroitReel() As Outils.DroitUser
+    Private Sub DetermineDroitReel()
         If Not IsNothing(_archiDossProd) Then
 
             If _archiDossProd.isEnoughFor(_DroitBDD) Then
-                Return _DroitBDD
+                _DroitReelInterface = _DroitBDD
+                Exit Sub
             Else
-                Return If(_archiDossProd.isEnoughFor(Outils.DroitUser.Guest), Outils.DroitUser.Guest, Outils.DroitUser.NoUse)
+                _DroitReelInterface = If(_archiDossProd.isEnoughFor(Outils.DroitUser.Guest), Outils.DroitUser.Guest, Outils.DroitUser.NoUse)
+                Exit Sub
             End If
 
         End If
 
-        Return Outils.DroitUser.NoUse
+        _DroitReelInterface = Outils.DroitUser.NoUse
 
-    End Function
+    End Sub
 
 End Class

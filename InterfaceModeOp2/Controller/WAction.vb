@@ -24,6 +24,7 @@ Module WAction
 
     'CONSTANTE DE MESSAGE ERREUR / OPERATION
     Private Const _MSG_FIN_OPERATION As String = "------Opération terminée------"
+    Private Const _MSG_ERR_DAO As String = "DAO ERROR"
     Private Const _MSG_ERR_WREADER As String = "WREADER ERROR"
     Private Const _MSG_ERR_WACTION As String = "WACTION ERROR"
     Private Const _MSG_ERR_GENERALE As String = "GENERAL ERROR"
@@ -100,6 +101,10 @@ Module WAction
                 Case Else
                     Throw New WActionException("--Action Indéterminée--")
             End Select
+        Catch ex As DAOException
+            Info("Source : " & ex.getErrSource, True)
+            Info(ex.Message)
+            Info(_MSG_ERR_DAO)
         Catch ex As WReaderException
             Info("Source : " & ex.getErreurSource, True)
             Info(ex.Message)
@@ -356,6 +361,7 @@ Module WAction
             With WReader.GetMyWord
                 .OpenWord(OpenFileDiag.Resultat, WReader.method.add)
 
+
                 'info à récup d'une bdd
                 Dim liste2 As New List(Of String)
                 liste2.Add("ceci est une phrase test d'audit trails")
@@ -368,6 +374,8 @@ Module WAction
                     Info(_GEN_IMPRESSION_5)
                     Debug.Print("AT : " & WPrinter.getAuditTrails)
                     Debug.Print(String.Format(_GEN_IMPRESSION_6, WPrinter.getNomPrinter))
+
+                    Dim PT_at As New auditrails()
 
                     'ID à remplacer par le numéro renvoyé par la BDD
                     .AjoutTexteBasPage(String.Format(_FOOTER_IMPRESSION, "id"), " #")

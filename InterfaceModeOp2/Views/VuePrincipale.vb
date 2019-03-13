@@ -15,8 +15,8 @@ Public Class vuePrincipale
 
         ' Ajoutez une initialisation quelconque après l'appel InitializeComponent().
         GestionMenuDroitUser()
-        Me.TXT_LoginUtilisateur.Text = Initialisation.__User.getNom
-        Me.TXT_Droits.Text = Initialisation.__User.getDroitReel.ToString
+        Me.TXT_LoginUtilisateur.Text = Initialisation.__User.getUserName
+        Me.TXT_Droits.Text = Initialisation.__User.getDroitDetermine.ToString
         Me.TXT_Action.Text = "Initialisation OK"
 #If DEBUG Then
         Me.Info("--[MODE DEBUG]--", True)
@@ -24,7 +24,7 @@ Public Class vuePrincipale
     End Sub
 
     Private Sub GestionMenuDroitUser()
-        Select Case Initialisation.__User.getDroitReel
+        Select Case Initialisation.__User.getDroitDetermine
             Case Outils.DroitUser.Guest 'consultation
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur)

@@ -27,12 +27,12 @@
 
     Sub New(ByVal nomUtilisateur As String)
         Me._idUtilisateur = -1
-        Me._nomUtilisateur = nomUtilisateur
+        Me._nomUtilisateur = nomUtilisateur.ToUpper
     End Sub
 
     Sub New(ByVal idUtilisateur As Integer, ByVal nomUtilisateur As String)
         Me._idUtilisateur = idUtilisateur
-        Me._nomUtilisateur = nomUtilisateur
+        Me._nomUtilisateur = nomUtilisateur.ToUpper
     End Sub
 #End Region
 

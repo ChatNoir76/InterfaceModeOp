@@ -6,62 +6,7 @@ InterfaceModeOp2
 </name>
 </assembly>
 <members>
-<member name="M:InterfaceModeOp2.DAOservice.DateToString(System.DateTime)">
-	<summary>
- Renvoie la date au format Text SQLite
- </summary>
-</member><member name="T:InterfaceModeOp2.Outils.DroitUser">
-	<summary>
- Représente les droits utilisateurs
- </summary>
-	<remarks></remarks>
-</member><member name="T:InterfaceModeOp2.Outils.View">
-	<summary>
- Détermine la vue à afficher
- </summary>
-	<remarks></remarks>
-</member><member name="T:InterfaceModeOp2.Outils.AccessFolder">
-	<summary>
- Niveau d'access aux dossiers
- </summary>
-	<remarks></remarks>
-</member><member name="T:InterfaceModeOp2.Outils.DossierProd">
-	<summary>
- Label des 6 dossiers Prod du fichier INI
- </summary>
-	<remarks></remarks>
-</member><member name="F:InterfaceModeOp2.Outils.CLEF_CRYPTAGE">
-	<summary>
- Clef de cryptage des fichiers word
- </summary>
-	<remarks></remarks>
-</member><member name="F:InterfaceModeOp2.Outils.LISTE_MDP_PRODUCTION">
-	<summary>
- Liste des mots de passe dans les fichiers Word Chimie avant importation dans l'interface
- </summary>
-	<remarks></remarks>
-</member><member name="F:InterfaceModeOp2.Outils.EXT_FICHIER_CRYPTER">
-	<summary>
- extentions pour les fichiers cryptés
- </summary>
-	<remarks></remarks>
-</member><member name="F:InterfaceModeOp2.Outils.EXT_FICHIER_WORD">
-	<summary>
- extentions pour les fichiers word
- </summary>
-	<remarks></remarks>
-</member><member name="F:InterfaceModeOp2.Outils.NOM_FICHIER_INI">
-	<summary>
- Nom du fichier de configuration attendu pour initialiser l'interface
- </summary>
-	<remarks></remarks>
-</member><member name="T:InterfaceModeOp2.Outils">
-	<summary>
- Contient toutes les constantes et les énumérations
- Contient également toutes les méthodes statiques
- </summary>
-	<remarks></remarks>
-</member><member name="P:InterfaceModeOp2.ArchDossProd.getAccess(InterfaceModeOp2.Outils.DossierProd)">
+<member name="P:InterfaceModeOp2.ArchDossProd.getAccess(InterfaceModeOp2.Outils.DossierProd)">
 	<summary>
  Retourne l'accès d'un dossier qui a été déterminé au préalable
  </summary>
@@ -101,6 +46,10 @@ InterfaceModeOp2
 	<param name="Droit">le droit voulu qui est testé</param>
 	<returns>True si l'architecture permet ce droit</returns>
 	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.DAOservice.DateToString(System.DateTime)">
+	<summary>
+ Renvoie la date au format Text SQLite
+ </summary>
 </member><member name="M:InterfaceModeOp2.Configuration.getData">
 	<summary>
  Récupère les combinaisons clef / valeur du fichier ini
@@ -357,6 +306,57 @@ InterfaceModeOp2
 </member><member name="M:InterfaceModeOp2.Initialisation.BT_Open_Click">
 	<summary>
  Ouverture de la page principale de l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils.DroitUser">
+	<summary>
+ Représente les droits utilisateurs
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils.View">
+	<summary>
+ Détermine la vue à afficher
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils.AccessFolder">
+	<summary>
+ Niveau d'access aux dossiers
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils.DossierProd">
+	<summary>
+ Label des 6 dossiers Prod du fichier INI
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.CLEF_CRYPTAGE">
+	<summary>
+ Clef de cryptage des fichiers word
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.LISTE_MDP_PRODUCTION">
+	<summary>
+ Liste des mots de passe dans les fichiers Word Chimie avant importation dans l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.EXT_FICHIER_CRYPTER">
+	<summary>
+ extentions pour les fichiers cryptés
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.EXT_FICHIER_WORD">
+	<summary>
+ extentions pour les fichiers word
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.NOM_FICHIER_INI">
+	<summary>
+ Nom du fichier de configuration attendu pour initialiser l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils">
+	<summary>
+ Contient toutes les constantes et les énumérations
+ Contient également toutes les méthodes statiques
  </summary>
 	<remarks></remarks>
 </member><member name="P:InterfaceModeOp2.Singleton.connString">
