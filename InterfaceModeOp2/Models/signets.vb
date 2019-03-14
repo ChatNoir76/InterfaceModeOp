@@ -1,6 +1,6 @@
-﻿Public Class signets
+﻿Public Class Signets
     Private _idSignet As Integer
-    Private _description As String
+    Private _clef As String
     Private _valeur As String
     Private _code As String
     Private _idImpression As Integer
@@ -14,9 +14,9 @@
             _idSignet = value
         End Set
     End Property
-    Public ReadOnly Property getDescriptionSignet As String
+    Public ReadOnly Property getClefSignet As String
         Get
-            Return _description
+            Return _clef
         End Get
     End Property
     Public ReadOnly Property getValeurSignet As String
@@ -42,21 +42,21 @@
 #Region "Constructeurs"
     Sub New()
         _idSignet = -1
-        _description = Nothing
+        _clef = Nothing
         _valeur = Nothing
         _code = Nothing
         _idImpression = -1
     End Sub
     Sub New(ByVal description As String, ByVal valeur As String, ByVal code As String, Optional ByVal idImpression As Integer = -1)
         _idSignet = -1
-        _description = description
+        _clef = description
         _valeur = valeur
         _code = code
         _idImpression = idImpression
     End Sub
     Sub New(ByVal idSignet As Integer, ByVal description As String, ByVal valeur As String, ByVal code As String, ByVal idImpression As Integer)
         _idSignet = idSignet
-        _description = description
+        _clef = description
         _valeur = valeur
         _code = code
         _idImpression = idImpression
@@ -66,18 +66,9 @@
     Public Overrides Function ToString() As String
         Dim description As New System.Text.StringBuilder("Signet N°")
         With description
-            .Append(_idSignet)
-            If _idImpression = -1 Then
-                .Append("(?)")
-            Else
-                .Append(" -- Impression n°").Append(_idImpression)
-            End If
-            .AppendLine()
-            If IsNothing(_code) Then
-                .Append("--pas de code--")
-            Else
-                .Append(_code)
-            End If
+            .Append(_idSignet).AppendLine()
+            .Append("Impression n°").Append(_idImpression).AppendLine()
+            .Append("code : ").Append(_code)
         End With
         Return description.ToString()
     End Function

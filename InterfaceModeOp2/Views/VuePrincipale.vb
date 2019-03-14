@@ -25,24 +25,24 @@ Public Class vuePrincipale
 
     Private Sub GestionMenuDroitUser()
         Select Case Initialisation.__User.getDroitDetermine
-            Case Outils.DroitUser.Guest 'consultation
+            Case Droits.Guest 'consultation
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur)
                 GestionMenu(False, TSMI_Utilisateur_Impression)
-            Case Outils.DroitUser.User 'GUEST +impression
+            Case Droits.User 'GUEST +impression
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur)
-            Case Outils.DroitUser.KeyUser 'USER +Export
+            Case Droits.KeyUser 'USER +Export
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur, TSMI_Administrateur)
                 GestionMenu(False, TSMI_Administrateur_Importation)
-            Case Outils.DroitUser.UserAQ 'USER +outils
+            Case Droits.UserAQ 'USER +outils
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur, TSMI_Outils)
                 GestionMenu(False, TSMI_Outils_Parametre_DroitUser)
-            Case Outils.DroitUser.AdminAQ '+ gestion droit utilisateur
+            Case Droits.AdminAQ '+ gestion droit utilisateur
                 GestionMenu(False, TSMI_Developpeur)
-            Case Outils.DroitUser.AdminDvlp
+            Case Droits.AdminDvlp
                 GestionMenu(True)
             Case Else
                 GestionMenu(False)

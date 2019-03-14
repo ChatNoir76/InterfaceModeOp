@@ -2,7 +2,7 @@
     Private _commentaire As String
     Private _date As DateTime
     Private _idVerification As Double
-    Private _idAuditrails As Double
+    Private _idAuditrails As Verification
 
 #Region "Property"
     Public Property commentaire As String
@@ -19,7 +19,7 @@
             Return DateToString(_date)
         End Get
     End Property
-    Public ReadOnly Property getIdVerification As Double
+    Public ReadOnly Property getIdVerification As Verification
         Get
             Return _idVerification
         End Get
@@ -38,7 +38,7 @@
         _idVerification = -1
         _idAuditrails = -1
     End Sub
-    Sub New(ByVal commentaire As String, ByVal maDate As DateTime, ByVal idAuditrails As Double, ByVal idVerification As Double)
+    Sub New(ByVal commentaire As String, ByVal maDate As DateTime, ByVal idAuditrails As Double, ByVal idVerification As Verification)
         _commentaire = commentaire
         _date = maDate
         _idVerification = idVerification

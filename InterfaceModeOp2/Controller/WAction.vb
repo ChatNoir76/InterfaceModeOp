@@ -1,78 +1,81 @@
 ﻿Imports ConfigBox.GBox
 Imports System.Text
+
 Module WAction
 #Region "CONSTANTES"
 
     'CONSTANTE BAS DE PAGE
-    Private Const _FOOTER_IMPRESSION As String = "Bon pour utilisation n°{0}"
-    Private Const _FOOTER_VERSION As String = "Date {0} {1}"
+    Private Const _FOOTER_IMPRESSION = "Bon pour utilisation n°{0}"
+    Private Const _FOOTER_VERSION = "Date {0} {1}"
 
     'CONSTANTE FILIGRANE A AJOUTER AUX DOCS WORD
-    Private Const _FILIGRANE_NOTUSE As String = "PAS POUR UTILISATION"
-    Private Const _FILIGRANE_PERIME As String = "Document PÉRIMÉ"
+    Private Const _FILIGRANE_NOTUSE = "PAS POUR UTILISATION"
+    Private Const _FILIGRANE_PERIME = "Document PÉRIMÉ"
 
     'CONSTANTE D'ACTION DESCRIPTION BOITE DE DIALOGUE
-    Private Const _DESC_CONSULTATION As String = "Sélectionner le mode op à consulter"
-    Private Const _DESC_IMPRESSION As String = "Sélectionner le mode op à imprimer"
-    Private Const _DESC_IMPORTATION As String = "Sélectionner le mode op à importer"
-    Private Const _DESC_IMPORTATION_DOSS_C As String = "Sélectionner la destination du mode op à exporter"
-    Private Const _DESC_EXPORTATION As String = "Sélectionner le mode op à exporter"
-    Private Const _DESC_IMPORTATION_DOSS_B As String = "Sélectionner la destination de la sauvegarde du mode opératoire à importer (cette version ne sera pas utilisable par la production)"
-    Private Const _DESC_IMPORTATION_DOSS_E As String = "Sélectionner la destination du Duplicata utilisable en production"
-    Private Const _DESC_ARCHIVAGE_DOSS_E As String = "Sélectionner le Duplicata crypté à archiver"
-    Private Const _DESC_ARCHIVAGE_DOSS_F As String = "Sélectionner la destination du duplicata à archiver"
+    Private Const _DESC_CONSULTATION = "Sélectionner le mode op à consulter"
+    Private Const _DESC_IMPRESSION = "Sélectionner le mode op à imprimer"
+    Private Const _DESC_IMPORTATION = "Sélectionner le mode op à importer"
+    Private Const _DESC_IMPORTATION_DOSS_C = "Sélectionner la destination du mode op à exporter"
+    Private Const _DESC_EXPORTATION = "Sélectionner le mode op à exporter"
+    Private Const _DESC_IMPORTATION_DOSS_B = "Sélectionner la destination de la sauvegarde du mode opératoire à importer (cette version ne sera pas utilisable par la production)"
+    Private Const _DESC_IMPORTATION_DOSS_E = "Sélectionner la destination du Duplicata utilisable en production"
+    Private Const _DESC_ARCHIVAGE_DOSS_E = "Sélectionner le Duplicata crypté à archiver"
+    Private Const _DESC_ARCHIVAGE_DOSS_F = "Sélectionner la destination du duplicata à archiver"
 
     'CONSTANTE DE MESSAGE ERREUR / OPERATION
-    Private Const _MSG_FIN_OPERATION As String = "------Opération terminée------"
-    Private Const _MSG_ERR_DAO As String = "DAO ERROR"
-    Private Const _MSG_ERR_WREADER As String = "WREADER ERROR"
-    Private Const _MSG_ERR_WACTION As String = "WACTION ERROR"
-    Private Const _MSG_ERR_GENERALE As String = "GENERAL ERROR"
-    Private Const _MSG_ERR_EX_1 As String = "erreur lors du remplacement du mot {0} par {1} en entête"
-    Private Const _MSG_ERR_EX_2 As String = "Importation annulée car le mot clef {0} n'est pas présent dans l'entête du document Word"
-    Private Const _MSG_ERR_EX_3 As String = "Une importation nécessitant un archivage d'une version antérieure doit obligatoirement avoir un mode op archivé, l'importation est donc annulée"
-    Private Const _MSG_ERR_EX_4 As String = "Mode de consultation indéterminé"
-    Private Const _MSG_ERR_EX_5 As String = "Mode d'exportation indéterminé"
+    Private Const _MSG_FIN_OPERATION = "------Opération terminée------"
+    Private Const _MSG_ERR_DAO = "DAO ERROR"
+    Private Const _MSG_ERR_WREADER = "WREADER ERROR"
+    Private Const _MSG_ERR_WACTION = "WACTION ERROR"
+    Private Const _MSG_ERR_GENERALE = "GENERAL ERROR"
+    Private Const _MSG_ERR_EX_1 = "erreur lors du remplacement du mot {0} par {1} en entête"
+    Private Const _MSG_ERR_EX_2 = "Importation annulée car le mot clef {0} n'est pas présent dans l'entête du document Word"
+    Private Const _MSG_ERR_EX_3 = "Une importation nécessitant un archivage d'une version antérieure doit obligatoirement avoir un mode op archivé, l'importation est donc annulée"
+    Private Const _MSG_ERR_EX_4 = "Mode de consultation indéterminé"
+    Private Const _MSG_ERR_EX_5 = "Mode d'exportation indéterminé"
 
     'CONSTANTE GENERALE DE TEXTE
-    Private Const _GEN_BDD_1 As String = "Enregistrement dans la base de donnée"
-    Private Const _GEN_BDD_2 As String = "Enregistrement n°{0}"
+    Private Const _GEN_BDD_1 = "Enregistrement dans la base de donnée"
+    Private Const _GEN_BDD_2 = "Enregistrement AT n°{0}"
+    Private Const _GEN_Copy = "Fichier {0} vers {1}"
+    Private Const _GEN_CopyBackup = "Fichier {0} vers {1} et copie {2}"
 
-    Private Const _GEN_INFO_FILIGRANE As String = "Création du filigrane"
-    Private Const _GEN_INFO_NETTBASPAGE As String = "Nettoyage du bas de page"
-    Private Const _GEN_INFO_COPYTO As String = "Copie dans le dossier {0}"
-    Private Const _GEN_INFO_REMPLACEMENT_ET As String = "Remplacement {0} par {1}"
-    Private Const _GEN_INFO_DEL_SOURCE As String = "Supression du fichier source"
-    Private Const _GEN_INFO_PDF As String = "Création du PDF"
-    Private Const _GEN_INFO_AJOUT_BASPAGE As String = "Ajout information en bas de page"
+    Private Const _GEN_INFO_FILIGRANE = "Création du filigrane"
+    Private Const _GEN_INFO_NETTBASPAGE = "Nettoyage du bas de page"
+    Private Const _GEN_INFO_COPYTO = "Copie dans le dossier {0}"
+    Private Const _GEN_INFO_REMPLACEMENT_ET = "Remplacement {0} par {1}"
+    Private Const _GEN_INFO_DEL_SOURCE = "Supression du fichier source"
+    Private Const _GEN_INFO_PDF = "Création du PDF"
+    Private Const _GEN_INFO_AJOUT_BASPAGE = "Ajout information en bas de page"
 
-    Private Const _GEN_ARCHIVAGE_1 As String = "ARCHIVAGE D'UN MODE OPERATOIRE"
-    Private Const _GEN_ARCHIVAGE_2 As String = "Archivage d'une version antérieure"
-    Private Const _GEN_ARCHIVAGE_3 As String = "Archivage : annulé"
-    Private Const _GEN_ARCHIVAGE_4 As String = "Archivage : {0}"
+    Private Const _GEN_ARCHIVAGE_1 = "ARCHIVAGE D'UN MODE OPERATOIRE"
+    Private Const _GEN_ARCHIVAGE_2 = "Archivage d'une version antérieure"
+    Private Const _GEN_ARCHIVAGE_3 = "Archivage : annulé"
+    Private Const _GEN_ARCHIVAGE_4 = "Archivage : {0}"
 
-    Private Const _GEN_IMPORTATION_1 As String = "Importation : annulée"
-    Private Const _GEN_IMPORTATION_2 As String = "Ajout de la date d'importation"
-    Private Const _GEN_IMPORTATION_3 As String = "Importation : {0}"
-    Private Const _GEN_IMPORTATION_4 As String = "Archivage de version antérieure"
-    Private Const _GEN_IMPORTATION_5 As String = "Avez Vous une version antérieure à archiver?"
-    Private Const _GEN_IMPORTATION_6 As String = "IMPORTATION D'UN MODE OPÉRATOIRE"
+    Private Const _GEN_IMPORTATION_1 = "Importation : annulée"
+    Private Const _GEN_IMPORTATION_2 = "Ajout de la date d'importation"
+    Private Const _GEN_IMPORTATION_3 = "Importation : {0}"
+    Private Const _GEN_IMPORTATION_4 = "Archivage de version antérieure"
+    Private Const _GEN_IMPORTATION_5 = "Avez Vous une version antérieure à archiver?"
+    Private Const _GEN_IMPORTATION_6 = "IMPORTATION D'UN MODE OPÉRATOIRE"
 
-    Private Const _GEN_IMPRESSION_1 As String = "IMPRESSION POUR PRODUCTION"
-    Private Const _GEN_IMPRESSION_2 As String = "Impression : annulée"
-    Private Const _GEN_IMPRESSION_3 As String = "Impression : {0}"
-    Private Const _GEN_IMPRESSION_4 As String = "Ouverture de la boite de dialogue d'impression"
-    Private Const _GEN_IMPRESSION_5 As String = "Enregistrement de l'impression dans l'audit trails"
-    Private Const _GEN_IMPRESSION_6 As String = "Imprimante : {0}"
-    Private Const _GEN_IMPRESSION_7 As String = "Impression en cours sur imprimante {0}"
+    Private Const _GEN_IMPRESSION_1 = "IMPRESSION POUR PRODUCTION"
+    Private Const _GEN_IMPRESSION_2 = "Impression : annulée"
+    Private Const _GEN_IMPRESSION_3 = "Impression : {0}"
+    Private Const _GEN_IMPRESSION_4 = "Ouverture de la boite de dialogue d'impression"
+    Private Const _GEN_IMPRESSION_5 = "Enregistrement de l'impression dans l'audit trails"
+    Private Const _GEN_IMPRESSION_6 = "Imprimante : {0}"
+    Private Const _GEN_IMPRESSION_7 = "Impression en cours sur imprimante {0}"
 
-    Private Const _GEN_CONSULTATION_1 As String = "CONSULTATION -> {0}"
-    Private Const _GEN_CONSULTATION_2 As String = "Consultation : annulée"
-    Private Const _GEN_CONSULTATION_3 As String = "Consultation : {0}"
+    Private Const _GEN_CONSULTATION_1 = "CONSULTATION -> {0}"
+    Private Const _GEN_CONSULTATION_2 = "Consultation : annulée"
+    Private Const _GEN_CONSULTATION_3 = "Consultation : {0}"
 
-    Private Const _GEN_EXPORTATION_1 As String = "EXPORTATION -> {0}"
-    Private Const _GEN_EXPORTATION_2 As String = "Exportation : annulée"
-    Private Const _GEN_EXPORTATION_3 As String = "Exportation : {0}"
+    Private Const _GEN_EXPORTATION_1 = "EXPORTATION -> {0}"
+    Private Const _GEN_EXPORTATION_2 = "Exportation : annulée"
+    Private Const _GEN_EXPORTATION_3 = "Exportation : {0}"
 
     Private _Rouge As New Color(0.8, 255, 0, 0)
     Private Const _Police As Single = 10
@@ -187,7 +190,12 @@ Module WAction
             .CopyTo(FileC.Resultat)
 
             Info(_GEN_BDD_1)
-            Dim at As New auditrails(FileExp.Resultat, String.Format(_GEN_EXPORTATION_3, TypeExport.ToString), Now, Initialisation.__User.getUserId)
+            Dim at As New auditrails(FileExp.Resultat,
+                                     String.Format(_GEN_EXPORTATION_3, TypeExport.ToString),
+                                     String.Format(_GEN_Copy, getPath(FileExp.Resultat), getPath(FileC.Resultat)),
+                                     Now,
+                                     Initialisation.__User.getUserId,
+                                     Operations.Exportation)
             DAOFactory.getAuditrails.dbInsert(at)
             Info(String.Format(_GEN_BDD_2, at.idAuditrails))
 
@@ -205,15 +213,15 @@ Module WAction
         End If
 
         'MODE OP A ARCHIVER
-        Dim OpenFileDiag As New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE))
+        Dim FileE As New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE))
         'le word à chercher sera crypté
-        OpenFileDiag.ChoixExtension(Outils.EXT_FICHIER_CRYPTER)
+        FileE.ChoixExtension(Outils.EXT_FICHIER_CRYPTER)
         'description de la boite de dialogue
-        OpenFileDiag.Description(_DESC_ARCHIVAGE_DOSS_E, _Police, _Style)
+        FileE.Description(_DESC_ARCHIVAGE_DOSS_E, _Police, _Style)
         'affichage de la boite de dialogue
-        OpenFileDiag.ShowDialog()
+        FileE.ShowDialog()
 
-        If IsNothing(OpenFileDiag.Resultat) Then
+        If IsNothing(FileE.Resultat) Then
             If viaImportation Then
                 Throw New WActionException(_MSG_ERR_EX_3)
             Else
@@ -222,7 +230,7 @@ Module WAction
         End If
 
         'DOSSIER ENREGISTREMENT ARCHIVE
-        Dim FileF As New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierF), OpenFileDiag.Resultat)
+        Dim FileF As New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierF), FileE.Resultat)
         FileF.Description(_DESC_ARCHIVAGE_DOSS_F, _Police, _Style)
         FileF.ShowDialog()
 
@@ -233,9 +241,9 @@ Module WAction
                 Info(_GEN_ARCHIVAGE_3)
             End If
         Else
-            Info(String.Format(_GEN_ARCHIVAGE_4, OpenFileDiag.Result(BoxOpenFile.Donne.FichierSeul)))
+            Info(String.Format(_GEN_ARCHIVAGE_4, FileE.Result(BoxOpenFile.Donne.FichierSeul)))
             With WReader.GetMyWord
-                .OpenWord(OpenFileDiag.Resultat, WReader.method.open)
+                .OpenWord(FileE.Resultat, WReader.method.open)
 
                 'remplacement mot en entête
                 Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, Outils.ET_DUPLICATA, Outils.ET_PERIME))
@@ -252,13 +260,18 @@ Module WAction
                 .CopyTo(FileF.Resultat, True)
 
                 Info(_GEN_BDD_1)
-                Dim at As New auditrails(OpenFileDiag.Resultat, _GEN_ARCHIVAGE_1, Now, Initialisation.__User.getUserId)
+                Dim at As New auditrails(FileE.Resultat,
+                                         _GEN_ARCHIVAGE_1,
+                                         String.Format(_GEN_Copy, getPath(FileE.Resultat), getPath(FileF.Resultat)),
+                                         Now,
+                                         Initialisation.__User.getUserId,
+                                         Operations.Archivage)
                 DAOFactory.getAuditrails.dbInsert(at)
                 Info(String.Format(_GEN_BDD_2, at.idAuditrails))
 
                 'Suppression de la source
                 Info(_GEN_INFO_DEL_SOURCE)
-                System.IO.File.Delete(OpenFileDiag.Resultat)
+                System.IO.File.Delete(FileE.Resultat)
 
             End With
         End If
@@ -272,7 +285,6 @@ Module WAction
     Private Sub Importation()
         Info(_GEN_IMPORTATION_6, True)
         Dim NeedArchivage As DialogResult
-
         'DOSSIER IMPORTATION
         Dim FileC As New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierC))
         'le word à chercher sera sous format Word
@@ -346,7 +358,7 @@ Module WAction
             .CopyTo(FileE.Resultat, True)
 
             Info(_GEN_BDD_1)
-            Dim at As New auditrails(FileC.Resultat, _GEN_IMPORTATION_6, Now, Initialisation.__User.getUserId)
+            Dim at As New auditrails(FileC.Resultat, _GEN_IMPORTATION_6, "", Now, Initialisation.__User.getUserId, 2)
             DAOFactory.getAuditrails.dbInsert(at)
             Info(String.Format(_GEN_BDD_2, at.idAuditrails))
 
@@ -390,11 +402,18 @@ Module WAction
                 If WPrinter.isValidForPrinting Then
                     Info(_GEN_IMPRESSION_5)
 
-                    Dim PT_at As New auditrails(OpenFileDiag.Resultat, WPrinter.getAuditTrails, Now(), Initialisation.__User.getUserId)
-                    Dim PT_imp As New Impression(WPrinter.getNomPrinter, WPrinter.getPageAImprimer.ToArray.ToString)
-                    Dim PT_signet As New List(Of signets)
+                    Dim PT_at As New auditrails(getPath(OpenFileDiag.Resultat),
+                                                WPrinter.getAuditTrails,
+                                                "",
+                                                Now(),
+                                                Initialisation.__User.getUserId,
+                                                Operations.Impression)
+                    Dim PT_imp As New Impression("lot",
+                                                 WPrinter.getNomPrinter,
+                                                 WPrinter.getPageAImprimer.ToArray.ToString)
+                    Dim PT_signet As New List(Of Signets)
                     For Each element As DictionaryEntry In .getFields
-                        PT_signet.Add(New signets(element.Key, element.Value, element.ToString))
+                        PT_signet.Add(New Signets(element.Key, element.Value, element.ToString))
                     Next
                     DAOFactory.getATPrinter.dbInsertATPrinter(PT_at, PT_imp, PT_signet)
 
@@ -460,5 +479,8 @@ Module WAction
         vuePrincipale.getVP.Info(monTexte, Serapation)
     End Sub
 
+    Private Function getPath(ByVal fichier As String) As String
+        Return Replace(fichier, Configuration.getInstance.getWorkDir, "..")
+    End Function
 
 End Module

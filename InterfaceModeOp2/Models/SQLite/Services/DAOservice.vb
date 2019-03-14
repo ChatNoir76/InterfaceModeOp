@@ -19,4 +19,5 @@
         End With
         Return maDateStr.ToString
     End Function
+
 End Module

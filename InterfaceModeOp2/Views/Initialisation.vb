@@ -25,7 +25,7 @@ Public Class Initialisation
 
 #If DEBUG Then
         'si mode debug, change la config déterminé par la méthode init()
-        DebugConfiguration(0, Outils.DroitUser.AdminDvlp, "222222")
+        DebugConfiguration(0, Droits.AdminDvlp, "222222")
 #End If
 
         'les infos sont ajoutées à la page
@@ -66,7 +66,7 @@ Public Class Initialisation
             Dim monUser As Utilisateur = DAOFactory.getUtilisateur.dbGetByName(__User.getUserName)
             If IsNothing(monUser) Then
                 'l'utilisateur n'est pas présent dans la bdd
-                __User.setDroitUser = Outils.DroitUser.Guest
+                __User.setDroitUser = Droits.Guest
                 Info(String.Format(_BDD_NOUSER, __User.getUserName))
             Else
                 'l'utilisateur est présent et à des droits
@@ -87,7 +87,7 @@ Public Class Initialisation
     ''' </summary>
     ''' <param name="level"></param>
     ''' <remarks></remarks>
-    Private Sub DebugConfiguration(ByVal level As Byte, ByVal bdd As Outils.DroitUser, ByVal envT As String)
+    Private Sub DebugConfiguration(ByVal level As Byte, ByVal bdd As Droits, ByVal envT As String)
         Info()
         If level >= 2 Then
             level -= 2
@@ -138,7 +138,7 @@ Public Class Initialisation
         Next
         Info(_INI_TEST)
 
-        If __User.getDroitDetermine <= Outils.DroitUser.NoUse Then
+        If __User.getDroitDetermine <= Droits.NoUse Then
             _BTVisible = False
         End If
 

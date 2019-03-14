@@ -39,7 +39,7 @@ InterfaceModeOp2
 	<param name="index">Elément d'une chaine de caractère du type 00?11?</param>
 	<returns>L'équivalent en type AccessFolder</returns>
 	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.ArchDossProd.isEnoughFor(InterfaceModeOp2.Outils.DroitUser)">
+</member><member name="M:InterfaceModeOp2.ArchDossProd.isEnoughFor(InterfaceModeOp2.Enumeration.Droits)">
 	<summary>
  Vérifie si les droits en ecriture ou lecture sont suffisant pour avoir les droitUser passé en parametre
  </summary>
@@ -49,6 +49,14 @@ InterfaceModeOp2
 </member><member name="M:InterfaceModeOp2.DAOservice.DateToString(System.DateTime)">
 	<summary>
  Renvoie la date au format Text SQLite
+ </summary>
+</member><member name="P:InterfaceModeOp2.Configuration.getBaseDir">
+	<summary>
+ Répertoire de l'application en cours
+ </summary>
+</member><member name="P:InterfaceModeOp2.Configuration.getWorkDir">
+	<summary>
+ Répertoire de l'application en cours avec répertoire de base
  </summary>
 </member><member name="M:InterfaceModeOp2.Configuration.getData">
 	<summary>
@@ -295,7 +303,7 @@ InterfaceModeOp2
 	<param name="errmsg">Message d'erreur</param>
 	<param name="errModule">System.Reflection.MethodBase.GetCurrentMethod().Name</param>
 	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.Initialisation.DebugConfiguration(System.Byte,InterfaceModeOp2.Outils.DroitUser,System.String)">
+</member><member name="M:InterfaceModeOp2.Initialisation.DebugConfiguration(System.Byte,InterfaceModeOp2.Enumeration.Droits,System.String)">
 	<summary>
  1 : DroitBDD
  2 : envTravail
@@ -306,11 +314,6 @@ InterfaceModeOp2
 </member><member name="M:InterfaceModeOp2.Initialisation.BT_Open_Click">
 	<summary>
  Ouverture de la page principale de l'interface
- </summary>
-	<remarks></remarks>
-</member><member name="T:InterfaceModeOp2.Outils.DroitUser">
-	<summary>
- Représente les droits utilisateurs
  </summary>
 	<remarks></remarks>
 </member><member name="T:InterfaceModeOp2.Outils.View">

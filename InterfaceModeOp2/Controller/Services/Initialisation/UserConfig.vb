@@ -6,9 +6,9 @@
     'droit architecture de production
     Private _archiDossProd As ArchDossProd
     'droit acces interface
-    Private _DroitReelInterface As Outils.DroitUser = Outils.DroitUser.Guest
+    Private _DroitReelInterface As Droits = Droits.Guest
     'droit défini dans la base de données
-    Private _DroitBDD As Outils.DroitUser = Outils.DroitUser.Guest
+    Private _DroitBDD As Droits = Droits.Guest
 
 #Region "Property"
     'GETTER
@@ -32,12 +32,12 @@
             Return _archiDossProd
         End Get
     End Property
-    Public ReadOnly Property getDroitBDD() As Outils.DroitUser
+    Public ReadOnly Property getDroitBDD() As Droits
         Get
             Return _DroitBDD
         End Get
     End Property
-    Public ReadOnly Property getDroitDetermine() As Outils.DroitUser
+    Public ReadOnly Property getDroitDetermine() As Droits
         Get
             Return _DroitReelInterface
         End Get
@@ -50,8 +50,8 @@
             DetermineDroitReel()
         End Set
     End Property
-    Public WriteOnly Property setDroitUser As Outils.DroitUser
-        Set(ByVal value As Outils.DroitUser)
+    Public WriteOnly Property setDroitUser As Droits
+        Set(ByVal value As Droits)
             _DroitBDD = value
             DetermineDroitReel()
         End Set
@@ -84,13 +84,13 @@
                 _DroitReelInterface = _DroitBDD
                 Exit Sub
             Else
-                _DroitReelInterface = If(_archiDossProd.isEnoughFor(Outils.DroitUser.Guest), Outils.DroitUser.Guest, Outils.DroitUser.NoUse)
+                _DroitReelInterface = If(_archiDossProd.isEnoughFor(Droits.Guest), Droits.Guest, Droits.NoUse)
                 Exit Sub
             End If
 
         End If
 
-        _DroitReelInterface = Outils.DroitUser.NoUse
+        _DroitReelInterface = Droits.NoUse
 
     End Sub
 

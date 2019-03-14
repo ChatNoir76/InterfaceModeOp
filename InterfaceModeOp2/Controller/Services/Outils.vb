@@ -8,20 +8,6 @@ Public Class Outils
 #Region "Enumération"
 
     ''' <summary>
-    ''' Représente les droits utilisateurs
-    ''' </summary>
-    ''' <remarks></remarks>
-    Enum DroitUser As Integer
-        NoUse = -1
-        Guest = 0
-        User = 1
-        KeyUser = 2
-        UserAQ = 3
-        AdminAQ = 4
-        AdminDvlp = 5
-    End Enum
-
-    ''' <summary>
     ''' Détermine la vue à afficher
     ''' </summary>
     ''' <remarks></remarks>

@@ -1,10 +1,12 @@
 ﻿Public Class auditrails
 
     Private _idAuditrails As Integer
-    Private _nomFichierAuditrails As String
-    Private _commentaireAuditrails As String
-    Private _dateAuditrails As DateTime
+    Private _nomFichier As String
+    Private _commentaire As String
+    Private _infosystem As String
+    Private _date As DateTime
     Private _idUtilisateur As Integer
+    Private _idOperation As Operations
 
 #Region "Property"
     Public Property idAuditrails As Integer
@@ -17,17 +19,22 @@
     End Property
     Public ReadOnly Property getNomFichierAuditrails As String
         Get
-            Return _nomFichierAuditrails
+            Return _nomFichier
         End Get
     End Property
     Public ReadOnly Property getCommentaireAuditrails As String
         Get
-            Return _commentaireAuditrails
+            Return _commentaire
+        End Get
+    End Property
+    Public ReadOnly Property getinfosystemAuditrails As String
+        Get
+            Return _infosystem
         End Get
     End Property
     Public ReadOnly Property getDateAuditrails As String
         Get
-            Return DateToString(_dateAuditrails)
+            Return DateToString(_date)
         End Get
     End Property
     Public ReadOnly Property getIdUtilisateur As Integer
@@ -35,49 +42,51 @@
             Return _idUtilisateur
         End Get
     End Property
+    Public ReadOnly Property getIdOperation As Operations
+        Get
+            Return _idOperation
+        End Get
+    End Property
 #End Region
 
 #Region "Constructeurs"
     Sub New()
         _idAuditrails = -1
-        _nomFichierAuditrails = Nothing
-        _commentaireAuditrails = Nothing
-        _dateAuditrails = Nothing
+        _nomFichier = Nothing
+        _commentaire = Nothing
+        _infosystem = Nothing
+        _date = Nothing
         _idUtilisateur = -1
+        _idOperation = -1
     End Sub
-    Sub New(ByVal nomFichierAuditrails As String, ByVal commentaireAuditrails As String, ByVal dateAuditrails As DateTime, _
-        ByVal idUtilisateur As Integer)
+    Sub New(ByVal nomFichierAuditrails As String, ByVal commentaireAuditrails As String, ByVal infosystem As String, _
+            ByVal dateAuditrails As DateTime, ByVal idUtilisateur As Integer, ByVal idOperation As Operations)
         _idAuditrails = -1
-        _nomFichierAuditrails = nomFichierAuditrails
-        _commentaireAuditrails = commentaireAuditrails
-        _dateAuditrails = dateAuditrails
+        _nomFichier = nomFichierAuditrails
+        _commentaire = commentaireAuditrails
+        _infosystem = infosystem
+        _date = dateAuditrails
         _idUtilisateur = idUtilisateur
+        _idOperation = idOperation
     End Sub
-    Sub New(ByVal idAuditrails As Integer, ByVal nomFichierAuditrails As String, ByVal commentaireAuditrails As String, _
-            ByVal dateAuditrails As DateTime, ByVal idUtilisateur As Integer)
+    Sub New(ByVal idAuditrails As Integer, ByVal nomFichierAuditrails As String, ByVal commentaireAuditrails As String, ByVal infosystem As String, _
+            ByVal dateAuditrails As DateTime, ByVal idUtilisateur As Integer, ByVal idOperation As Operations)
         _idAuditrails = idAuditrails
-        _nomFichierAuditrails = nomFichierAuditrails
-        _commentaireAuditrails = commentaireAuditrails
-        _dateAuditrails = dateAuditrails
+        _nomFichier = nomFichierAuditrails
+        _commentaire = commentaireAuditrails
+        _infosystem = infosystem
+        _date = dateAuditrails
         _idUtilisateur = idUtilisateur
+        _idOperation = idOperation
     End Sub
 #End Region
 
     Public Overrides Function ToString() As String
         Dim description As New System.Text.StringBuilder("Audit Trails n°")
         With description
-            .Append(_idAuditrails)
-            .Append(" (ID utilisateur : ")
-            .Append(_idUtilisateur)
-            .Append(")").AppendLine()
-
-            .Append(" (mode op : ")
-            If IsNothing(_nomFichierAuditrails) Then
-                .Append("pas de fichier lié")
-            Else
-                .Append(_nomFichierAuditrails)
-            End If
-            .Append(")")
+            .Append(_idAuditrails).AppendLine()
+            .Append("ID utilisateur : ").Append(_idUtilisateur).AppendLine()
+            .Append("operation : ").Append(_idOperation.ToString)
         End With
         Return description.ToString()
     End Function

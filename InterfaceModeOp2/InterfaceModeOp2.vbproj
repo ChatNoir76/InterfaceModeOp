@@ -86,6 +86,7 @@
     <Compile Include="Controller\Services\Outils.vb" />
     <Compile Include="Controller\WAction.vb" />
     <Compile Include="Controller\WActionException.vb" />
+    <Compile Include="Models\Enumeration.vb" />
     <Compile Include="Views\Initialisation.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -102,25 +103,21 @@
     <Compile Include="Models\HistoDroits.vb" />
     <Compile Include="Models\HistoVerification.vb" />
     <Compile Include="Models\Impression.vb" />
-    <Compile Include="Models\signets.vb" />
+    <Compile Include="Models\Signets.vb" />
     <Compile Include="Models\SQLite\AbstractDAO.vb" />
     <Compile Include="Models\SQLite\DAOException.vb" />
     <Compile Include="Models\SQLite\DAOFactory.vb" />
     <Compile Include="Models\SQLite\DAO\DAOAuditrails.vb" />
-    <Compile Include="Models\SQLite\DAO\DAODroits.vb" />
     <Compile Include="Models\SQLite\DAO\DAOHisto\DAO_HDroit.vb" />
     <Compile Include="Models\SQLite\DAO\DAOHisto\DAO_HVerif.vb" />
     <Compile Include="Models\SQLite\DAO\DAOImpression.vb" />
     <Compile Include="Models\SQLite\DAO\DAOSignet.vb" />
     <Compile Include="Models\SQLite\DAO\DAOTransac\DAOSpecificTransaction.vb" />
     <Compile Include="Models\SQLite\DAO\DAOUtilisateur.vb" />
-    <Compile Include="Models\SQLite\DAO\DAOVerification.vb" />
     <Compile Include="Models\SQLite\IDAO.vb" />
     <Compile Include="Models\SQLite\IDAO_Histo.vb" />
     <Compile Include="Models\SQLite\Singleton.vb" />
     <Compile Include="Models\SQLite\Services\DAORequetes.vb" />
-    <Compile Include="Models\StatutDroit.vb" />
-    <Compile Include="Models\StatutVerification.vb" />
     <Compile Include="Models\Utilisateur.vb" />
     <Compile Include="Models\SQLite\Services\DAOservice.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

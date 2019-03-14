@@ -3,7 +3,7 @@
 Public Class DAOSpecificTransaction
     Inherits AbstractDAO
 
-    Public Sub dbInsertATPrinter(ByRef arg_auditrails As auditrails, ByRef arg_impression As Impression, ByRef arg_signets As List(Of signets))
+    Public Sub dbInsertATPrinter(ByRef arg_auditrails As auditrails, ByRef arg_impression As Impression, ByRef arg_signets As List(Of Signets))
 
         'pour une transaction SQLite
         Using tr As SQLiteTransaction = DAOFactory.getConnexion.BeginTransaction
@@ -52,7 +52,7 @@ Public Class DAOSpecificTransaction
             End With
 
             'insertion des signets
-            For Each signet As signets In arg_signets
+            For Each signet As Signets In arg_signets
                 Dim cmd_signet As SQLiteCommand = DAOFactory.getConnexion.CreateCommand
                 With cmd_signet
                     Try
