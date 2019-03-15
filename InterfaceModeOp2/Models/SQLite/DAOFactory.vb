@@ -38,4 +38,8 @@ Public Class DAOFactory
         Return New DAOSpecificTransaction
     End Function
 
+    Public Shared Function getViews() As DAOViews
+        Return New DAOViews
+    End Function
+
 End Class

@@ -87,6 +87,7 @@
     <Compile Include="Controller\WAction.vb" />
     <Compile Include="Controller\WActionException.vb" />
     <Compile Include="Models\Enumeration.vb" />
+    <Compile Include="Models\SQLite\DAO\DAOView\DAOViews.vb" />
     <Compile Include="Views\Initialisation.vb">
       <SubType>Form</SubType>
     </Compile>

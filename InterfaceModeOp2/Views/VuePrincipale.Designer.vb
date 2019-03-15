@@ -169,14 +169,14 @@ Partial Class vuePrincipale
         'TSMI_Outils_AuditTrails
         '
         Me.TSMI_Outils_AuditTrails.Name = "TSMI_Outils_AuditTrails"
-        Me.TSMI_Outils_AuditTrails.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Outils_AuditTrails.Size = New System.Drawing.Size(134, 22)
         Me.TSMI_Outils_AuditTrails.Text = "Audit Trails"
         '
         'TSMI_Outils_Parametre
         '
         Me.TSMI_Outils_Parametre.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Outils_Parametre_DroitUser})
         Me.TSMI_Outils_Parametre.Name = "TSMI_Outils_Parametre"
-        Me.TSMI_Outils_Parametre.Size = New System.Drawing.Size(152, 22)
+        Me.TSMI_Outils_Parametre.Size = New System.Drawing.Size(134, 22)
         Me.TSMI_Outils_Parametre.Text = "Paramètres"
         '
         'TSMI_Outils_Parametre_DroitUser

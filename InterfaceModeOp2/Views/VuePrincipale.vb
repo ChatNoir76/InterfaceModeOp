@@ -168,4 +168,5 @@ Public Class vuePrincipale
     Private Sub TSMI_Outils_AuditTrails_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Outils_AuditTrails.Click
         VueAuditrails.ShowDialog()
     End Sub
+
 End Class
