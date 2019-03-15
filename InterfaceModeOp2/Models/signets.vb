@@ -63,6 +63,20 @@
     End Sub
 #End Region
 
+    Public Overrides Function Equals(ByVal obj As Object) As Boolean
+
+        If TypeOf obj Is Signets Then
+            Dim eq1 As New System.Text.StringBuilder()
+            eq1.Append(_idImpression).Append(_clef).Append(_valeur)
+
+            Dim eq2 As New System.Text.StringBuilder()
+            eq2.Append(obj.idImpression).Append(obj.getClefSignet).Append(obj.getValeurSignet)
+
+            Return eq1.Equals(eq2)
+        Else
+            Return False
+        End If
+    End Function
     Public Overrides Function ToString() As String
         Dim description As New System.Text.StringBuilder("Signet N°")
         With description

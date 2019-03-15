@@ -408,12 +408,12 @@ Module WAction
                                                 Now(),
                                                 Initialisation.__User.getUserId,
                                                 Operations.Impression)
-                    Dim PT_imp As New Impression("lot",
+                    Dim PT_imp As New Impression(WReader.GetMyWord.getLot,
                                                  WPrinter.getNomPrinter,
-                                                 WPrinter.getPageAImprimer.ToArray.ToString)
+                                                 getPagesAsString(WPrinter.getPageAImprimer))
                     Dim PT_signet As New List(Of Signets)
-                    For Each element As DictionaryEntry In .getFields
-                        PT_signet.Add(New Signets(element.Key, element.Value, element.ToString))
+                    For Each element As Signets In .getFields
+                        PT_signet.Add(New Signets(element.getClefSignet, element.getValeurSignet, element.getCodeSignet))
                     Next
                     DAOFactory.getATPrinter.dbInsertATPrinter(PT_at, PT_imp, PT_signet)
 
@@ -481,6 +481,20 @@ Module WAction
 
     Private Function getPath(ByVal fichier As String) As String
         Return Replace(fichier, Configuration.getInstance.getWorkDir, "..")
+    End Function
+
+    Private Function getPagesAsString(ByVal liste As List(Of Integer)) As String
+        If liste.Count = 0 Then
+            Return "-"
+        Else
+            Dim txt As New System.Text.StringBuilder
+            With txt
+                For Each _Int As Integer In liste
+                    .Append(_Int).Append(",")
+                Next
+            End With
+            Return txt.ToString.Remove(txt.ToString.Length - 1)
+        End If
     End Function
 
 End Module

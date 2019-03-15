@@ -12,7 +12,7 @@ Public Class WReader
     Private Shared _myDoc As Word.Document
     Private Shared _FullName As String = ""
 
-    Private _ListeSignet As New Hashtable
+    Private _ListeSignet As New List(Of Signets)
     Private Const _ERR_NOINSTANCE As String = "Il n'y a aucun document word ouvert"
     Private Const _sKey As String = "f4ty52uG"
 
@@ -107,10 +107,7 @@ Public Class WReader
     ''' <summary>
     ''' Liste des signets renseignés par l'utilisateur
     ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public ReadOnly Property getFields As Hashtable
+    Public ReadOnly Property getFields As List(Of Signets)
         Get
             If NoInstance() Then
                 Throw New WReaderException(_ERR_NOINSTANCE, System.Reflection.MethodBase.GetCurrentMethod().Name)
@@ -122,6 +119,13 @@ Public Class WReader
             End Try
         End Get
     End Property
+
+    Public ReadOnly Property getLot As String
+        Get
+            Return extractLotSignet()
+        End Get
+    End Property
+
 #End Region
 
 #Region "Constructeur / Ouverture Doc Word"
@@ -577,40 +581,51 @@ no:
     ''' <remarks></remarks>
     Private Sub extractionFields(Optional ByRef Locked As Boolean = True)
         Try
-            Dim listeSignet As New Hashtable
+            _ListeSignet.Clear()
             'récupération dans le corps du document
             For Each element As Word.Field In _myDoc.Range.Fields
                 If element.Type = Word.WdFieldType.wdFieldSet Then
-                    If Not listeSignet.ContainsKey(element.Code.Text) Then
-                        listeSignet.Add(element.Code.Text, element.Result.Text)
+                    Dim sgt As New Signets(extractClefSignet(element.Code.Text), element.Result.Text, element.Code.Text)
+                    If Not _ListeSignet.Contains(sgt) Then
+                        _ListeSignet.Add(sgt)
                     End If
                     element.Locked = Locked 'pour bloquer l'ouverture type popup intempestif
                 End If
             Next
 
-            'For Each element As Word.Field In _myDoc.Sections(1).Headers(1).Range.Fields
-            'If element.Type = Word.WdFieldType.wdFieldSet Or element.Type = Word.WdFieldType.wdFieldFillIn Then
-            'listeSignet.Add(element.Code.Text, element.Result.Text)
-            'element.Locked = True 'pour bloquer l'ouverture type popup intempestif
-            'End If
-            'Next
-
             For Each sec As Word.Section In _myDoc.Sections
                 For Each element As Word.Field In sec.Range.Fields
                     If element.Type = Word.WdFieldType.wdFieldSet Or element.Type = Word.WdFieldType.wdFieldFillIn Then
-                        If Not listeSignet.ContainsKey(element.Code.Text) Then
-                            listeSignet.Add(element.Code.Text, element.Result.Text)
+                        Dim sgt As New Signets(extractClefSignet(element.Code.Text), element.Result.Text, element.Code.Text)
+                        If Not _ListeSignet.Contains(sgt) Then
+                            _ListeSignet.Add(sgt)
                         End If
                         element.Locked = Locked 'pour bloquer l'ouverture type popup intempestif
                     End If
                 Next
             Next
-
-            _ListeSignet = listeSignet.Clone
         Catch ex As Exception
             Throw New WReaderException("erreur lors de la récupération de la valeur des signets renseigné par l'utilisateur", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
     End Sub
+
+    Private Function extractClefSignet(ByVal codeSignet As String) As String
+        Dim tab() = codeSignet.Split(Chr(34))
+        If tab.Count = 3 Then
+            Return tab(1).Trim({Chr(34), " "c})
+        Else
+            Return "-"
+        End If
+    End Function
+
+    Private Function extractLotSignet() As String
+        For Each element As Signets In _ListeSignet
+            If LCase(element.getCodeSignet) Like "*" & LCase("Lot") & "*" Then
+                Return element.getValeurSignet
+            End If
+        Next
+        Return "-"
+    End Function
 
     ''' <summary>
     ''' Crypte un fichier word en CRP
