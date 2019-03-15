@@ -9,6 +9,7 @@ C:\Users\jriviere\Documents\Workspace vb.net\Interface Mode Op\InterfaceModeOp2\
 C:\Users\jriviere\Documents\Workspace vb.net\Interface Mode Op\InterfaceModeOp2\InterfaceModeOp2\obj\x86\Debug\InterfaceModeOp2.Initialisation.resources
 C:\Users\jriviere\Documents\Workspace vb.net\Interface Mode Op\InterfaceModeOp2\InterfaceModeOp2\obj\x86\Debug\InterfaceModeOp2.vuePrincipale.resources
 C:\Users\jriviere\Documents\Workspace vb.net\Interface Mode Op\InterfaceModeOp2\InterfaceModeOp2\obj\x86\Debug\InterfaceModeOp2.vbproj.ResolveComReference.cache
-C:\Users\jriviere\Documents\Workspace vb.net\Interface Mode Op\InterfaceModeOp2\InterfaceModeOp2\bin\Debug\ConfigBox.dll
 C:\Users\jriviere\Documents\Workspace vb.net\Interface Mode Op\InterfaceModeOp2\InterfaceModeOp2\obj\x86\Debug\InterfaceModeOp2.vbprojResolveAssemblyReference.cache
 C:\Users\jriviere\Documents\Workspace vb.net\Interface Mode Op\InterfaceModeOp2\InterfaceModeOp2\obj\x86\Debug\InterfaceModeOp2.VueImpression.resources
+C:\Users\jriviere\Documents\Workspace vb.net\Interface Mode Op\InterfaceModeOp2\InterfaceModeOp2\bin\Debug\ValdepharmTool.dll
+C:\Users\jriviere\Documents\Workspace vb.net\Interface Mode Op\InterfaceModeOp2\InterfaceModeOp2\obj\x86\Debug\InterfaceModeOp2.VueAuditrails.resources

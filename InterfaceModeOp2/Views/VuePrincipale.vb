@@ -164,4 +164,8 @@ Public Class vuePrincipale
         Me.TXT_Action.Size = New Size(Me.Width - 44, Me.Height - 210)
     End Sub
 #End Region
+
+    Private Sub TSMI_Outils_AuditTrails_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Outils_AuditTrails.Click
+        VueAuditrails.ShowDialog()
+    End Sub
 End Class

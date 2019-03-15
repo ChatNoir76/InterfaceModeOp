@@ -52,9 +52,6 @@
     <ApplicationIcon>ModeOP.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ConfigBox">
-      <HintPath>..\..\..\..\DLL\ConfigBox.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
@@ -68,6 +65,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="ValdepharmTool">
+      <HintPath>..\..\..\..\DLL\DLL\ValdepharmTool.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -135,6 +135,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Views\VueAuditrails.Designer.vb">
+      <DependentUpon>VueAuditrails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VueAuditrails.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\VueImpression.designer.vb">
       <DependentUpon>VueImpression.vb</DependentUpon>
     </Compile>
@@ -157,6 +163,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\VueAuditrails.resx">
+      <DependentUpon>VueAuditrails.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\VueImpression.resx">
       <DependentUpon>VueImpression.vb</DependentUpon>

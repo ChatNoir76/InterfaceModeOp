@@ -1,4 +1,4 @@
-﻿Imports ConfigBox.GBox
+﻿Imports ValdepharmTool.GBox
 Imports System.Text
 
 Module WAction
