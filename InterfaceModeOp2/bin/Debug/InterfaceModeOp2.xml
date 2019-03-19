@@ -391,6 +391,11 @@ InterfaceModeOp2
  Singleton de connexion base SQLite
  </summary>
 	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.DAOViews.views">
+	<summary>
+ Défini toutes les vues que le DataGridView est suceptible d'afficher
+ Elle devront être dans le table name du DGV
+ </summary>
 </member><member name="M:InterfaceModeOp2.WActionException.#ctor(System.String,System.String)">
 	<summary>
  Permet l'identification précise d'une erreur généré par WAction

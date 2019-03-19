@@ -14,7 +14,7 @@ Public Class DAO_HVerif
             'récupération du jeu de résultats
             While reader.Read()
                 maListeObj.Add(New HistoVerification(reader(0).ToString,
-                                       reader(1).ToString,
+                                       Convert.ToDateTime(reader(1).ToString),
                                        reader(2).ToString,
                                        reader(3).ToString))
             End While
@@ -38,7 +38,7 @@ Public Class DAO_HVerif
 
             If reader.Read Then
                 monObj = New HistoVerification(reader(0).ToString,
-                       reader(1).ToString,
+                       Convert.ToDateTime(reader(1).ToString),
                        reader(2).ToString,
                        reader(3).ToString)
             End If
