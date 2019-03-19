@@ -6,62 +6,7 @@ InterfaceModeOp2
 </name>
 </assembly>
 <members>
-<member name="M:InterfaceModeOp2.DAOservice.DateToString(System.DateTime)">
-	<summary>
- Renvoie la date au format Text SQLite
- </summary>
-</member><member name="T:InterfaceModeOp2.Outils.DroitUser">
-	<summary>
- Représente les droits utilisateurs
- </summary>
-	<remarks></remarks>
-</member><member name="T:InterfaceModeOp2.Outils.View">
-	<summary>
- Détermine la vue à afficher
- </summary>
-	<remarks></remarks>
-</member><member name="T:InterfaceModeOp2.Outils.AccessFolder">
-	<summary>
- Niveau d'access aux dossiers
- </summary>
-	<remarks></remarks>
-</member><member name="T:InterfaceModeOp2.Outils.DossierProd">
-	<summary>
- Label des 6 dossiers Prod du fichier INI
- </summary>
-	<remarks></remarks>
-</member><member name="F:InterfaceModeOp2.Outils.CLEF_CRYPTAGE">
-	<summary>
- Clef de cryptage des fichiers word
- </summary>
-	<remarks></remarks>
-</member><member name="F:InterfaceModeOp2.Outils.LISTE_MDP_PRODUCTION">
-	<summary>
- Liste des mots de passe dans les fichiers Word Chimie avant importation dans l'interface
- </summary>
-	<remarks></remarks>
-</member><member name="F:InterfaceModeOp2.Outils.EXT_FICHIER_CRYPTER">
-	<summary>
- extentions pour les fichiers cryptés
- </summary>
-	<remarks></remarks>
-</member><member name="F:InterfaceModeOp2.Outils.EXT_FICHIER_WORD">
-	<summary>
- extentions pour les fichiers word
- </summary>
-	<remarks></remarks>
-</member><member name="F:InterfaceModeOp2.Outils.NOM_FICHIER_INI">
-	<summary>
- Nom du fichier de configuration attendu pour initialiser l'interface
- </summary>
-	<remarks></remarks>
-</member><member name="T:InterfaceModeOp2.Outils">
-	<summary>
- Contient toutes les constantes et les énumérations
- Contient également toutes les méthodes statiques
- </summary>
-	<remarks></remarks>
-</member><member name="P:InterfaceModeOp2.ArchDossProd.getAccess(InterfaceModeOp2.Outils.DossierProd)">
+<member name="P:InterfaceModeOp2.ArchDossProd.getAccess(InterfaceModeOp2.Outils.DossierProd)">
 	<summary>
  Retourne l'accès d'un dossier qui a été déterminé au préalable
  </summary>
@@ -94,13 +39,25 @@ InterfaceModeOp2
 	<param name="index">Elément d'une chaine de caractère du type 00?11?</param>
 	<returns>L'équivalent en type AccessFolder</returns>
 	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.ArchDossProd.isEnoughFor(InterfaceModeOp2.Outils.DroitUser)">
+</member><member name="M:InterfaceModeOp2.ArchDossProd.isEnoughFor(InterfaceModeOp2.Enumeration.Droits)">
 	<summary>
  Vérifie si les droits en ecriture ou lecture sont suffisant pour avoir les droitUser passé en parametre
  </summary>
 	<param name="Droit">le droit voulu qui est testé</param>
 	<returns>True si l'architecture permet ce droit</returns>
 	<remarks></remarks>
+</member><member name="M:InterfaceModeOp2.DAOservice.DateToString(System.DateTime)">
+	<summary>
+ Renvoie la date au format Text SQLite
+ </summary>
+</member><member name="P:InterfaceModeOp2.Configuration.getBaseDir">
+	<summary>
+ Répertoire de l'application en cours
+ </summary>
+</member><member name="P:InterfaceModeOp2.Configuration.getWorkDir">
+	<summary>
+ Répertoire de l'application en cours avec répertoire de base
+ </summary>
 </member><member name="M:InterfaceModeOp2.Configuration.getData">
 	<summary>
  Récupère les combinaisons clef / valeur du fichier ini
@@ -170,9 +127,6 @@ InterfaceModeOp2
 	<summary>
  Liste des signets renseignés par l'utilisateur
  </summary>
-	<value></value>
-	<returns></returns>
-	<remarks></remarks>
 </member><member name="M:InterfaceModeOp2.WReader.OpenWord(System.String,InterfaceModeOp2.WReader.method)">
 	<summary>
  Méthode d'ouverture des modes opératoires
@@ -312,6 +266,10 @@ InterfaceModeOp2
 	<summary>
   A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
+</member><member name="M:InterfaceModeOp2.VueImpression.VerifFormat">
+	<summary>
+ vérification du format de page en mode interval
+ </summary>
 </member><member name="M:InterfaceModeOp2.IDAO_Histo`1.dbInsert(`0@)">
 	<summary>
  Enregistre un nouvel objet de type Histo dans la base de données
@@ -346,7 +304,7 @@ InterfaceModeOp2
 	<param name="errmsg">Message d'erreur</param>
 	<param name="errModule">System.Reflection.MethodBase.GetCurrentMethod().Name</param>
 	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.Initialisation.DebugConfiguration(System.Byte,InterfaceModeOp2.Outils.DroitUser,System.String)">
+</member><member name="M:InterfaceModeOp2.Initialisation.DebugConfiguration(System.Byte,InterfaceModeOp2.Enumeration.Droits,System.String)">
 	<summary>
  1 : DroitBDD
  2 : envTravail
@@ -357,6 +315,52 @@ InterfaceModeOp2
 </member><member name="M:InterfaceModeOp2.Initialisation.BT_Open_Click">
 	<summary>
  Ouverture de la page principale de l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils.View">
+	<summary>
+ Détermine la vue à afficher
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils.AccessFolder">
+	<summary>
+ Niveau d'access aux dossiers
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils.DossierProd">
+	<summary>
+ Label des 6 dossiers Prod du fichier INI
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.CLEF_CRYPTAGE">
+	<summary>
+ Clef de cryptage des fichiers word
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.LISTE_MDP_PRODUCTION">
+	<summary>
+ Liste des mots de passe dans les fichiers Word Chimie avant importation dans l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.EXT_FICHIER_CRYPTER">
+	<summary>
+ extentions pour les fichiers cryptés
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.EXT_FICHIER_WORD">
+	<summary>
+ extentions pour les fichiers word
+ </summary>
+	<remarks></remarks>
+</member><member name="F:InterfaceModeOp2.Outils.NOM_FICHIER_INI">
+	<summary>
+ Nom du fichier de configuration attendu pour initialiser l'interface
+ </summary>
+	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.Outils">
+	<summary>
+ Contient toutes les constantes et les énumérations
+ Contient également toutes les méthodes statiques
  </summary>
 	<remarks></remarks>
 </member><member name="P:InterfaceModeOp2.Singleton.connString">
@@ -387,6 +391,11 @@ InterfaceModeOp2
  Singleton de connexion base SQLite
  </summary>
 	<remarks></remarks>
+</member><member name="T:InterfaceModeOp2.DAOViews.views">
+	<summary>
+ Défini toutes les vues que le DataGridView est suceptible d'afficher
+ Elle devront être dans le table name du DGV
+ </summary>
 </member><member name="M:InterfaceModeOp2.WActionException.#ctor(System.String,System.String)">
 	<summary>
  Permet l'identification précise d'une erreur généré par WAction
@@ -417,10 +426,6 @@ InterfaceModeOp2
 	<param name="monTexte">Information à ajouter</param>
 	<param name="NouveauBloc">Défini un nouveau bloc d'information et permet d'effacer le TextBox si surchargé</param>
 	<remarks></remarks>
-</member><member name="M:InterfaceModeOp2.auditrails.#ctor">
-	<summary>
- Un id à Zéro signifie "pas de vérif"
- </summary>
 </member>
 </members>
 </doc>

@@ -4,10 +4,13 @@ Public Class VueImpression
     Private Const _AT_NBCAR_MIN As Byte = 20
     Private _PrinterProperty As PS.PrinterSettings
     Private _NomPrinter As String = Nothing
-    Private _AuditTrails As String = Nothing
+    Private _AuditTrails As String
     Private _ZoneImpression As String = Nothing
     Private _PageToPrint As New List(Of Integer)
     Private _FormulaireValid As Boolean = False
+    Private _pageMax As Integer
+
+    Private Const _PAGES = "1-{0}"
 
 #Region "Property"
     Public ReadOnly Property getNomPrinter As String
@@ -33,19 +36,22 @@ Public Class VueImpression
 #End Region
 
 #Region "Constructeur"
-    Sub New(ByVal ListeSignet As Hashtable, ByVal ListePhraseAT As List(Of String), ByVal PageMax As Integer)
+    Sub New(ByVal ListeSignet As List(Of Signets), ByVal ListePhraseAT As List(Of String), ByVal PageMax As Integer)
 
         ' Cet appel est requis par le concepteur.
         InitializeComponent()
+
+        _pageMax = PageMax
 
         ' Ajoutez une initialisation quelconque après l'appel InitializeComponent().
         DefinirPageMax(PageMax)
         ChercheImprimantes()
         ChargeListePhraseAT(ListePhraseAT)
         DescriptionSignet(ListeSignet)
-        _ZoneImpression = "1-" & PageMax
+
+        _ZoneImpression = String.Format(_PAGES, _pageMax)
+
         TXT_PrintZone.Text = _ZoneImpression
-        Me.BT_Validation.Enabled = False
     End Sub
     Private Sub DefinirPageMax(ByVal PageMax As Integer)
         NUD_2.Maximum = PageMax
@@ -79,33 +85,31 @@ Public Class VueImpression
 #End Region
 
 #Region "Méthodes publiques"
-    Public Sub DescriptionSignet(ByVal ListeSignet As Hashtable)
+    Public Sub DescriptionSignet(ByVal ListeSignet As List(Of Signets))
         TXT_Signets.Clear()
-        For Each Str As DictionaryEntry In ListeSignet
-            TXT_Signets.Text += Str.Key & "=" & Str.Value & vbNewLine
+        For Each Str As Signets In ListeSignet
+            TXT_Signets.Text += Str.getClefSignet & "=" & Str.getValeurSignet & vbNewLine
         Next
     End Sub
 #End Region
 
 #Region "Méthodes internes"
-    Private Sub isOKToPrint()
-        Dim isOk = True
-
+    Private Function isOKToPrint() As Boolean
         'Une imprimante est choisi
         If IsNothing(_NomPrinter) Then
-            isOk = False
+            MessageBox.Show("Veuillez choisir une imprimante", "impression", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return False
         End If
 
         'Audit trails renseigné
         If TXT_AT.Text.Length < _AT_NBCAR_MIN Then
-            isOk = False
+            MessageBox.Show(String.Format("Veuillez renseigner l'audit trails avec au moins {0} caractères", _AT_NBCAR_MIN), "impression", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return False
         End If
 
         'Zone d'impression
-        isOk *= canPrint()
-
-        Me.BT_Validation.Enabled = isOk
-    End Sub
+        Return canPrint()
+    End Function
     Private Function canPrint() As Boolean
 
         Try
@@ -130,7 +134,22 @@ Public Class VueImpression
                         _PageToPrint.Add(i)
                     Next
                 Else
-                    _PageToPrint.Add(CInt(pz))
+                    Dim page As Integer = CInt(pz)
+                    If _PageToPrint.Contains(page) Then
+                        MessageBox.Show(String.Format("Il n'est pas autorisé d'imprimer plusieurs fois la page n°{0}", page), "impression", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Return False
+                    End If
+                    _PageToPrint.Add(page)
+                End If
+            Next
+            For Each page As Integer In _PageToPrint
+                If page > _pageMax Then
+                    MessageBox.Show(String.Format("L'impression de la page {0} n'est pas possible car il n'y a que {1} page(s) max", page, _pageMax), "impression", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return False
+                End If
+                If page < 1 Then
+                    MessageBox.Show("Impossible d'imprimer une page avec un numéro négatif ou égal à zéro", "impression", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return False
                 End If
             Next
         Catch ex As Exception
@@ -143,25 +162,21 @@ Public Class VueImpression
 #Region "Validation OK Pour Imprimer"
     Private Sub PrintZone() Handles TXT_PrintZone.Leave
         _ZoneImpression = TXT_PrintZone.Text
-        isOKToPrint()
     End Sub
     Private Sub CB_ListeImp_SelectedIndexChanged() Handles CB_ListeImp.SelectedIndexChanged
         _NomPrinter = Me.CB_ListeImp.SelectedItem
-        isOKToPrint()
     End Sub
     Private Sub TXT_AT_TextChanged() Handles TXT_AT.TextChanged
         If TXT_AT.Text.Length >= _AT_NBCAR_MIN Then
             TXT_AT.BackColor = Drawing.Color.White
         Else
             TXT_AT.BackColor = Drawing.Color.Pink
-            _AuditTrails = TXT_AT.Text
         End If
-        isOKToPrint()
+        _AuditTrails = TXT_AT.Text
     End Sub
     Private Sub NumericUpDown1_ValueChanged() Handles NUD_1.ValueChanged, NUD_2.ValueChanged
         NUD_2.Minimum = NUD_1.Value
         _ZoneImpression = NUD_1.Value & " - " & NUD_2.Value
-        isOKToPrint()
     End Sub
 #End Region
 
@@ -182,9 +197,12 @@ Public Class VueImpression
             TXT_AT.Visible = True
         Else
             TXT_AT.Visible = False
-            TXT_AT.Text = CB_AT.SelectedItem
+            _AuditTrails = CB_AT.SelectedItem
         End If
     End Sub
+    ''' <summary>
+    ''' vérification du format de page en mode interval
+    ''' </summary>
     Private Sub VerifFormat() Handles TXT_PrintZone.TextChanged
         Dim newTxt As String = Nothing
 
@@ -203,7 +221,10 @@ Public Class VueImpression
 #End Region
 
     Private Sub BT_Validation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BT_Validation.Click
-        _FormulaireValid = True
-        Me.Close()
+        If isOKToPrint() Then
+            _FormulaireValid = True
+            Me.Close()
+        End If
     End Sub
+
 End Class

@@ -52,9 +52,6 @@
     <ApplicationIcon>ModeOP.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ConfigBox">
-      <HintPath>..\..\..\..\DLL\ConfigBox.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
@@ -68,6 +65,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="ValdepharmTool">
+      <HintPath>..\..\..\..\DLL\DLL\ValdepharmTool.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -86,6 +86,8 @@
     <Compile Include="Controller\Services\Outils.vb" />
     <Compile Include="Controller\WAction.vb" />
     <Compile Include="Controller\WActionException.vb" />
+    <Compile Include="Models\Enumeration.vb" />
+    <Compile Include="Models\SQLite\DAO\DAOView\DAOViews.vb" />
     <Compile Include="Views\Initialisation.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -102,25 +104,21 @@
     <Compile Include="Models\HistoDroits.vb" />
     <Compile Include="Models\HistoVerification.vb" />
     <Compile Include="Models\Impression.vb" />
-    <Compile Include="Models\signets.vb" />
+    <Compile Include="Models\Signets.vb" />
     <Compile Include="Models\SQLite\AbstractDAO.vb" />
     <Compile Include="Models\SQLite\DAOException.vb" />
     <Compile Include="Models\SQLite\DAOFactory.vb" />
     <Compile Include="Models\SQLite\DAO\DAOAuditrails.vb" />
-    <Compile Include="Models\SQLite\DAO\DAODroits.vb" />
     <Compile Include="Models\SQLite\DAO\DAOHisto\DAO_HDroit.vb" />
     <Compile Include="Models\SQLite\DAO\DAOHisto\DAO_HVerif.vb" />
     <Compile Include="Models\SQLite\DAO\DAOImpression.vb" />
     <Compile Include="Models\SQLite\DAO\DAOSignet.vb" />
     <Compile Include="Models\SQLite\DAO\DAOTransac\DAOSpecificTransaction.vb" />
     <Compile Include="Models\SQLite\DAO\DAOUtilisateur.vb" />
-    <Compile Include="Models\SQLite\DAO\DAOVerification.vb" />
     <Compile Include="Models\SQLite\IDAO.vb" />
     <Compile Include="Models\SQLite\IDAO_Histo.vb" />
     <Compile Include="Models\SQLite\Singleton.vb" />
     <Compile Include="Models\SQLite\Services\DAORequetes.vb" />
-    <Compile Include="Models\StatutDroit.vb" />
-    <Compile Include="Models\StatutVerification.vb" />
     <Compile Include="Models\Utilisateur.vb" />
     <Compile Include="Models\SQLite\Services\DAOservice.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -137,6 +135,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Views\VueAuditrails.Designer.vb">
+      <DependentUpon>VueAuditrails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VueAuditrails.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\VueImpression.designer.vb">
       <DependentUpon>VueImpression.vb</DependentUpon>
@@ -160,6 +164,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\VueAuditrails.resx">
+      <DependentUpon>VueAuditrails.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\VueImpression.resx">
       <DependentUpon>VueImpression.vb</DependentUpon>

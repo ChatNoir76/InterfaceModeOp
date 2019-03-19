@@ -27,12 +27,12 @@
 
     Sub New(ByVal nomUtilisateur As String)
         Me._idUtilisateur = -1
-        Me._nomUtilisateur = nomUtilisateur
+        Me._nomUtilisateur = nomUtilisateur.ToUpper
     End Sub
 
     Sub New(ByVal idUtilisateur As Integer, ByVal nomUtilisateur As String)
         Me._idUtilisateur = idUtilisateur
-        Me._nomUtilisateur = nomUtilisateur
+        Me._nomUtilisateur = nomUtilisateur.ToUpper
     End Sub
 #End Region
 
@@ -40,21 +40,11 @@
     Public Overrides Function toString() As String
         Dim description As New System.Text.StringBuilder("Utilisateur n°")
         With description
-            .Append(Me._idUtilisateur)
-            If IsNothing(_nomUtilisateur) Then
-                .Append(" (pas de nom)")
-                .Append(" (pas de droit)")
-            Else
-                .Append(" (nom : ").Append(Me._nomUtilisateur.ToUpper).Append(")")
-            End If
-
+            .Append(Me._idUtilisateur).AppendLine()
+            .Append("nom : ").Append(Me._nomUtilisateur)
         End With
         Return description.ToString
     End Function
-
-
-
-
 #End Region
 
 

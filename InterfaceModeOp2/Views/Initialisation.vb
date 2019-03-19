@@ -2,7 +2,7 @@
 
 Public Class Initialisation
     'à l'initialisation récupère les données utilisateurs (nom windows)
-    Public __User As New UserConfig
+    Public __User As UserConfig
     Private _BTVisible As Boolean = True
 
     Private Const _BDD_NOUSER = "l'utilisateur {0} n'est pas présent dans la base de donnée"
@@ -10,7 +10,7 @@ Public Class Initialisation
     Private Const _BDD_NOCONN = "Pas de connexion avec la base de donnée"
     Private Const _BDD_ERRCONN = "Erreur lors de la connexion à la base de donnée"
     Private Const _BDD_GETDROIT = "La BDD renvoie les droits {0} pour l'utilisateur {1}"
-    Private Const _INI_CHECKFOLDER = "Erreur lors de la détermination des droits utilisateurs sur les dossiers du répertoire de production"
+    Private Const _INI_CHECKFOLDER = "Erreur lors de la configuration utilisateur"
     Private Const _INI_TEST = "Test lecture / écriture des dossiers de production"
     Private Const _INI_NOFOLDERNAME = "N/A"
     Private Const _INI_OUV = "Ouverture de l'interface"
@@ -25,7 +25,7 @@ Public Class Initialisation
 
 #If DEBUG Then
         'si mode debug, change la config déterminé par la méthode init()
-        DebugConfiguration(0, Outils.DroitUser.AdminDvlp, "222222")
+        DebugConfiguration(0, Droits.AdminDvlp, "222222")
 #End If
 
         'les infos sont ajoutées à la page
@@ -38,8 +38,8 @@ Public Class Initialisation
     Private Sub ConfigurationInterface()
         Try
             'détermine les droits de l'utilisateur sur les dossiers de prod
-            'en réalisant des tests de lectures écritures sur cahques dossiers
-            __User.setArchDossProd = New ArchDossProd()
+            'en réalisant des tests de lectures écritures sur chaques dossiers
+            __User = New UserConfig
         Catch ex As Exception
             _BTVisible = False
             Info(_INI_CHECKFOLDER & vbNewLine & ex.Message, True)
@@ -63,16 +63,17 @@ Public Class Initialisation
 
         Try
             'détermination des droits via bdd
-            Dim monUser As Utilisateur = DAOFactory.getUtilisateur.dbGetByName(__User.getNom)
+            Dim monUser As Utilisateur = DAOFactory.getUtilisateur.dbGetByName(__User.getUserName)
             If IsNothing(monUser) Then
                 'l'utilisateur n'est pas présent dans la bdd
-                __User.setDroitUser = Outils.DroitUser.Guest
-                Info(String.Format(_BDD_NOUSER, __User.getNom))
+                __User.setDroitUser = Droits.Guest
+                Info(String.Format(_BDD_NOUSER, __User.getUserName))
             Else
                 'l'utilisateur est présent et à des droits
+                __User.setUserId = monUser.idUtilisateur
                 __User.setDroitUser = DAOFactory.getHistoDroit.dbGetLastStatutById(monUser.idUtilisateur).getIdDroit
             End If
-            Info(String.Format(_BDD_GETDROIT, __User.getDroitBDD, __User.getNom))
+            Info(String.Format(_BDD_GETDROIT, __User.getDroitBDD, __User.getUserName))
         Catch ex As Exception
             _BTVisible = False
             Info("" & vbNewLine & ex.Message, True)
@@ -86,12 +87,12 @@ Public Class Initialisation
     ''' </summary>
     ''' <param name="level"></param>
     ''' <remarks></remarks>
-    Private Sub DebugConfiguration(ByVal level As Byte, ByVal bdd As Outils.DroitUser, ByVal envT As String)
+    Private Sub DebugConfiguration(ByVal level As Byte, ByVal bdd As Droits, ByVal envT As String)
         Info()
         If level >= 2 Then
             level -= 2
             'son env. de prod est
-            __User.setArchDossProd = New ArchDossProd(envT)
+            __User.setArchDossProd = envT
             Dim env As New System.Text.StringBuilder()
             For i = 1 To 6
                 With env
@@ -112,10 +113,10 @@ Public Class Initialisation
 
     End Sub
     Private Sub ResumeInfo()
-        TXT_Username.Text = __User.getNom
+        TXT_Username.Text = __User.getUserName
         TXT_PC.Text = __User.getPC
         TXT_RepBase.Text = Configuration.getInstance.GetValueFromKey(Outils.INI_KEY_REPBASE)
-        TXT_Droit.Text = __User.getDroitReel.ToString
+        TXT_Droit.Text = __User.getDroitDetermine.ToString
 
         Dim ListeDossier = [Enum].GetValues(GetType(Outils.DossierProd))
         Info()
@@ -137,7 +138,7 @@ Public Class Initialisation
         Next
         Info(_INI_TEST)
 
-        If __User.getDroitReel <= Outils.DroitUser.NoUse Then
+        If __User.getDroitDetermine <= Droits.NoUse Then
             _BTVisible = False
         End If
 

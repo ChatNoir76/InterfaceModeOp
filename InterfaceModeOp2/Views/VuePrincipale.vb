@@ -15,8 +15,8 @@ Public Class vuePrincipale
 
         ' Ajoutez une initialisation quelconque après l'appel InitializeComponent().
         GestionMenuDroitUser()
-        Me.TXT_LoginUtilisateur.Text = Initialisation.__User.getNom
-        Me.TXT_Droits.Text = Initialisation.__User.getDroitReel.ToString
+        Me.TXT_LoginUtilisateur.Text = Initialisation.__User.getUserName
+        Me.TXT_Droits.Text = Initialisation.__User.getDroitDetermine.ToString
         Me.TXT_Action.Text = "Initialisation OK"
 #If DEBUG Then
         Me.Info("--[MODE DEBUG]--", True)
@@ -24,25 +24,25 @@ Public Class vuePrincipale
     End Sub
 
     Private Sub GestionMenuDroitUser()
-        Select Case Initialisation.__User.getDroitReel
-            Case Outils.DroitUser.Guest 'consultation
+        Select Case Initialisation.__User.getDroitDetermine
+            Case Droits.Guest 'consultation
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur)
                 GestionMenu(False, TSMI_Utilisateur_Impression)
-            Case Outils.DroitUser.User 'GUEST +impression
+            Case Droits.User 'GUEST +impression
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur)
-            Case Outils.DroitUser.KeyUser 'USER +Export
+            Case Droits.KeyUser 'USER +Export
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur, TSMI_Administrateur)
                 GestionMenu(False, TSMI_Administrateur_Importation)
-            Case Outils.DroitUser.UserAQ 'USER +outils
+            Case Droits.UserAQ 'USER +outils
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur, TSMI_Outils)
                 GestionMenu(False, TSMI_Outils_Parametre_DroitUser)
-            Case Outils.DroitUser.AdminAQ '+ gestion droit utilisateur
+            Case Droits.AdminAQ '+ gestion droit utilisateur
                 GestionMenu(False, TSMI_Developpeur)
-            Case Outils.DroitUser.AdminDvlp
+            Case Droits.AdminDvlp
                 GestionMenu(True)
             Case Else
                 GestionMenu(False)
@@ -164,4 +164,9 @@ Public Class vuePrincipale
         Me.TXT_Action.Size = New Size(Me.Width - 44, Me.Height - 210)
     End Sub
 #End Region
+
+    Private Sub TSMI_Outils_AuditTrails_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Outils_AuditTrails.Click
+        VueAuditrails.ShowDialog()
+    End Sub
+
 End Class

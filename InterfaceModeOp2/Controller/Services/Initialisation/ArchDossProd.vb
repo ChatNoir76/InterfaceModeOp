@@ -114,7 +114,7 @@ EndOfFile:
     ''' <param name="Droit">le droit voulu qui est testé</param>
     ''' <returns>True si l'architecture permet ce droit</returns>
     ''' <remarks></remarks>
-    Public Function isEnoughFor(ByVal Droit As Outils.DroitUser) As Boolean
+    Public Function isEnoughFor(ByVal Droit As Droits) As Boolean
         Dim Arch As New ArchDossProd(Configuration.getInstance.GetValueFromKey(Droit))
         Dim ListeDossier = [Enum].GetValues(GetType(Outils.DossierProd))
 

@@ -40,10 +40,6 @@ Partial Class vuePrincipale
         Me.TSMI_Utilisateur_Impression = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Outils = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Outils_AuditTrails = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TSMI_Outils_AuditTrails_Impression = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TSMI_Outils_AuditTrails_Exportation = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TSMI_Outils_AuditTrails_Importation = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TSMI_Outils_AuditTrails_Paramètres = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Outils_Parametre = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Outils_Parametre_DroitUser = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Info = New System.Windows.Forms.ToolStripMenuItem()
@@ -172,34 +168,9 @@ Partial Class vuePrincipale
         '
         'TSMI_Outils_AuditTrails
         '
-        Me.TSMI_Outils_AuditTrails.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Outils_AuditTrails_Impression, Me.TSMI_Outils_AuditTrails_Exportation, Me.TSMI_Outils_AuditTrails_Importation, Me.TSMI_Outils_AuditTrails_Paramètres})
         Me.TSMI_Outils_AuditTrails.Name = "TSMI_Outils_AuditTrails"
         Me.TSMI_Outils_AuditTrails.Size = New System.Drawing.Size(134, 22)
         Me.TSMI_Outils_AuditTrails.Text = "Audit Trails"
-        '
-        'TSMI_Outils_AuditTrails_Impression
-        '
-        Me.TSMI_Outils_AuditTrails_Impression.Name = "TSMI_Outils_AuditTrails_Impression"
-        Me.TSMI_Outils_AuditTrails_Impression.Size = New System.Drawing.Size(137, 22)
-        Me.TSMI_Outils_AuditTrails_Impression.Text = "Impression"
-        '
-        'TSMI_Outils_AuditTrails_Exportation
-        '
-        Me.TSMI_Outils_AuditTrails_Exportation.Name = "TSMI_Outils_AuditTrails_Exportation"
-        Me.TSMI_Outils_AuditTrails_Exportation.Size = New System.Drawing.Size(137, 22)
-        Me.TSMI_Outils_AuditTrails_Exportation.Text = "Exportation"
-        '
-        'TSMI_Outils_AuditTrails_Importation
-        '
-        Me.TSMI_Outils_AuditTrails_Importation.Name = "TSMI_Outils_AuditTrails_Importation"
-        Me.TSMI_Outils_AuditTrails_Importation.Size = New System.Drawing.Size(137, 22)
-        Me.TSMI_Outils_AuditTrails_Importation.Text = "Importation"
-        '
-        'TSMI_Outils_AuditTrails_Paramètres
-        '
-        Me.TSMI_Outils_AuditTrails_Paramètres.Name = "TSMI_Outils_AuditTrails_Paramètres"
-        Me.TSMI_Outils_AuditTrails_Paramètres.Size = New System.Drawing.Size(137, 22)
-        Me.TSMI_Outils_AuditTrails_Paramètres.Text = "Paramètres"
         '
         'TSMI_Outils_Parametre
         '
@@ -320,9 +291,6 @@ Partial Class vuePrincipale
     Friend WithEvents TSMI_Utilisateur_Impression As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Outils As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Outils_AuditTrails As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TSMI_Outils_AuditTrails_Impression As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TSMI_Outils_AuditTrails_Exportation As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TSMI_Outils_AuditTrails_Importation As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Outils_Parametre As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Outils_Parametre_DroitUser As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Info As System.Windows.Forms.ToolStripMenuItem
@@ -332,5 +300,4 @@ Partial Class vuePrincipale
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents TXT_LoginUtilisateur As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents TSMI_Outils_AuditTrails_Paramètres As System.Windows.Forms.ToolStripMenuItem
 End Class

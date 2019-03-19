@@ -14,16 +14,8 @@ Public Class DAOFactory
         Return New DAOUtilisateur()
     End Function
 
-    Public Shared Function getStatutDroits() As DAODroits
-        Return New DAODroits
-    End Function
-
     Public Shared Function getAuditrails() As DAOAuditrails
         Return New DAOAuditrails
-    End Function
-
-    Public Shared Function getStatutVerification() As DAOVerification
-        Return New DAOVerification
     End Function
 
     Public Shared Function getImpression() As DAOImpression
@@ -44,6 +36,10 @@ Public Class DAOFactory
 
     Public Shared Function getATPrinter() As DAOSpecificTransaction
         Return New DAOSpecificTransaction
+    End Function
+
+    Public Shared Function getViews() As DAOViews
+        Return New DAOViews
     End Function
 
 End Class

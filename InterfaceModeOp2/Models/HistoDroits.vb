@@ -2,7 +2,7 @@
 
     Private _commentaire As String
     Private _date As DateTime
-    Private _idDroit As Double
+    Private _idDroit As Droits
     Private _idUtilisateur As Double
 
 #Region "Property"
@@ -20,7 +20,7 @@
             Return DateToString(_date)
         End Get
     End Property
-    Public ReadOnly Property getIdDroit As Double
+    Public ReadOnly Property getIdDroit As Droits
         Get
             Return _idDroit
         End Get
@@ -39,7 +39,7 @@
         _idDroit = -1
         _idUtilisateur = -1
     End Sub
-    Sub New(ByVal commentaire As String, ByVal maDate As DateTime, ByVal idUtilisateur As Double, ByVal idDroit As Double)
+    Sub New(ByVal commentaire As String, ByVal maDate As DateTime, ByVal idUtilisateur As Double, ByVal idDroit As Droits)
         _commentaire = commentaire
         _date = maDate
         _idDroit = idDroit

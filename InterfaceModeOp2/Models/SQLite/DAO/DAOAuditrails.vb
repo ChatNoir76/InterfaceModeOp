@@ -20,8 +20,10 @@ Public Class DAOAuditrails
                 maListeObj.Add(New auditrails(reader(0).ToString,
                                        reader(1).ToString,
                                        reader(2).ToString,
-                                       Convert.ToDateTime(reader(3).ToString),
-                                       reader(4).ToString))
+                                       reader(3).ToString,
+                                       Convert.ToDateTime(reader(4).ToString),
+                                       reader(5).ToString,
+                                       reader(6).ToString))
             End While
             'libération des objets
             reader.Close()
@@ -42,8 +44,10 @@ Public Class DAOAuditrails
                 obj = New auditrails(reader(0).ToString,
                                             reader(1).ToString,
                                             reader(2).ToString,
-                                            Convert.ToDateTime(reader(3).ToString),
-                                            reader(4).ToString)
+                                            reader(3).ToString,
+                                            Convert.ToDateTime(reader(4).ToString),
+                                            reader(5).ToString,
+                                            reader(6).ToString)
             End If
 
             'libération des objets
@@ -67,27 +71,6 @@ Public Class DAOAuditrails
     Public Sub dbUpdate(ByRef value As auditrails) Implements IDAO(Of auditrails).dbUpdate
 
         Try
-            'définition des paramètres à mettre à jour
-            Dim p1 = New SQLiteParameter()
-            p1.DbType = DbType.String
-            p1.Value = value.getNomFichierAuditrails
-
-            Dim p2 = New SQLiteParameter()
-            p2.DbType = DbType.String
-            p2.Value = value.getCommentaireAuditrails
-
-            Dim p3 = New SQLiteParameter()
-            p3.DbType = DbType.String
-            p3.Value = value.getDateAuditrails
-
-            Dim p4 = New SQLiteParameter()
-            p4.DbType = DbType.Double
-            p4.Value = value.getIdUtilisateur
-
-            Dim p5 = New SQLiteParameter()
-            p5.DbType = DbType.Double
-            p5.Value = value.idAuditrails
-
             MyBase.DAOUpdate(AT_UPDATE, getUpdateParameters(value))
 
         Catch ex As Exception
@@ -105,6 +88,10 @@ Public Class DAOAuditrails
         p2.DbType = DbType.String
         p2.Value = value.getCommentaireAuditrails
 
+        Dim p5 = New SQLiteParameter()
+        p5.DbType = DbType.String
+        p5.Value = value.getinfosystemAuditrails
+
         Dim p3 = New SQLiteParameter()
         p3.DbType = DbType.String
         p3.Value = value.getDateAuditrails
@@ -113,7 +100,11 @@ Public Class DAOAuditrails
         p4.DbType = DbType.Double
         p4.Value = value.getIdUtilisateur
 
-        Return {p1, p2, p3, p4}
+        Dim p6 = New SQLiteParameter()
+        p6.DbType = DbType.Double
+        p6.Value = value.getIdOperation
+
+        Return {p1, p2, p5, p3, p4, p6}
     End Function
 
     Public Function getUpdateParameters(ByVal value As auditrails) As System.Data.SQLite.SQLiteParameter() Implements IDAO(Of auditrails).getUpdateParameters

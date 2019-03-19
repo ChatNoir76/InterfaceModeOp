@@ -21,7 +21,8 @@ Public Class DAOImpression
                 maListeObj.Add(New Impression(reader(0).ToString,
                                        reader(1).ToString,
                                        reader(2).ToString,
-                                       reader(3).ToString))
+                                       reader(3).ToString,
+                                       reader(4).ToString))
             End While
             'libération des objets
             reader.Close()
@@ -43,7 +44,8 @@ Public Class DAOImpression
                 obj = New Impression(reader(0).ToString,
                                            reader(1).ToString,
                                            reader(2).ToString,
-                                           reader(3).ToString)
+                                           reader(3).ToString,
+                                           reader(4).ToString)
             End If
 
             'libération des objets
@@ -77,6 +79,10 @@ Public Class DAOImpression
 
     Public Function getInsertParameters(ByVal value As Impression) As System.Data.SQLite.SQLiteParameter() Implements IDAO(Of Impression).getInsertParameters
         'définition des paramètres à mettre à jour
+        Dim p0 = New SQLiteParameter()
+        p0.DbType = DbType.String
+        p0.Value = value.getLot
+
         Dim p1 = New SQLiteParameter()
         p1.DbType = DbType.String
         p1.Value = value.getNomImprimante
@@ -88,7 +94,7 @@ Public Class DAOImpression
         Dim p3 = New SQLiteParameter()
         p3.DbType = DbType.String
         p3.Value = value.idAuditrails
-        Return {p1, p2, p3}
+        Return {p0, p1, p2, p3}
     End Function
 
     Public Function getUpdateParameters(ByVal value As Impression) As System.Data.SQLite.SQLiteParameter() Implements IDAO(Of Impression).getUpdateParameters

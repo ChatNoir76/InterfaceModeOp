@@ -21,11 +21,17 @@ Public Class Configuration
     Private Const _REGION As String = "["
     Private Const _ATTRIBVAL As String = "="
 
+    ''' <summary>
+    ''' Répertoire de l'application en cours
+    ''' </summary>
     Public ReadOnly Property getBaseDir() As String
         Get
             Return Directory.GetCurrentDirectory
         End Get
     End Property
+    ''' <summary>
+    ''' Répertoire de l'application en cours avec répertoire de base
+    ''' </summary>
     Public ReadOnly Property getWorkDir() As String
         Get
             Dim WorkDir As New System.Text.StringBuilder(Directory.GetCurrentDirectory)
