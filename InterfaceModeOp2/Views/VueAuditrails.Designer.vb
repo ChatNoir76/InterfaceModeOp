@@ -33,8 +33,9 @@ Partial Class VueAuditrails
         Me.TSMI_TOOLS_PRINTAB = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_TOOLS_PRINTSEL = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.TSMI_TOOLS_VUEOLD = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TSMI_TOOLS_VOIREC = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Selection = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TSMI_Selection_Commentaire = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Selection_Historique = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Selection_Signets = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Selection_Verification = New System.Windows.Forms.ToolStripMenuItem()
@@ -52,7 +53,6 @@ Partial Class VueAuditrails
         Me.TSMI_Selection_ChangementDroit_AdminDvlp = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.lbl_Vue = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.TSMI_TOOLS_VUEOLD = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.DGV_Main, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TSMI.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -108,7 +108,7 @@ Partial Class VueAuditrails
         '
         'OutilsToolStripMenuItem
         '
-        Me.OutilsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_TOOLS_PRINTAB, Me.TSMI_TOOLS_PRINTSEL, Me.ToolStripSeparator3, Me.TSMI_TOOLS_VUEOLD})
+        Me.OutilsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_TOOLS_PRINTAB, Me.TSMI_TOOLS_PRINTSEL, Me.ToolStripSeparator3, Me.TSMI_TOOLS_VUEOLD, Me.TSMI_TOOLS_VOIREC})
         Me.OutilsToolStripMenuItem.Name = "OutilsToolStripMenuItem"
         Me.OutilsToolStripMenuItem.Size = New System.Drawing.Size(50, 20)
         Me.OutilsToolStripMenuItem.Text = "Outils"
@@ -130,18 +130,24 @@ Partial Class VueAuditrails
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(182, 6)
         '
+        'TSMI_TOOLS_VUEOLD
+        '
+        Me.TSMI_TOOLS_VUEOLD.Name = "TSMI_TOOLS_VUEOLD"
+        Me.TSMI_TOOLS_VUEOLD.Size = New System.Drawing.Size(185, 22)
+        Me.TSMI_TOOLS_VUEOLD.Text = "Vue précédente"
+        '
+        'TSMI_TOOLS_VOIREC
+        '
+        Me.TSMI_TOOLS_VOIREC.Name = "TSMI_TOOLS_VOIREC"
+        Me.TSMI_TOOLS_VOIREC.Size = New System.Drawing.Size(185, 22)
+        Me.TSMI_TOOLS_VOIREC.Text = "Voir AT Vérifié"
+        '
         'TSMI_Selection
         '
-        Me.TSMI_Selection.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Selection_Commentaire, Me.TSMI_Selection_Historique, Me.TSMI_Selection_Signets, Me.TSMI_Selection_Verification, Me.TSMI_Selection_ChangementDroit})
+        Me.TSMI_Selection.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Selection_Historique, Me.TSMI_Selection_Signets, Me.TSMI_Selection_Verification, Me.TSMI_Selection_ChangementDroit})
         Me.TSMI_Selection.Name = "TSMI_Selection"
         Me.TSMI_Selection.Size = New System.Drawing.Size(67, 20)
         Me.TSMI_Selection.Text = "Sélection"
-        '
-        'TSMI_Selection_Commentaire
-        '
-        Me.TSMI_Selection_Commentaire.Name = "TSMI_Selection_Commentaire"
-        Me.TSMI_Selection_Commentaire.Size = New System.Drawing.Size(240, 22)
-        Me.TSMI_Selection_Commentaire.Text = "Modifier Commentaire"
         '
         'TSMI_Selection_Historique
         '
@@ -249,12 +255,6 @@ Partial Class VueAuditrails
         Me.lbl_Vue.Size = New System.Drawing.Size(63, 17)
         Me.lbl_Vue.Text = "Pas de vue"
         '
-        'TSMI_TOOLS_VUEOLD
-        '
-        Me.TSMI_TOOLS_VUEOLD.Name = "TSMI_TOOLS_VUEOLD"
-        Me.TSMI_TOOLS_VUEOLD.Size = New System.Drawing.Size(185, 22)
-        Me.TSMI_TOOLS_VUEOLD.Text = "Vue précédente"
-        '
         'VueAuditrails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -285,7 +285,6 @@ Partial Class VueAuditrails
     Friend WithEvents TSMI_TOOLS_PRINTAB As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lbl_Vue As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents TSMI_Selection As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TSMI_Selection_Commentaire As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_LISTEUSER As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_ATAutre As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
@@ -307,4 +306,5 @@ Partial Class VueAuditrails
     Friend WithEvents TSMI_TOOLS_PRINTSEL As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents TSMI_TOOLS_VUEOLD As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TSMI_TOOLS_VOIREC As System.Windows.Forms.ToolStripMenuItem
 End Class

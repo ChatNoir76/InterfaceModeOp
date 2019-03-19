@@ -8,7 +8,9 @@ Public Class VueAuditrails
     Private Const CHG_DROITS = "{0} change les droits : {1}"
 
     Private Const VUE_ATPRINTER = "Audit trails d'impression pour mode opératoire"
-    Private Const VUE_ATPRINTER_SIGNETS = "Signet d'impression pour mode opératoire"
+    Private Const VUE_ATPRINTER_SIGNETS = "Signet du bon pour utilisation n°{0} pour mode opératoire"
+    Private Const VUE_HISTODROITSUSER = "Historique des droits de l'utilisateur n°{0}"
+    Private Const VUE_HISTOVERIFICATION = "Historique des vérification de l'audit trails n°{0}"
     Private Const VUE_ATIEA = "Audit trails d'Importation/Exportation/Archivage"
     Private Const VUE_USERS = "Liste des utilisateurs"
     Private Const VUE_NOVIEW = "Pas de Vue"
@@ -35,6 +37,7 @@ Public Class VueAuditrails
             _DGVMainSize = New Size(Me.Width - .Width, Me.Height - .Height)
             _canResize = True
             TSMI_TOOLS_PRINTSEL.Visible = False
+            TSMI_TOOLS_VOIREC.Visible = False
             changerVue(DAOViews.views.PasDeVue)
         End With
 
@@ -43,42 +46,16 @@ Public Class VueAuditrails
 
 #Region "Evènement Menu"
     Private Sub Vue_ATImpression(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_ATPrinter.Click
-        changerVue(DAOViews.views.ATPrinter)
+        changerVue(DAOViews.views.AT_Printer_ALL)
     End Sub
     Private Sub Vue_Rien(ByVal sender As System.Object, ByVal e As System.EventArgs)
         changerVue(DAOViews.views.PasDeVue)
     End Sub
     Private Sub TSMI_LISTEUSER_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_LISTEUSER.Click
-        changerVue(DAOViews.views.ListUser)
+        changerVue(DAOViews.views.User_ALL)
     End Sub
     Private Sub TSMI_ATAutre_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_ATAutre.Click
-        changerVue(DAOViews.views.ATImportExportArchivage)
-    End Sub
-    Private Sub ConfigMenuSelection(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DGV_Main.CellClick
-        'DGV_Main.Rows.Item(e.RowIndex).Cells(e.ColumnIndex).Value
-        'sélection d'une ligne complète
-        If e.ColumnIndex = -1 And e.RowIndex > -1 Then
-            TSMI_TOOLS_PRINTSEL.Visible = True
-            TSMI_Selection.Visible = True
-            Dim maVue As DAOViews.views = _Vue_Encours
-
-            Select Case maVue
-                Case DAOViews.views.ATPrinter
-                    gestionMenuSelection(True, False, True, False, True)
-                    TSMI_Selection.Text = String.Format(SELECTION, "l'audit trails d'impression", DGV_Main.Rows.Item(e.RowIndex).Cells(0).Value)
-                Case DAOViews.views.ATImportExportArchivage
-                    gestionMenuSelection(True, True, False, False, True)
-                    TSMI_Selection.Text = String.Format(SELECTION, "l'audit trails", DGV_Main.Rows.Item(e.RowIndex).Cells(0).Value)
-                Case DAOViews.views.ListUser
-                    gestionMenuSelection(True, True, False, True, False)
-                    TSMI_Selection.Text = String.Format(SELECTION, "l'utilisateur", DGV_Main.Rows.Item(e.RowIndex).Cells(0).Value)
-                Case Else
-                    TSMI_Selection.Visible = False
-            End Select
-        Else
-            TSMI_Selection.Visible = False
-            TSMI_TOOLS_PRINTSEL.Visible = False
-        End If
+        changerVue(DAOViews.views.AT_IEA_ALL)
     End Sub
     Private Sub Imprimer_DGV(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_TOOLS_PRINTAB.Click
         Dim DGV As New PrintDataGridView(DGV_Main)
@@ -90,6 +67,40 @@ Public Class VueAuditrails
     End Sub
     Private Sub VuePrécédenteToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_TOOLS_VUEOLD.Click
         changerVue(_Vue_Precedente, True)
+    End Sub
+#End Region
+
+#Region "Gestion du menu Selection"
+    Private Sub ConfigMenuSelection(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DGV_Main.CellClick
+        'DGV_Main.Rows.Item(e.RowIndex).Cells(e.ColumnIndex).Value
+        'sélection d'une ligne complète
+        If e.ColumnIndex = -1 And e.RowIndex > -1 Then
+            TSMI_TOOLS_PRINTSEL.Visible = True
+            TSMI_Selection.Visible = True
+
+            Select Case _Vue_Encours
+                Case DAOViews.views.AT_Printer_Encours
+                    gestionMenuSelection(True, True, True, False, True)
+                    TSMI_Selection.Text = String.Format(SELECTION, "l'audit trails d'impression", DGV_Main.Rows.Item(e.RowIndex).Cells(0).Value)
+                Case DAOViews.views.AT_Printer_ALL
+                    gestionMenuSelection(True, True, True, False, True, True)
+                    TSMI_Selection.Text = String.Format(SELECTION, "l'audit trails d'impression", DGV_Main.Rows.Item(e.RowIndex).Cells(0).Value)
+                Case DAOViews.views.AT_IEA_ALL
+                    gestionMenuSelection(True, True, False, False, True, True)
+                    TSMI_Selection.Text = String.Format(SELECTION, "l'audit trails", DGV_Main.Rows.Item(e.RowIndex).Cells(0).Value)
+                Case DAOViews.views.AT_IEA_Encours
+                    gestionMenuSelection(True, True, False, False, True)
+                    TSMI_Selection.Text = String.Format(SELECTION, "l'audit trails", DGV_Main.Rows.Item(e.RowIndex).Cells(0).Value)
+                Case DAOViews.views.User_ALL
+                    gestionMenuSelection(True, True, False, True, False)
+                    TSMI_Selection.Text = String.Format(SELECTION, "l'utilisateur", DGV_Main.Rows.Item(e.RowIndex).Cells(0).Value)
+                Case Else
+                    TSMI_Selection.Visible = False
+            End Select
+        Else
+            TSMI_Selection.Visible = False
+            TSMI_TOOLS_PRINTSEL.Visible = False
+        End If
     End Sub
 #End Region
 
@@ -109,32 +120,45 @@ Public Class VueAuditrails
         If reset Then
             _Vue_Precedente = DAOViews.views.PasDeVue
             _Vue_Encours = maVue
+            Me.TSMI_TOOLS_PRINTSEL.Visible = False
         Else
             _Vue_Precedente = _Vue_Encours
             _Vue_Encours = maVue
+            Me.TSMI_TOOLS_VOIREC.Visible = False
         End If
-
 
         TSMI_Selection.Visible = False
 
         Select Case maVue
-            Case DAOViews.views.ATPrinter
+            Case DAOViews.views.AT_Printer_ALL
                 DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATPRINTER)
-            Case DAOViews.views.ATImportExportArchivage
+            Case DAOViews.views.AT_IEA_ALL
                 DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATIEA)
-            Case DAOViews.views.ListUser
+            Case DAOViews.views.User_ALL
                 DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_USERS)
-            Case DAOViews.views.ATPrinter_Signet
-                DGV_Main.DataSource = DAOFactory.getViews.getById(DGV_Main.SelectedCells(0).Value, DAOViews.reqById.GetSignet, VUE_ATPRINTER_SIGNETS)
-                'on cache la 2e colonnes id_auditrails
-                DGV_Main.Columns(1).Visible = False
+            Case DAOViews.views.AT_Printer_Signet
+                Dim _id As Integer = DGV_Main.SelectedCells(0).Value
+                DGV_Main.DataSource = DAOFactory.getViews.getById(_id, DAOViews.reqById.GetSignet, String.Format(VUE_ATPRINTER_SIGNETS, _id))
+            Case DAOViews.views.Histo_DroitUser
+                Dim _id As Integer = DGV_Main.SelectedCells(0).Value
+                DGV_Main.DataSource = DAOFactory.getViews.getById(_id, DAOViews.reqById.GetHistoDroit, String.Format(VUE_HISTODROITSUSER, _id))
+            Case DAOViews.views.Histo_VerifAT
+                Dim _id As Integer = DGV_Main.SelectedCells(0).Value
+                DGV_Main.DataSource = DAOFactory.getViews.getById(_id, DAOViews.reqById.GetHistoVerif, String.Format(VUE_HISTOVERIFICATION, _id))
+            Case DAOViews.views.AT_Printer_Encours
+                DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATPRINTER & " -->En cours de vérification")
+            Case DAOViews.views.AT_IEA_Encours
+                DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATIEA & " -->En cours de vérification")
             Case Else
                 DGV_Main.DataSource = Nothing
         End Select
 
         If maVue <> DAOViews.views.PasDeVue Then
-            'cache la 1ere colonnes contenant l'id avec le vrai nom de colonne
+            'cache les colonnes contenant l'id avec le vrai nom de colonne
+            'ID PK
             DGV_Main.Columns(0).Visible = False
+            'ID FK
+            DGV_Main.Columns(1).Visible = False
         End If
 
         Me.lbl_Vue.Text = String.Format(AFFICHAGE_VUE,
@@ -147,13 +171,22 @@ Public Class VueAuditrails
         Else
             Me.TSMI_TOOLS_VUEOLD.Visible = True
         End If
+        If _Vue_Encours = DAOViews.views.AT_IEA_ALL Or _Vue_Encours = DAOViews.views.AT_Printer_ALL Then
+            Me.TSMI_TOOLS_VOIREC.Visible = True
+        End If
     End Sub
-    Private Sub gestionMenuSelection(ByVal commentaire As Boolean, ByVal historique As Boolean, ByVal signets As Boolean, ByVal chgDroit As Boolean, ByVal chgVerif As Boolean)
-        TSMI_Selection_Commentaire.Visible = commentaire
+    Private Sub gestionMenuSelection(ByVal commentaire As Boolean,
+                                     ByVal historique As Boolean,
+                                     ByVal signets As Boolean,
+                                     ByVal chgDroit As Boolean,
+                                     ByVal chgVerif As Boolean,
+                                     Optional ByVal voirEC As Boolean = False)
+        'TSMI_Selection_Commentaire.Visible = commentaire
         TSMI_Selection_Historique.Visible = historique
         TSMI_Selection_Signets.Visible = signets
         TSMI_Selection_ChangementDroit.Visible = chgDroit
         TSMI_Selection_Verification.Visible = chgVerif
+        TSMI_TOOLS_VOIREC.Visible = voirEC
     End Sub
 #End Region
 
@@ -231,8 +264,32 @@ Public Class VueAuditrails
 
 #Region "Affichage des signets"
     Private Sub TSMI_Selection_Signets_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Selection_Signets.Click
-        changerVue(DAOViews.views.ATPrinter_Signet)
+        changerVue(DAOViews.views.AT_Printer_Signet)
     End Sub
 #End Region
 
+#Region "Gestion des historiques"
+    Private Sub TSMI_Selection_Historique_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Selection_Historique.Click
+        If _Vue_Encours = DAOViews.views.User_ALL Then
+            changerVue(DAOViews.views.Histo_DroitUser)
+        ElseIf _Vue_Encours = DAOViews.views.AT_Printer_ALL Then
+            changerVue(DAOViews.views.Histo_VerifAT)
+        ElseIf _Vue_Encours = DAOViews.views.AT_IEA_ALL Then
+            changerVue(DAOViews.views.Histo_VerifAT)
+        ElseIf _Vue_Encours = DAOViews.views.AT_Printer_Encours Then
+            changerVue(DAOViews.views.Histo_VerifAT)
+        ElseIf _Vue_Encours = DAOViews.views.AT_IEA_Encours Then
+            changerVue(DAOViews.views.Histo_VerifAT)
+        End If
+    End Sub
+#End Region
+
+    Private Sub TSMI_TOOLS_VOIREC_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_TOOLS_VOIREC.Click
+        TSMI_TOOLS_VOIREC.Visible = False
+        If _Vue_Encours = DAOViews.views.AT_Printer_ALL Then
+            changerVue(DAOViews.views.AT_Printer_Encours)
+        ElseIf _Vue_Encours = DAOViews.views.AT_IEA_ALL Then
+            changerVue(DAOViews.views.AT_IEA_Encours)
+        End If
+    End Sub
 End Class
