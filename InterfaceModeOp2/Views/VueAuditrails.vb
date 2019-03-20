@@ -1,4 +1,4 @@
-﻿Imports ValdepharmTool.GGridView
+﻿Imports VBTools.GestionDataGridView
 
 Public Class VueAuditrails
 

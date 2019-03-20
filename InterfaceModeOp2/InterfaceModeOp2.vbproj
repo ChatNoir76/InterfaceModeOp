@@ -65,8 +65,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="ValdepharmTool">
-      <HintPath>..\..\..\..\DLL\DLL\ValdepharmTool.dll</HintPath>
+    <Reference Include="VBTools">
+      <HintPath>..\..\..\..\DLL\DLL\VBTools.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

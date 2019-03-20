@@ -1,4 +1,4 @@
-﻿Imports ValdepharmTool.GBox
+﻿Imports VBTools.DialogBox
 Imports System.Text
 
 Module WAction
