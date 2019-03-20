@@ -166,7 +166,20 @@ Public Class vuePrincipale
 #End Region
 
     Private Sub TSMI_Outils_AuditTrails_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Outils_AuditTrails.Click
-        VueAuditrails.ShowDialog()
+        Const _MSG_ERR_DAO = "DAO ERROR"
+        Const _MSG_ERR_GENERALE = "GENERAL ERROR"
+
+        Try
+            VueAuditrails.ShowDialog()
+        Catch ex As DAOException
+            Info("Source : " & ex.getErrSource, True)
+            Info(ex.Message)
+            Info(_MSG_ERR_DAO)
+        Catch ex As Exception
+            Info(ex.Message, True)
+            Info(_MSG_ERR_GENERALE)
+        End Try
+
     End Sub
 
 End Class
