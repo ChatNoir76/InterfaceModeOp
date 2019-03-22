@@ -10,9 +10,9 @@
 *.sln.docstates
 
 ### Fichier template ###
-/InterfaceModeOp2/bin/Debug/Test
-!/InterfaceModeOp2/bin/Debug/VBTools.dll
-!/InterfaceModeOp2/bin/Release/VBTools.dll
+InterfaceModeOp2/bin/Debug/Test
+!InterfaceModeOp2/bin/Debug/VBTools.dll
+!InterfaceModeOp2/bin/Release
 
 ### VisualStudioCode ###
 .vscode/*
