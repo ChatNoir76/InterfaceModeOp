@@ -1,6 +1,6 @@
 ﻿<Assembly: Reflection.AssemblyVersion("2.0.0.0")> 
 <Assembly: Reflection.AssemblyFileVersion("2.0.0.0")> 
-<Assembly: Reflection.AssemblyInformationalVersion("VERSION 2 TEST ")> 
+<Assembly: Reflection.AssemblyInformationalVersion("2300 FS 01 A")> 
 
 Public Class Initialisation
     'à l'initialisation récupère les données utilisateurs (nom windows)
@@ -22,6 +22,13 @@ Public Class Initialisation
     Sub New()
 
         InitializeComponent()
+
+        For Each fichier As String In {"InterfaceModeOp2.ini", "VBTools.dll", "System.Data.SQLite.dll"}
+            If Not System.IO.File.Exists(fichier) Then
+                MessageBox.Show(String.Format("Le fichier {0} est introuvable, l'application va fermer", fichier), "Erreur fatale", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End
+            End If
+        Next
 
         ConfigurationInterface()
 
