@@ -23,7 +23,6 @@ Partial Class vuePrincipale
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.TSMI_Developpeur = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TSMI_Developpeur_GestionDroitUser = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Developpeur_ConversionModeOp = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.TSMI_Administrateur = New System.Windows.Forms.ToolStripMenuItem()
@@ -40,8 +39,6 @@ Partial Class vuePrincipale
         Me.TSMI_Utilisateur_Impression = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Outils = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Outils_AuditTrails = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TSMI_Outils_Parametre = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TSMI_Outils_Parametre_DroitUser = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Info = New System.Windows.Forms.ToolStripMenuItem()
         Me.GB_Main = New System.Windows.Forms.GroupBox()
         Me.TXT_Action = New System.Windows.Forms.TextBox()
@@ -55,21 +52,15 @@ Partial Class vuePrincipale
         '
         'TSMI_Developpeur
         '
-        Me.TSMI_Developpeur.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Developpeur_GestionDroitUser, Me.TSMI_Developpeur_ConversionModeOp})
+        Me.TSMI_Developpeur.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Developpeur_ConversionModeOp})
         Me.TSMI_Developpeur.Name = "TSMI_Developpeur"
         Me.TSMI_Developpeur.Size = New System.Drawing.Size(86, 20)
         Me.TSMI_Developpeur.Text = "Développeur"
         '
-        'TSMI_Developpeur_GestionDroitUser
-        '
-        Me.TSMI_Developpeur_GestionDroitUser.Name = "TSMI_Developpeur_GestionDroitUser"
-        Me.TSMI_Developpeur_GestionDroitUser.Size = New System.Drawing.Size(209, 22)
-        Me.TSMI_Developpeur_GestionDroitUser.Text = "Gestion Droits Utilisateurs"
-        '
         'TSMI_Developpeur_ConversionModeOp
         '
         Me.TSMI_Developpeur_ConversionModeOp.Name = "TSMI_Developpeur_ConversionModeOp"
-        Me.TSMI_Developpeur_ConversionModeOp.Size = New System.Drawing.Size(209, 22)
+        Me.TSMI_Developpeur_ConversionModeOp.Size = New System.Drawing.Size(187, 22)
         Me.TSMI_Developpeur_ConversionModeOp.Text = "Conversion Mode Op"
         '
         'MenuStrip1
@@ -161,7 +152,7 @@ Partial Class vuePrincipale
         '
         'TSMI_Outils
         '
-        Me.TSMI_Outils.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Outils_AuditTrails, Me.TSMI_Outils_Parametre})
+        Me.TSMI_Outils.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Outils_AuditTrails})
         Me.TSMI_Outils.Name = "TSMI_Outils"
         Me.TSMI_Outils.Size = New System.Drawing.Size(50, 20)
         Me.TSMI_Outils.Text = "Outils"
@@ -169,21 +160,8 @@ Partial Class vuePrincipale
         'TSMI_Outils_AuditTrails
         '
         Me.TSMI_Outils_AuditTrails.Name = "TSMI_Outils_AuditTrails"
-        Me.TSMI_Outils_AuditTrails.Size = New System.Drawing.Size(134, 22)
+        Me.TSMI_Outils_AuditTrails.Size = New System.Drawing.Size(152, 22)
         Me.TSMI_Outils_AuditTrails.Text = "Audit Trails"
-        '
-        'TSMI_Outils_Parametre
-        '
-        Me.TSMI_Outils_Parametre.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Outils_Parametre_DroitUser})
-        Me.TSMI_Outils_Parametre.Name = "TSMI_Outils_Parametre"
-        Me.TSMI_Outils_Parametre.Size = New System.Drawing.Size(134, 22)
-        Me.TSMI_Outils_Parametre.Text = "Paramètres"
-        '
-        'TSMI_Outils_Parametre_DroitUser
-        '
-        Me.TSMI_Outils_Parametre_DroitUser.Name = "TSMI_Outils_Parametre_DroitUser"
-        Me.TSMI_Outils_Parametre_DroitUser.Size = New System.Drawing.Size(209, 22)
-        Me.TSMI_Outils_Parametre_DroitUser.Text = "Gestion Droits Utilisateurs"
         '
         'TSMI_Info
         '
@@ -274,7 +252,6 @@ Partial Class vuePrincipale
 
     End Sub
     Friend WithEvents TSMI_Developpeur As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TSMI_Developpeur_GestionDroitUser As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Developpeur_ConversionModeOp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents TSMI_Administrateur As System.Windows.Forms.ToolStripMenuItem
@@ -291,8 +268,6 @@ Partial Class vuePrincipale
     Friend WithEvents TSMI_Utilisateur_Impression As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Outils As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Outils_AuditTrails As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TSMI_Outils_Parametre As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TSMI_Outils_Parametre_DroitUser As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Info As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GB_Main As System.Windows.Forms.GroupBox
     Friend WithEvents TXT_Action As System.Windows.Forms.TextBox

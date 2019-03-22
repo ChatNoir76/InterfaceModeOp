@@ -1,4 +1,6 @@
 ﻿<Assembly: Reflection.AssemblyVersion("2.0.0.0")> 
+<Assembly: Reflection.AssemblyFileVersion("2.0.0.0")> 
+<Assembly: Reflection.AssemblyInformationalVersion("VERSION 2 TEST ")> 
 
 Public Class Initialisation
     'à l'initialisation récupère les données utilisateurs (nom windows)

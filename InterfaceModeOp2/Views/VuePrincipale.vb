@@ -39,7 +39,6 @@ Public Class vuePrincipale
             Case Droits.UserAQ 'USER +outils
                 GestionMenu(False)
                 GestionMenu(True, TSMI_Utilisateur, TSMI_Outils)
-                GestionMenu(False, TSMI_Outils_Parametre_DroitUser)
             Case Droits.AdminAQ '+ gestion droit utilisateur
                 GestionMenu(False, TSMI_Developpeur)
             Case Droits.AdminDvlp
