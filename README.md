@@ -2,17 +2,20 @@
 ### **[ contrôle d'impression de documents confidentiels ]**
 
 * **Utilisation**
-    
-    *Récupérer l'exécutable et la dll dans le dossier  :*<br>
+    * **Release**
+
+    *Utilisation des fichiers dans le dossier  :*<br>
     InterfaceModeOp2\bin\Release
 
-    *Puis récupérer l'architecture dossier :*<br>
+    *Lancer l'interface en cliquant sur InterfaceModeOp2.exe*
+
+    * **Debug**
+
+    *Pour le mode debug, reprendre les dossiers dans production et renommer en 'test' :*<br>
     InterfaceModeOp2\bin\Debug\Test
 
-    *Enfin récupérer les fichiers .db3 et *.ini :*<br>
+    *ou changer les paramètres du fichier .ini dans*<br>
     InterfaceModeOp2\bin\Debug
-
-    *Lancer l'interface en cliquant sur InterfaceModeOp2.exe*
 
 * **Configuration**
 
