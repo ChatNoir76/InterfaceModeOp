@@ -11,6 +11,7 @@
 
 ### Fichier template ###
 /InterfaceModeOp2/bin/Debug/Test
+!VBTools.dll
 
 ### VisualStudioCode ###
 .vscode/*
