@@ -143,7 +143,7 @@ Public Class vuePrincipale
             mesInfo.Append(.Copyright).AppendLine()
             mesInfo.Append(String.Format("Version {0}.{1:00}", .Version.Major, .Version.Minor))
 #If DEBUG Then
-            mesInfo.AppendLine.Append("(Mode Debug)")
+            mesInfo.AppendLine.Append("--Mode Debug--")
 #End If
             MessageBox.Show(mesInfo.ToString, .Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
         End With

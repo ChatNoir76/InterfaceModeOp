@@ -46,7 +46,7 @@ Public Class VueAuditrails
 
 #Region "Evènement Menu"
     Private Sub Vue_ATImpression(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_ATPrinter.Click
-        changerVue(DAOViews.views.AT_Printer_ALL)
+        changerVue(DAOViews.views.AT_Printer_Encours)
     End Sub
     Private Sub Vue_Rien(ByVal sender As System.Object, ByVal e As System.EventArgs)
         changerVue(DAOViews.views.PasDeVue)
@@ -55,7 +55,7 @@ Public Class VueAuditrails
         changerVue(DAOViews.views.User_ALL)
     End Sub
     Private Sub TSMI_ATAutre_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_ATAutre.Click
-        changerVue(DAOViews.views.AT_IEA_ALL)
+        changerVue(DAOViews.views.AT_IEA_Encours)
     End Sub
     Private Sub Imprimer_DGV(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_TOOLS_PRINTAB.Click
         Dim DGV As New PrintDataGridView(DGV_Main)
@@ -120,13 +120,13 @@ Public Class VueAuditrails
         If reset Then
             _Vue_Precedente = DAOViews.views.PasDeVue
             _Vue_Encours = maVue
-            Me.TSMI_TOOLS_PRINTSEL.Visible = False
         Else
             _Vue_Precedente = _Vue_Encours
             _Vue_Encours = maVue
             Me.TSMI_TOOLS_VOIREC.Visible = False
         End If
 
+        Me.TSMI_TOOLS_PRINTSEL.Visible = False
         TSMI_Selection.Visible = False
 
         Select Case maVue
@@ -171,7 +171,7 @@ Public Class VueAuditrails
         Else
             Me.TSMI_TOOLS_VUEOLD.Visible = True
         End If
-        If _Vue_Encours = DAOViews.views.AT_IEA_ALL Or _Vue_Encours = DAOViews.views.AT_Printer_ALL Then
+        If _Vue_Encours = DAOViews.views.AT_IEA_Encours Or _Vue_Encours = DAOViews.views.AT_Printer_Encours Then
             Me.TSMI_TOOLS_VOIREC.Visible = True
         End If
     End Sub
@@ -286,10 +286,10 @@ Public Class VueAuditrails
 
     Private Sub TSMI_TOOLS_VOIREC_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_TOOLS_VOIREC.Click
         TSMI_TOOLS_VOIREC.Visible = False
-        If _Vue_Encours = DAOViews.views.AT_Printer_ALL Then
-            changerVue(DAOViews.views.AT_Printer_Encours)
-        ElseIf _Vue_Encours = DAOViews.views.AT_IEA_ALL Then
-            changerVue(DAOViews.views.AT_IEA_Encours)
+        If _Vue_Encours = DAOViews.views.AT_Printer_Encours Then
+            changerVue(DAOViews.views.AT_Printer_ALL)
+        ElseIf _Vue_Encours = DAOViews.views.AT_IEA_Encours Then
+            changerVue(DAOViews.views.AT_IEA_ALL)
         End If
     End Sub
 End Class
