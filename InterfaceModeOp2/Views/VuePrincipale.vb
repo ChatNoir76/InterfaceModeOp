@@ -179,4 +179,21 @@ Public Class vuePrincipale
         End Try
     End Sub
 
+    Private Sub TSMI_Developpeur_ProtectionBDD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Developpeur_ProtectionBDD.Click
+        Const NOTPROTECT = "La base de données n'est pas protégé par l'interface, voulez vous activer la protection?"
+        Const PROTECT = "La base de données est protégé par l'interface, voulez vous désactiver la protection?"
+        Const ENTETE = "SQLite protection"
+
+        If Singleton.getModeProtection = 0 Then
+            If MessageBox.Show(NOTPROTECT, ENTETE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
+                Singleton.protectionBDD(True)
+                MessageBox.Show("Protection Active", ENTETE, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        ElseIf Singleton.getModeProtection = 1 Then
+            If MessageBox.Show(PROTECT, ENTETE, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                Singleton.protectionBDD(False)
+                MessageBox.Show("Protection Désactivée", ENTETE, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            End If
+        End If
+    End Sub
 End Class

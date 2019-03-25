@@ -64,6 +64,9 @@ Public Class Initialisation
             If IsNothing(DAOFactory.getConnexion()) Then
                 Throw New Exception(_BDD_NOCONN)
             End If
+            If Singleton.getModeProtection = -1 Then
+                Throw New Exception(_BDD_NOCONN)
+            End If
         Catch ex As Exception
             _BTVisible = False
             Info(_BDD_ERRCONN & vbNewLine & ex.Message, True)
@@ -151,9 +154,20 @@ Public Class Initialisation
             _BTVisible = False
         End If
 
+        If Singleton.getModeProtection = -1 Then
+            _BTVisible = False
+        End If
+
         Me.BT_Open.Visible = _BTVisible
         Info()
         Info(If(_BTVisible, _INI_OUV, _INI_FERM))
+
+        'l'interface prévient l'adminDVLP que la bdd n'est pas protégé par un mot de passe
+        If Singleton.getModeProtection = 0 And __User.getDroitDetermine = Droits.AdminDvlp Then
+            Info("--------------------------------------------------------------------------------")
+            Info("-- ATTENTION : BDD EN PROTECTION DESACTIVEE --")
+            Info("--------------------------------------------------------------------------------")
+        End If
 
     End Sub
     Private Sub Info(Optional ByVal txt As String = Nothing, Optional ByVal sautLigne As Boolean = False)
