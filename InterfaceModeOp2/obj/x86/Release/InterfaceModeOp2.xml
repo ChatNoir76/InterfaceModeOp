@@ -363,7 +363,14 @@ InterfaceModeOp2
  Contient également toutes les méthodes statiques
  </summary>
 	<remarks></remarks>
-</member><member name="P:InterfaceModeOp2.Singleton.connString">
+</member><member name="P:InterfaceModeOp2.Singleton.getModeProtection">
+	<summary>
+ -1:Probleme; 0:NonProtege, 1:protege
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:InterfaceModeOp2.Singleton.connString(System.Boolean)">
 	<summary>
  chaine de connexion à la base de données
  </summary>

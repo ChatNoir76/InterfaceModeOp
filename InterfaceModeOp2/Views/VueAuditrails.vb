@@ -184,7 +184,7 @@ Public Class VueAuditrails
         'TSMI_Selection_Commentaire.Visible = commentaire
         TSMI_Selection_Historique.Visible = historique
         TSMI_Selection_Signets.Visible = signets
-        TSMI_Selection_ChangementDroit.Visible = chgDroit
+        TSMI_Selection_ChangementDroit.Visible = If(Initialisation.__User.getDroitDetermine = Droits.UserAQ, False, chgDroit)
         TSMI_Selection_Verification.Visible = chgVerif
         TSMI_TOOLS_VOIREC.Visible = voirEC
     End Sub
@@ -291,5 +291,9 @@ Public Class VueAuditrails
         ElseIf _Vue_Encours = DAOViews.views.AT_IEA_Encours Then
             changerVue(DAOViews.views.AT_IEA_ALL)
         End If
+    End Sub
+
+    Private Sub ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem1.Click
+        MessageBox.Show("Version SQLite : " & Singleton.getInstance.ServerVersion, "A Propos...", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 End Class

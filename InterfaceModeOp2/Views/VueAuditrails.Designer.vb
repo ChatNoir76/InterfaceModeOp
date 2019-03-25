@@ -53,6 +53,7 @@ Partial Class VueAuditrails
         Me.TSMI_Selection_ChangementDroit_AdminDvlp = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.lbl_Vue = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.DGV_Main, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TSMI.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
@@ -69,7 +70,7 @@ Partial Class VueAuditrails
         '
         'TSMI
         '
-        Me.TSMI.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VisualisationToolStripMenuItem, Me.OutilsToolStripMenuItem, Me.TSMI_Selection})
+        Me.TSMI.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VisualisationToolStripMenuItem, Me.OutilsToolStripMenuItem, Me.TSMI_Selection, Me.ToolStripMenuItem1})
         Me.TSMI.Location = New System.Drawing.Point(0, 0)
         Me.TSMI.Name = "TSMI"
         Me.TSMI.Size = New System.Drawing.Size(769, 24)
@@ -255,6 +256,12 @@ Partial Class VueAuditrails
         Me.lbl_Vue.Size = New System.Drawing.Size(63, 17)
         Me.lbl_Vue.Text = "Pas de vue"
         '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(24, 20)
+        Me.ToolStripMenuItem1.Text = "?"
+        '
         'VueAuditrails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -307,4 +314,5 @@ Partial Class VueAuditrails
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents TSMI_TOOLS_VUEOLD As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_TOOLS_VOIREC As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 End Class
