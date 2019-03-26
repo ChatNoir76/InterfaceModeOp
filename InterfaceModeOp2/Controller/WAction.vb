@@ -203,6 +203,7 @@ Module WAction
             System.IO.File.Delete(FileExp.Resultat)
 
         End With
+        WReader.Close()
     End Sub
 
     Private Sub Archivage(Optional ByVal viaImportation As Boolean = False)
@@ -275,6 +276,7 @@ Module WAction
 
             End With
         End If
+        WReader.Close()
     End Sub
 
     ''' <summary>
@@ -366,7 +368,7 @@ Module WAction
             System.IO.File.Delete(FileC.Resultat)
 
         End With
-
+        WReader.Close()
     End Sub
 
     ''' <summary>
@@ -427,6 +429,7 @@ Module WAction
 
             End With
         End If
+        WReader.Close()
     End Sub
 
     ''' <summary>
@@ -471,6 +474,7 @@ Module WAction
                 .ExportAsPDF()
             End With
         End If
+        WReader.Close()
     End Sub
 #End Region
 

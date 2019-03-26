@@ -169,15 +169,13 @@ Public Class WReader
             End Try
         Else
             Try
-                'OBSOLETE test pour pb macro de stockage => inefficace
-                'File.SetAttributes(fichier, FileAttributes.Normal)
-
                 'Ouverture d'un doc word
                 ouverture(fichier, methode)
             Catch ex As Exception
                 Throw New WReaderException("Erreur lors de l'ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
             End Try
         End If
+
         Try
             'déprotection du document
             If _myDoc.ProtectionType <> Word.WdProtectionType.wdNoProtection Then
@@ -185,12 +183,18 @@ Public Class WReader
             End If
             'le doc est non visible
             _myWord.Visible = False
-
-            'récupération des infos des signets
-            extractionFields()
         Catch ex As Exception
             Throw New WReaderException("Erreur lors du traitement post ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
+
+        Try
+            'récupération des infos des signets
+            extractionFields()
+        Catch ex As Exception
+            Throw New WReaderException("Erreur lors du processus d'extraction des signets", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
+        End Try
+
+
     End Sub
 
     Private Sub ouverture(ByVal fichier As String, ByVal methode As method)

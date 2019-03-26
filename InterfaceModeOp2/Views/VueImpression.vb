@@ -4,7 +4,7 @@ Public Class VueImpression
     Private Const _AT_NBCAR_MIN As Byte = 20
     Private _PrinterProperty As PS.PrinterSettings
     Private _NomPrinter As String = Nothing
-    Private _AuditTrails As String
+    Private _AuditTrails As String = "noAT"
     Private _ZoneImpression As String = Nothing
     Private _PageToPrint As New List(Of Integer)
     Private _FormulaireValid As Boolean = False
@@ -102,7 +102,7 @@ Public Class VueImpression
         End If
 
         'Audit trails renseigné
-        If TXT_AT.Text.Length < _AT_NBCAR_MIN Then
+        If _AuditTrails.Length < _AT_NBCAR_MIN Then
             MessageBox.Show(String.Format("Veuillez renseigner l'audit trails avec au moins {0} caractères", _AT_NBCAR_MIN), "impression", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return False
         End If
