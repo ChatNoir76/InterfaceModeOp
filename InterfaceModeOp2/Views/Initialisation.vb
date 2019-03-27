@@ -1,5 +1,5 @@
-﻿<Assembly: Reflection.AssemblyVersion("2.0.0.1")> 
-<Assembly: Reflection.AssemblyFileVersion("2.0.0.1")> 
+﻿<Assembly: Reflection.AssemblyVersion("2.0.0.2")> 
+<Assembly: Reflection.AssemblyFileVersion("2.0.0.2")> 
 <Assembly: Reflection.AssemblyInformationalVersion("2300 FS 01 A")> 
 
 Public Class Initialisation
