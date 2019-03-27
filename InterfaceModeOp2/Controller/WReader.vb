@@ -238,7 +238,7 @@ Public Class WReader
     ''' Ferme le document Word actif
     ''' </summary>
     ''' <remarks></remarks>
-    Public Shared Sub Close()
+    Private Shared Sub Close()
         On Error Resume Next
         _myDoc.Close(False)
     End Sub
@@ -327,7 +327,7 @@ no:
             Throw New WReaderException(_ERR_NOINSTANCE, System.Reflection.MethodBase.GetCurrentMethod().Name)
         End If
         Try
-            Dim PDFFileName As String = Path.GetTempPath & "monPDF.pdf"
+            Dim PDFFileName As String = Path.GetTempFileName & ".pdf"
             _myDoc.ExportAsFixedFormat(PDFFileName, Word.WdExportFormat.wdExportFormatPDF, True)
         Catch ex As Exception
             Throw New WReaderException("erreur lors de la création d'un PDF à partir du Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
@@ -566,12 +566,9 @@ no:
     Private Sub Unlocked(ByVal ParamArray ListeMDP() As String)
         'traitement fichier inconnu 
         On Error Resume Next
-        Err.Clear()
         For Each mdp As String In ListeMDP
             _myDoc.Unprotect(mdp)
-            If Err.Number = 0 Then
-                Err.Clear()
-            Else
+            If Err.Number <> 0 Then
                 Err.Clear()
             End If
         Next
