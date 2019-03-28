@@ -1,5 +1,5 @@
-﻿<Assembly: Reflection.AssemblyVersion("2.0.1.0")> 
-<Assembly: Reflection.AssemblyFileVersion("2.0.1.0")> 
+﻿<Assembly: Reflection.AssemblyVersion("2.0.1.1")> 
+<Assembly: Reflection.AssemblyFileVersion("2.0.1.1")> 
 <Assembly: Reflection.AssemblyInformationalVersion("2300 FS 01 A")> 
 'VERSION
 'Chiffre 1 : Nouvelle version logiciel (changement plateforme, de language...)
