@@ -161,9 +161,6 @@ Public Class WReader
                 Dim monCRP As String = Decrypter(fichier)
                 'Ouverture du word décrypté
                 ouverture(monCRP, methode)
-
-                'Suppression du flux
-                If methode = method.add Then File.Delete(monCRP)
             Catch ex As Exception
                 Throw New WReaderException("Erreur lors du processus de décryptage", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
             End Try
@@ -181,10 +178,17 @@ Public Class WReader
             If _myDoc.ProtectionType <> Word.WdProtectionType.wdNoProtection Then
                 Unlocked(Outils.LISTE_MDP_PRODUCTION.Split("|"))
             End If
-            'le doc est non visible
-            _myWord.Visible = False
         Catch ex As Exception
             Throw New WReaderException("Erreur lors du traitement post ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
+        End Try
+
+        Try
+            If _myWord.Visible = True Then
+                'le doc est non visible
+                _myWord.Visible = False
+            End If
+        Catch ex As Exception
+            Throw New WReaderException("Erreur lors du masquage du Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
         End Try
 
         Try
@@ -215,6 +219,7 @@ Public Class WReader
         SyncLock (mylock)
             Try
                 If IsNothing(_Instance) Then
+                    MsgBox("création d'un instance Word")
                     _Instance = New WReader()
                 End If
                 Return _Instance
@@ -241,6 +246,7 @@ Public Class WReader
     Private Shared Sub Close()
         On Error Resume Next
         _myDoc.Close(False)
+        Err.Clear()
     End Sub
     ''' <summary>
     ''' libère les ressources de la classe
@@ -251,12 +257,7 @@ Public Class WReader
         Close()
         _myWord.Quit()
         _Instance = Nothing
-    End Sub
-    Protected Overrides Sub finalize()
-        On Error Resume Next
-        _myDoc = Nothing
-        _myWord = Nothing
-        MyBase.Finalize()
+        Err.Clear()
     End Sub
 #End Region
 
@@ -674,6 +675,7 @@ no:
     ''' <returns>Le chemin du fichier décrypté</returns>
     ''' <remarks></remarks>
     Private Function Decrypter(ByVal WordCrypter As String) As String
+
         Dim Destination As String = Path.GetTempPath & Path.GetFileNameWithoutExtension(WordCrypter)
         Dim DES As New Security.Cryptography.DESCryptoServiceProvider()
         DES.Key() = ASCIIEncoding.ASCII.GetBytes(_sKey)
@@ -684,7 +686,6 @@ no:
         Dim fsDecrypted As New FileStream(Destination, FileMode.Create, FileAccess.Write)
         Dim buffer As New List(Of Byte)
         Dim byt As Integer
-
         Try
             Do
                 byt = cryptostreamDecr.ReadByte()
@@ -701,6 +702,7 @@ no:
             fsDecrypted.Flush()
             fsDecrypted.Close()
             fsread.Close()
+
         End Try
 
         Return Destination
