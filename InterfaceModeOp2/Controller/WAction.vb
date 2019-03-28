@@ -159,7 +159,7 @@ Module WAction
             'FICHIER A EXPORTER
             FileExp = New BoxOpenFile(Configuration.getInstance.getFullProdDir(monDossierProd))
             'le word à chercher sera crypté
-            FileExp.listeExtention.Add(Outils.EXT_FICHIER_CRYPTER)
+            FileExp.listeExtention = {Outils.EXT_FICHIER_CRYPTER}
             'description de la boite de dialogue
             FileExp.DialogBoxTexteDescription = _DESC_EXPORTATION
             FileExp.DialogBoxPoliceDescription = _monFont
@@ -176,7 +176,7 @@ Module WAction
 
         Try
             'EMPLACEMENT D'EXPORTATION
-            FileC = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierC), System.IO.Path.GetFileNameWithoutExtension(FileExp.getResultatFull))
+            FileC = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierC), FileExp.getResultatSimple)
             FileC.DialogBoxTexteDescription = _DESC_IMPORTATION_DOSS_C
             FileC.DialogBoxPoliceDescription = _monFont
             FileC.ShowDialog()
@@ -248,7 +248,7 @@ Module WAction
             'MODE OP A ARCHIVER
             FileE = New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE))
             'le word à chercher sera crypté
-            FileE.listeExtention.Add(Outils.EXT_FICHIER_CRYPTER)
+            FileE.listeExtention = {Outils.EXT_FICHIER_CRYPTER}
             'description de la boite de dialogue
             FileE.DialogBoxTexteDescription = _DESC_ARCHIVAGE_DOSS_E
             FileE.DialogBoxPoliceDescription = _monFont
@@ -268,7 +268,7 @@ Module WAction
 
         Try
             'DOSSIER ENREGISTREMENT ARCHIVE
-            FileF = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierF), FileE.getResultatFull)
+            FileF = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierF), FileE.getResultatSimple)
             FileF.DialogBoxTexteDescription = _DESC_ARCHIVAGE_DOSS_F
             FileF.DialogBoxPoliceDescription = _monFont
             FileF.ShowDialog()
@@ -342,7 +342,7 @@ Module WAction
             'DOSSIER IMPORTATION
             FileC = New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierC))
             'le word à chercher sera sous format Word
-            FileC.listeExtention.AddRange(Outils.EXT_FICHIER_WORD.Split("|"))
+            FileC.listeExtention = Outils.EXT_FICHIER_WORD.Split("|")
             'description de la boite de dialogue
             FileC.DialogBoxTexteDescription = _DESC_IMPORTATION
             FileC.DialogBoxPoliceDescription = _monFont
@@ -360,7 +360,7 @@ Module WAction
 
         Try
             'DOSSIER ENREGISTREMENT SAUVEGARDE
-            FileB = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierB), FileC.getResultatFull)
+            FileB = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierB), FileC.getResultatSimple)
             FileB.DialogBoxTexteDescription = _DESC_IMPORTATION_DOSS_B
             FileB.DialogBoxPoliceDescription = _monFont
             FileB.ShowDialog()
@@ -374,7 +374,7 @@ Module WAction
 
         Try
             'DOSSIER ENREGISTREMENT OFFICIEL
-            FileE = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE), FileC.getResultatFull, Outils.EXT_SIMPLE_CRP, BoxSaveFile.ext.AdditionneExtention)
+            FileE = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE), FileC.getResultatSimple, Outils.EXT_SIMPLE_CRP, BoxSaveFile.ext.AdditionneExtention)
             FileE.DialogBoxTexteDescription = _DESC_IMPORTATION_DOSS_E
             FileE.DialogBoxPoliceDescription = _monFont
             FileE.ShowDialog()
@@ -467,7 +467,7 @@ Module WAction
             OpenFileDiag = New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE))
 
             'le word à chercher sera crypté
-            OpenFileDiag.listeExtention.Add(Outils.EXT_FICHIER_CRYPTER)
+            OpenFileDiag.listeExtention = {Outils.EXT_FICHIER_CRYPTER}
             'description de la boite de dialogue
             OpenFileDiag.DialogBoxTexteDescription = _DESC_IMPRESSION
             OpenFileDiag.DialogBoxPoliceDescription = _monFont
@@ -553,7 +553,7 @@ Module WAction
             Dim OpenFileDiag As New BoxOpenFile(Configuration.getInstance.getFullProdDir(monDossierProd))
 
             'le word à chercher sera crypté
-            OpenFileDiag.listeExtention.Add(Outils.EXT_FICHIER_CRYPTER)
+            OpenFileDiag.listeExtention = {Outils.EXT_FICHIER_CRYPTER}
             'description de la boite de dialogue
             OpenFileDiag.DialogBoxTexteDescription = _DESC_CONSULTATION
             OpenFileDiag.DialogBoxPoliceDescription = _monFont
