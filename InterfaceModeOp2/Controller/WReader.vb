@@ -219,7 +219,6 @@ Public Class WReader
         SyncLock (mylock)
             Try
                 If IsNothing(_Instance) Then
-                    MsgBox("création d'un instance Word")
                     _Instance = New WReader()
                 End If
                 Return _Instance
