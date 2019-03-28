@@ -74,7 +74,7 @@ Public Class Outils
     ''' Liste des mots de passe dans les fichiers Word Chimie avant importation dans l'interface
     ''' </summary>
     ''' <remarks></remarks>
-    Public Const LISTE_MDP_PRODUCTION As String = "production|productions|dupli|produit|duplis|Production|Productions|Dupli|Produit|Duplis|Produits|PRODUCTION|DUPLI|PRODUIT"
+    Public Const LISTE_MDP_PRODUCTION As String = "productions|dupli|produit|duplis|Production|Productions|Dupli|Produit|Duplis|Produits|production|PRODUCTION|DUPLI|PRODUIT"
 
     ''' <summary>
     ''' extentions pour les fichiers cryptés
