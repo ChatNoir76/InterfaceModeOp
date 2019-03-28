@@ -176,7 +176,7 @@ Module WAction
 
         Try
             'EMPLACEMENT D'EXPORTATION
-            FileC = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierC), FileExp.getResultatSimple)
+            FileC = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierC), System.IO.Path.GetFileNameWithoutExtension(FileExp.getResultatSimple))
             FileC.DialogBoxTexteDescription = _DESC_IMPORTATION_DOSS_C
             FileC.DialogBoxPoliceDescription = _monFont
             FileC.ShowDialog()
