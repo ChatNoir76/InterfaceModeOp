@@ -80,13 +80,13 @@ Public Class Outils
     ''' extentions pour les fichiers cryptés
     ''' </summary>
     ''' <remarks></remarks>
-    Public Const EXT_FICHIER_CRYPTER As String = "Fichier Crypte (*.crp)| *.crp"
+    Public Const EXT_FICHIER_CRYPTER As String = ".crp"
 
     ''' <summary>
     ''' extentions pour les fichiers word
     ''' </summary>
     ''' <remarks></remarks>
-    Public Const EXT_FICHIER_WORD As String = "Office Documents |*.doc;*.docx;*.dotx;*.dotm;*.dot"
+    Public Const EXT_FICHIER_WORD As String = ".doc|.docx|.dotx|.dotm|.dot"
 
     ''' <summary>
     ''' Nom du fichier de configuration attendu pour initialiser l'interface
@@ -95,10 +95,6 @@ Public Class Outils
     Public Const NOM_FICHIER_INI As String = "InterfaceModeOp2.ini"
 
     Public Const EXT_SIMPLE_CRP As String = ".crp"
-#End Region
-
-#Region "Méthodes statiques"
-
 #End Region
 
 End Class

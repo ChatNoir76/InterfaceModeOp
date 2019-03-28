@@ -86,6 +86,7 @@ Module WAction
     Private Const _GEN_EXPORTATION_3 = "Exportation : {0}"
 
     Private _Rouge As New Color(0.8, 255, 0, 0)
+    Private _monFont = New Font("arial", 12, FontStyle.Regular)
     Private Const _Police As Single = 10
     Private Const _Style As Integer = FontStyle.Bold
 #End Region
@@ -158,12 +159,14 @@ Module WAction
             'FICHIER A EXPORTER
             FileExp = New BoxOpenFile(Configuration.getInstance.getFullProdDir(monDossierProd))
             'le word à chercher sera crypté
-            FileExp.ChoixExtension(Outils.EXT_FICHIER_CRYPTER)
+            FileExp.listeExtention.Add(Outils.EXT_FICHIER_CRYPTER)
             'description de la boite de dialogue
-            FileExp.Description(_DESC_EXPORTATION, _Police, _Style)
+            FileExp.DialogBoxTexteDescription = _DESC_EXPORTATION
+            FileExp.DialogBoxPoliceDescription = _monFont
+
             'affichage de la boite de dialogue
             FileExp.ShowDialog()
-            If IsNothing(FileExp.Resultat) Then
+            If IsNothing(FileExp.getResultatSimple) Then
                 Info(_GEN_EXPORTATION_2)
                 Exit Sub
             End If
@@ -173,10 +176,11 @@ Module WAction
 
         Try
             'EMPLACEMENT D'EXPORTATION
-            FileC = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierC), System.IO.Path.GetFileNameWithoutExtension(FileExp.Resultat))
-            FileC.Description(_DESC_IMPORTATION_DOSS_C, _Police, _Style)
+            FileC = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierC), System.IO.Path.GetFileNameWithoutExtension(FileExp.getResultatFull))
+            FileC.DialogBoxTexteDescription = _DESC_IMPORTATION_DOSS_C
+            FileC.DialogBoxPoliceDescription = _monFont
             FileC.ShowDialog()
-            If IsNothing(FileC.Resultat) Then
+            If IsNothing(FileC.getResultatSimple) Then
                 Info(_GEN_EXPORTATION_2)
                 Exit Sub
             End If
@@ -185,9 +189,9 @@ Module WAction
         End Try
 
         Try
-            Info(String.Format(_GEN_EXPORTATION_3, FileExp.Result(BoxOpenFile.Donne.FichierSeul)))
+            Info(String.Format(_GEN_EXPORTATION_3, FileExp.getResultatSimple))
             With WReader.GetMyWord
-                .OpenWord(FileExp.Resultat, WReader.method.open)
+                .OpenWord(FileExp.getResultatFull, WReader.method.open)
 
                 'remplacement en entete
                 If TypeExport = TypeModeOp.Archive Then
@@ -206,12 +210,12 @@ Module WAction
                 .AjoutTexteBasPage(String.Format(_FOOTER_VERSION, "Exportation", Now))
 
                 Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(Outils.DossierProd.DossierC)))
-                .CopyTo(FileC.Resultat)
+                .CopyTo(FileC.getResultatFull)
 
                 Info(_GEN_BDD_1)
-                Dim at As New auditrails(FileExp.getFichierChoisi_DepuisCheminRelatif,
+                Dim at As New auditrails(FileExp.getResultatRelatif,
                                          String.Format(_GEN_EXPORTATION_3, TypeExport.ToString),
-                                         String.Format(_GEN_Copy, FileExp.getFichierChoisi_NomSeul, FileC.getFichierChoisi_NomSeul),
+                                         String.Format(_GEN_Copy, FileExp.getResultatSimple, FileC.getResultatSimple),
                                          Now,
                                          Initialisation.__User.getUserId,
                                          Operations.Exportation)
@@ -219,7 +223,7 @@ Module WAction
                 Info(String.Format(_GEN_BDD_2, at.idAuditrails))
 
                 Info(_GEN_INFO_DEL_SOURCE)
-                System.IO.File.Delete(FileExp.Resultat)
+                System.IO.File.Delete(FileExp.getResultatFull)
             End With
         Catch ex As WReaderException
             Throw New WActionException(_MSG_ERR_EX_6, ex)
@@ -244,13 +248,14 @@ Module WAction
             'MODE OP A ARCHIVER
             FileE = New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE))
             'le word à chercher sera crypté
-            FileE.ChoixExtension(Outils.EXT_FICHIER_CRYPTER)
+            FileE.listeExtention.Add(Outils.EXT_FICHIER_CRYPTER)
             'description de la boite de dialogue
-            FileE.Description(_DESC_ARCHIVAGE_DOSS_E, _Police, _Style)
+            FileE.DialogBoxTexteDescription = _DESC_ARCHIVAGE_DOSS_E
+            FileE.DialogBoxPoliceDescription = _monFont
             'affichage de la boite de dialogue
             FileE.ShowDialog()
 
-            If IsNothing(FileE.Resultat) Then
+            If IsNothing(FileE.getResultatSimple) Then
                 If viaImportation Then
                     Throw New WActionException(_MSG_ERR_EX_3)
                 Else
@@ -263,24 +268,25 @@ Module WAction
 
         Try
             'DOSSIER ENREGISTREMENT ARCHIVE
-            FileF = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierF), FileE.Resultat)
-            FileF.Description(_DESC_ARCHIVAGE_DOSS_F, _Police, _Style)
+            FileF = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierF), FileE.getResultatFull)
+            FileF.DialogBoxTexteDescription = _DESC_ARCHIVAGE_DOSS_F
+            FileF.DialogBoxPoliceDescription = _monFont
             FileF.ShowDialog()
         Catch ex As Exception
             Throw New WActionException(_MSG_ERR_GEN_1, ex)
         End Try
 
         Try
-            If IsNothing(FileF.Resultat) Then
+            If IsNothing(FileF.getResultatFull) Then
                 If viaImportation Then
                     Throw New WActionException(_MSG_ERR_EX_3)
                 Else
                     Info(_GEN_ARCHIVAGE_3)
                 End If
             Else
-                Info(String.Format(_GEN_ARCHIVAGE_4, FileE.Result(BoxOpenFile.Donne.FichierSeul)))
+                Info(String.Format(_GEN_ARCHIVAGE_4, FileE.getResultatSimple))
                 With WReader.GetMyWord
-                    .OpenWord(FileE.Resultat, WReader.method.open)
+                    .OpenWord(FileE.getResultatFull, WReader.method.open)
 
                     'remplacement mot en entête
                     Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, Outils.ET_DUPLICATA, Outils.ET_PERIME))
@@ -294,12 +300,12 @@ Module WAction
 
                     'copy vers dossier archive
                     Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(Outils.DossierProd.DossierF)))
-                    .CopyTo(FileF.Resultat, True)
+                    .CopyTo(FileF.getResultatFull, True)
 
                     Info(_GEN_BDD_1)
-                    Dim at As New auditrails(FileE.getFichierChoisi_DepuisCheminRelatif,
+                    Dim at As New auditrails(FileE.getResultatRelatif,
                                              _GEN_ARCHIVAGE_1,
-                                             String.Format(_GEN_Copy, FileE.getFichierChoisi_NomSeul, FileF.getFichierChoisi_NomSeul),
+                                             String.Format(_GEN_Copy, FileE.getResultatSimple, FileF.getResultatSimple),
                                              Now,
                                              Initialisation.__User.getUserId,
                                              Operations.Archivage)
@@ -308,7 +314,7 @@ Module WAction
 
                     'Suppression de la source
                     Info(_GEN_INFO_DEL_SOURCE)
-                    System.IO.File.Delete(FileE.Resultat)
+                    System.IO.File.Delete(FileE.getResultatFull)
                 End With
             End If
         Catch ex As WReaderException
@@ -336,13 +342,15 @@ Module WAction
             'DOSSIER IMPORTATION
             FileC = New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierC))
             'le word à chercher sera sous format Word
-            FileC.ChoixExtension(Outils.EXT_FICHIER_WORD)
+            FileC.listeExtention.AddRange(Outils.EXT_FICHIER_WORD.Split("|"))
             'description de la boite de dialogue
-            FileC.Description(_DESC_IMPORTATION, _Police, _Style)
+            FileC.DialogBoxTexteDescription = _DESC_IMPORTATION
+            FileC.DialogBoxPoliceDescription = _monFont
+
             'affichage de la boite de dialogue
             FileC.ShowDialog()
             'récupération du résultat
-            If IsNothing(FileC.Resultat) Then
+            If IsNothing(FileC.getResultatFull) Then
                 Info(_GEN_IMPORTATION_1)
                 Exit Sub
             End If
@@ -352,10 +360,11 @@ Module WAction
 
         Try
             'DOSSIER ENREGISTREMENT SAUVEGARDE
-            FileB = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierB), FileC.Resultat)
-            FileB.Description(_DESC_IMPORTATION_DOSS_B, _Police, _Style)
+            FileB = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierB), FileC.getResultatFull)
+            FileB.DialogBoxTexteDescription = _DESC_IMPORTATION_DOSS_B
+            FileB.DialogBoxPoliceDescription = _monFont
             FileB.ShowDialog()
-            If IsNothing(FileB.Resultat) Then
+            If IsNothing(FileB.getResultatSimple) Then
                 Info(_GEN_IMPORTATION_1)
                 Exit Sub
             End If
@@ -365,10 +374,11 @@ Module WAction
 
         Try
             'DOSSIER ENREGISTREMENT OFFICIEL
-            FileE = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE), FileC.Resultat, Outils.EXT_SIMPLE_CRP, BoxSaveFile.ext.Ajoute)
-            FileE.Description(_DESC_IMPORTATION_DOSS_E, _Police, _Style)
+            FileE = New BoxSaveFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE), FileC.getResultatFull, Outils.EXT_SIMPLE_CRP, BoxSaveFile.ext.AdditionneExtention)
+            FileE.DialogBoxTexteDescription = _DESC_IMPORTATION_DOSS_E
+            FileE.DialogBoxPoliceDescription = _monFont
             FileE.ShowDialog()
-            If IsNothing(FileE.Resultat) Then
+            If IsNothing(FileE.getResultatSimple) Then
                 Info(_GEN_IMPORTATION_1)
                 Exit Sub
             End If
@@ -391,9 +401,9 @@ Module WAction
         End Try
 
         Try
-            Info(String.Format(_GEN_IMPORTATION_3, FileC.Result(BoxOpenFile.Donne.FichierSeul)))
+            Info(String.Format(_GEN_IMPORTATION_3, FileC.getResultatSimple))
             With WReader.GetMyWord
-                .OpenWord(FileC.Resultat, WReader.method.open)
+                .OpenWord(FileC.getResultatFull, WReader.method.open)
 
                 If Not .RechercheEnTete(Outils.ET_ORIGINAL) Then
                     Throw New WActionException(String.Format(_MSG_ERR_EX_2, Outils.ET_ORIGINAL))
@@ -408,7 +418,7 @@ Module WAction
                 .AjoutTexteBasPage(String.Format(_FOOTER_VERSION, Outils.Action.Importation.ToString(), Now()))
 
                 Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(Outils.DossierProd.DossierB)))
-                .CopyTo(FileB.Resultat)
+                .CopyTo(FileB.getResultatFull)
 
                 Info(String.Format(_GEN_INFO_REMPLACEMENT_ET, Outils.ET_ORIGINAL, Outils.ET_DUPLICATA))
                 If Not .RemplaceTexteEntete(Outils.ET_ORIGINAL, Outils.ET_DUPLICATA) Then
@@ -417,15 +427,15 @@ Module WAction
 
                 Info(String.Format(_GEN_INFO_COPYTO, Configuration.getInstance.getSimpleProdDir(Outils.DossierProd.DossierE)))
                 'copyTo + cryptage = doc word déchargé de la mémoire via myDoc.close()
-                .CopyTo(FileE.Resultat, True)
+                .CopyTo(FileE.getResultatFull, True)
 
                 Info(_GEN_BDD_1)
-                Dim at As New auditrails(FileC.getFichierChoisi_DepuisCheminRelatif,
+                Dim at As New auditrails(FileC.getResultatRelatif,
                                          _GEN_IMPORTATION_6,
                                          String.Format(_GEN_IMPORTATION_7,
-                                                       FileC.getFichierChoisi_NomSeul,
-                                                       FileB.getFichierChoisi_NomSeul,
-                                                       FileE.getFichierChoisi_NomSeul),
+                                                       FileC.getResultatSimple,
+                                                       FileB.getResultatSimple,
+                                                       FileE.getResultatSimple),
                                          Now,
                                          Initialisation.__User.getUserId,
                                          Operations.Importation)
@@ -434,7 +444,7 @@ Module WAction
                 Info(String.Format(_GEN_BDD_2, at.idAuditrails))
 
                 Info(_GEN_INFO_DEL_SOURCE)
-                System.IO.File.Delete(FileC.Resultat)
+                System.IO.File.Delete(FileC.getResultatFull)
             End With
         Catch ex As WReaderException
             Throw New WActionException(_MSG_ERR_IM_2, ex)
@@ -457,9 +467,10 @@ Module WAction
             OpenFileDiag = New BoxOpenFile(Configuration.getInstance.getFullProdDir(Outils.DossierProd.DossierE))
 
             'le word à chercher sera crypté
-            OpenFileDiag.ChoixExtension(Outils.EXT_FICHIER_CRYPTER)
+            OpenFileDiag.listeExtention.Add(Outils.EXT_FICHIER_CRYPTER)
             'description de la boite de dialogue
-            OpenFileDiag.Description(_DESC_IMPRESSION, _Police, _Style)
+            OpenFileDiag.DialogBoxTexteDescription = _DESC_IMPRESSION
+            OpenFileDiag.DialogBoxPoliceDescription = _monFont
             'affichage de la boite de dialogue
             OpenFileDiag.ShowDialog()
         Catch ex As Exception
@@ -467,12 +478,12 @@ Module WAction
         End Try
 
         Try
-            If IsNothing(OpenFileDiag.Resultat) Then
+            If IsNothing(OpenFileDiag.getResultatSimple) Then
                 Info(_GEN_IMPRESSION_2)
             Else
-                Info(String.Format(_GEN_IMPRESSION_3, OpenFileDiag.Result(BoxOpenFile.Donne.FichierSeul)))
+                Info(String.Format(_GEN_IMPRESSION_3, OpenFileDiag.getResultatSimple))
                 With WReader.GetMyWord
-                    .OpenWord(OpenFileDiag.Resultat, WReader.method.add)
+                    .OpenWord(OpenFileDiag.getResultatFull, WReader.method.add)
 
                     'info à récup d'une bdd
                     Dim liste2 As New List(Of String)
@@ -485,9 +496,9 @@ Module WAction
                     If WPrinter.isValidForPrinting Then
                         Info(_GEN_IMPRESSION_5)
 
-                        Dim PT_at As New auditrails(OpenFileDiag.getFichierChoisi_DepuisCheminRelatif,
+                        Dim PT_at As New auditrails(OpenFileDiag.getRepertoireBaseRelatif,
                                                     WPrinter.getAuditTrails,
-                                                    OpenFileDiag.getFichierChoisi_NomSeul,
+                                                    OpenFileDiag.getResultatSimple,
                                                     Now(),
                                                     Initialisation.__User.getUserId,
                                                     Operations.Impression)
@@ -542,18 +553,19 @@ Module WAction
             Dim OpenFileDiag As New BoxOpenFile(Configuration.getInstance.getFullProdDir(monDossierProd))
 
             'le word à chercher sera crypté
-            OpenFileDiag.ChoixExtension(Outils.EXT_FICHIER_CRYPTER)
+            OpenFileDiag.listeExtention.Add(Outils.EXT_FICHIER_CRYPTER)
             'description de la boite de dialogue
-            OpenFileDiag.Description(_DESC_CONSULTATION, _Police, _Style)
+            OpenFileDiag.DialogBoxTexteDescription = _DESC_CONSULTATION
+            OpenFileDiag.DialogBoxPoliceDescription = _monFont
             'affichage de la boite de dialogue
             OpenFileDiag.ShowDialog()
 
-            If IsNothing(OpenFileDiag.Resultat) Then
+            If IsNothing(OpenFileDiag.getResultatSimple) Then
                 Info(_GEN_CONSULTATION_2)
             Else
-                Info(String.Format(_GEN_CONSULTATION_3, OpenFileDiag.Result(BoxOpenFile.Donne.FichierSeul)))
+                Info(String.Format(_GEN_CONSULTATION_3, OpenFileDiag.getResultatSimple))
                 With WReader.GetMyWord
-                    .OpenWord(OpenFileDiag.Resultat, WReader.method.add)
+                    .OpenWord(OpenFileDiag.getResultatFull, WReader.method.add)
                     Info(_GEN_INFO_FILIGRANE)
                     .Filigrane(monFiligrane, _Rouge)
                     Info(_GEN_INFO_PDF)

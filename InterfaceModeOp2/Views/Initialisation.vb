@@ -1,7 +1,11 @@
-﻿<Assembly: Reflection.AssemblyVersion("2.0.0.2")> 
-<Assembly: Reflection.AssemblyFileVersion("2.0.0.2")> 
+﻿<Assembly: Reflection.AssemblyVersion("2.0.1.0")> 
+<Assembly: Reflection.AssemblyFileVersion("2.0.1.0")> 
 <Assembly: Reflection.AssemblyInformationalVersion("2300 FS 01 A")> 
-
+'VERSION
+'Chiffre 1 : Nouvelle version logiciel (changement plateforme, de language...)
+'Chiffre 2 : Changement majeur pouvant entrainer une incompatibilité
+'Chiffre 3 : Changement majeur sans risque d'incompatibilité
+'Chiffre 4 : Changement mineur sans impact (résolution bug, etc...)
 Public Class Initialisation
     'à l'initialisation récupère les données utilisateurs (nom windows)
     Public __User As UserConfig
