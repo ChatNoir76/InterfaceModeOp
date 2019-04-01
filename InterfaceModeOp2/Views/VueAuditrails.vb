@@ -59,7 +59,7 @@ Public Class VueAuditrails
     End Sub
     Private Sub Imprimer_DGV(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_TOOLS_PRINTAB.Click
         Dim DGV As New PrintDataGridView(DGV_Main)
-        DGV.Impression(PrintDataGridView.Affichage.Defaut)
+        DGV.Impression(PrintDataGridView.Affichage.All)
     End Sub
     Private Sub TSMI_TOOLS_PRINTSEL_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_TOOLS_PRINTSEL.Click
         Dim DGV As New PrintDataGridView(DGV_Main)
