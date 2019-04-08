@@ -23,7 +23,7 @@ Partial Class vuePrincipale
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.TSMI_Developpeur = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TSMI_Developpeur_ConversionModeOp = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TSMI_Developpeur_ProtectionBDD = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.TSMI_Administrateur = New System.Windows.Forms.ToolStripMenuItem()
         Me.TSMI_Administrateur_Importation = New System.Windows.Forms.ToolStripMenuItem()
@@ -46,23 +46,22 @@ Partial Class vuePrincipale
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TXT_LoginUtilisateur = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TSMI_Developpeur_ProtectionBDD = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.GB_Main.SuspendLayout()
         Me.SuspendLayout()
         '
         'TSMI_Developpeur
         '
-        Me.TSMI_Developpeur.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Developpeur_ConversionModeOp, Me.TSMI_Developpeur_ProtectionBDD})
+        Me.TSMI_Developpeur.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Developpeur_ProtectionBDD})
         Me.TSMI_Developpeur.Name = "TSMI_Developpeur"
         Me.TSMI_Developpeur.Size = New System.Drawing.Size(86, 20)
         Me.TSMI_Developpeur.Text = "Développeur"
         '
-        'TSMI_Developpeur_ConversionModeOp
+        'TSMI_Developpeur_ProtectionBDD
         '
-        Me.TSMI_Developpeur_ConversionModeOp.Name = "TSMI_Developpeur_ConversionModeOp"
-        Me.TSMI_Developpeur_ConversionModeOp.Size = New System.Drawing.Size(187, 22)
-        Me.TSMI_Developpeur_ConversionModeOp.Text = "Conversion Mode Op"
+        Me.TSMI_Developpeur_ProtectionBDD.Name = "TSMI_Developpeur_ProtectionBDD"
+        Me.TSMI_Developpeur_ProtectionBDD.Size = New System.Drawing.Size(155, 22)
+        Me.TSMI_Developpeur_ProtectionBDD.Text = "Protection BDD"
         '
         'MenuStrip1
         '
@@ -228,12 +227,6 @@ Partial Class vuePrincipale
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "Login Utilisateur : "
         '
-        'TSMI_Developpeur_ProtectionBDD
-        '
-        Me.TSMI_Developpeur_ProtectionBDD.Name = "TSMI_Developpeur_ProtectionBDD"
-        Me.TSMI_Developpeur_ProtectionBDD.Size = New System.Drawing.Size(187, 22)
-        Me.TSMI_Developpeur_ProtectionBDD.Text = "Protection BDD"
-        '
         'vuePrincipale
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -259,7 +252,6 @@ Partial Class vuePrincipale
 
     End Sub
     Friend WithEvents TSMI_Developpeur As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TSMI_Developpeur_ConversionModeOp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents TSMI_Administrateur As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSMI_Administrateur_Importation As System.Windows.Forms.ToolStripMenuItem
