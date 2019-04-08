@@ -16,6 +16,12 @@ Public Class Configuration
     'liste des combinaisons clef / valeur récupéré du fichier ini
     Private _KeyValueList As Hashtable
 
+    'Liste des phrases d'audit trails
+    Private _maListePAT As New List(Of String)
+
+    'mot clef list
+    Private Const _PAT = "PAT"
+
     'Caractère spéciaux du fichier ini
     Private Const _COMMENTAIRE As String = ";"
     Private Const _REGION As String = "["
@@ -59,6 +65,11 @@ Public Class Configuration
             Return Me.GetValueFromKey(dossierProd.ToString)
         End Get
     End Property
+    Public ReadOnly Property getListePhraseAT() As List(Of String)
+        Get
+            Return _maListePAT
+        End Get
+    End Property
 
     Private Sub New()
         'récupère le nom du fichier décrit dans les constantes
@@ -90,7 +101,23 @@ Public Class Configuration
                 If Ligne.Length >= 3 Then
                     'si présence de = et que la ligne n'est pas un commentaire
                     If Ligne.Contains(_ATTRIBVAL) And Not Ligne(1).Equals(_COMMENTAIRE) Then
-                        listeArgs.Add(Ligne.Split(_ATTRIBVAL)(0), Ligne.Split(_ATTRIBVAL)(1))
+                        Dim maClef As String = Ligne.Split(_ATTRIBVAL)(0)
+                        Dim maValeur As String = Ligne.Split(_ATTRIBVAL)(1)
+                        Try
+                            'si la clef est égale à PAT
+                            If maClef = _PAT Then
+                                If maValeur <> String.Empty Then
+                                    _maListePAT.Add(maValeur)
+                                End If
+                            Else
+                                'si la clef n'existe pas déjà dans le hashtable
+                                If Not listeArgs.ContainsKey(maClef) Then
+                                    listeArgs.Add(maClef, maValeur)
+                                End If
+                            End If
+                        Catch ex As Exception
+                            MessageBox.Show("Une donnée dans le fichier de configuration (*.ini) est corrompue", "Erreur combinaison mot clef - valeur", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        End Try
                     End If
                 End If
             Next

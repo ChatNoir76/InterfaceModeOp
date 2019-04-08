@@ -485,11 +485,7 @@ Module WAction
                 With WReader.GetMyWord
                     .OpenWord(OpenFileDiag.getResultatFull, WReader.method.add)
 
-                    'info à récup d'une bdd
-                    Dim liste2 As New List(Of String)
-                    liste2.Add("ceci est une phrase test d'audit trails")
-
-                    Dim WPrinter As New VueImpression(.getFields, liste2, .getPages)
+                    Dim WPrinter As New VueImpression(.getFields, Configuration.getInstance.getListePhraseAT, .getPages)
                     Info(_GEN_IMPRESSION_4)
                     WPrinter.ShowDialog()
 
