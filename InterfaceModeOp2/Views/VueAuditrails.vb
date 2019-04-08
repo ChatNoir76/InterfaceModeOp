@@ -6,6 +6,7 @@ Public Class VueAuditrails
     Private Const SELECTION = "Sélection de {0} n°{1}"
     Private Const CHG_VERIFICATION = "Vérification de {0} : {1}"
     Private Const CHG_DROITS = "{0} change les droits : {1}"
+    Private Const IDENT_IMPRESSION = "impression par {0} le {1}"
 
     Private Const VUE_ATPRINTER = "Audit trails d'impression pour mode opératoire"
     Private Const VUE_ATPRINTER_SIGNETS = "Signet du bon pour utilisation n°{0} pour mode opératoire"
@@ -59,10 +60,12 @@ Public Class VueAuditrails
     End Sub
     Private Sub Imprimer_DGV(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_TOOLS_PRINTAB.Click
         Dim DGV As New PrintDataGridView(DGV_Main)
+        DGV.textePremierePage = String.Format(IDENT_IMPRESSION, Initialisation.__User.getUserName, Now)
         DGV.Impression(PrintDataGridView.Affichage.All)
     End Sub
     Private Sub TSMI_TOOLS_PRINTSEL_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_TOOLS_PRINTSEL.Click
         Dim DGV As New PrintDataGridView(DGV_Main)
+        DGV.textePremierePage = String.Format(IDENT_IMPRESSION, Initialisation.__User.getUserName, Now)
         DGV.Impression(PrintDataGridView.Affichage.Selection)
     End Sub
     Private Sub VuePrécédenteToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_TOOLS_VUEOLD.Click
