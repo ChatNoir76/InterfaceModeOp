@@ -196,4 +196,23 @@ Public Class vuePrincipale
             End If
         End If
     End Sub
+
+    Private Sub TSMI_Outils_AjoutUtilisateur_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Outils_AjoutUtilisateur.Click
+        Const ERRUSER = "Erreur lors de l'enregistrement de l'utilisateur {0} : {1}"
+        Dim nomUser As String = InputBox("Veuillez choisir un nom de loggin Fareva, ce log sera défini en guest. Pour changer les droits, seul l'adminAQ est autorisé à le faire", "Ajout login utilisateur en GUEST")
+
+        If Not IsNothing(nomUser) Then
+            If System.Text.RegularExpressions.Regex.IsMatch(Replace(nomUser, " ", ""), "^[a-zA-Z0-9]{6}$") And Not nomUser.Contains(" ") Then
+                Try
+                    DAOFactory.getUtilisateur.dbInsert(New Utilisateur(nomUser.ToUpper))
+                    MessageBox.Show("enregistrement effectué", "ajout loggin utilisateur", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Catch ex As Exception
+                    Info(String.Format(ERRUSER, nomUser, ex.Message))
+                End Try
+            Else
+                MessageBox.Show("Le loggin : " & nomUser & " n'est pas un loggin Fareva valide", "loggin invalide", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        End If
+
+    End Sub
 End Class
