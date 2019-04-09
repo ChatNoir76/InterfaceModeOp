@@ -46,6 +46,7 @@ Partial Class vuePrincipale
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TXT_LoginUtilisateur = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.TSMI_Outils_AjoutUtilisateur = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.GB_Main.SuspendLayout()
         Me.SuspendLayout()
@@ -152,7 +153,7 @@ Partial Class vuePrincipale
         '
         'TSMI_Outils
         '
-        Me.TSMI_Outils.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Outils_AuditTrails})
+        Me.TSMI_Outils.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_Outils_AuditTrails, Me.TSMI_Outils_AjoutUtilisateur})
         Me.TSMI_Outils.Name = "TSMI_Outils"
         Me.TSMI_Outils.Size = New System.Drawing.Size(50, 20)
         Me.TSMI_Outils.Text = "Outils"
@@ -160,7 +161,7 @@ Partial Class vuePrincipale
         'TSMI_Outils_AuditTrails
         '
         Me.TSMI_Outils_AuditTrails.Name = "TSMI_Outils_AuditTrails"
-        Me.TSMI_Outils_AuditTrails.Size = New System.Drawing.Size(134, 22)
+        Me.TSMI_Outils_AuditTrails.Size = New System.Drawing.Size(159, 22)
         Me.TSMI_Outils_AuditTrails.Text = "Audit Trails"
         '
         'TSMI_Info
@@ -227,6 +228,12 @@ Partial Class vuePrincipale
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "Login Utilisateur : "
         '
+        'TSMI_Outils_AjoutUtilisateur
+        '
+        Me.TSMI_Outils_AjoutUtilisateur.Name = "TSMI_Outils_AjoutUtilisateur"
+        Me.TSMI_Outils_AjoutUtilisateur.Size = New System.Drawing.Size(159, 22)
+        Me.TSMI_Outils_AjoutUtilisateur.Text = "Ajout Utilisateur"
+        '
         'vuePrincipale
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -275,4 +282,5 @@ Partial Class vuePrincipale
     Friend WithEvents TXT_LoginUtilisateur As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents TSMI_Developpeur_ProtectionBDD As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TSMI_Outils_AjoutUtilisateur As System.Windows.Forms.ToolStripMenuItem
 End Class
