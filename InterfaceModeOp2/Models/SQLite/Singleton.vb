@@ -95,10 +95,10 @@ Public Class Singleton
 
     Public Shared Sub protectionBDD(Optional ByVal protect As Boolean = True)
         If protect Then
-            _Connexion.ChangePassword(PWD)
+            getInstance.ChangePassword(PWD)
             _ModeProtection = 1
         Else
-            _Connexion.ChangePassword("")
+            getInstance.ChangePassword("")
             _ModeProtection = 0
         End If
     End Sub

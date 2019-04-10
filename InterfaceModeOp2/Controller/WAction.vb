@@ -135,6 +135,7 @@ Module WAction
             Info(_MSG_ERR_GENERALE)
         Finally
             WReader.Dispose()
+            Singleton.close()
             Info(_MSG_FIN_OPERATION)
         End Try
     End Sub

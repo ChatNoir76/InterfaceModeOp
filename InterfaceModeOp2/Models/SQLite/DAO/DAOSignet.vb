@@ -5,11 +5,11 @@ Public Class DAOSignet
     Implements IDAO(Of Signets)
 
     Public Sub dbInsertMulti(ByRef value As List(Of Signets))
-        Dim tr As SQLiteTransaction = DAOFactory.getConnexion.BeginTransaction
+        Dim tr As SQLiteTransaction = Singleton.getInstance.BeginTransaction
         Using tr
             Try
                 For Each signet As Signets In value
-                    Dim cmd As SQLiteCommand = DAOFactory.getConnexion.CreateCommand
+                    Dim cmd As SQLiteCommand = Singleton.getInstance.CreateCommand
                     With cmd
                         .Transaction = tr
                         .CommandText = SGT_CREATE

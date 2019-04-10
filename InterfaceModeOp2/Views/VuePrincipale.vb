@@ -176,6 +176,8 @@ Public Class vuePrincipale
         Catch ex As Exception
             Info(ex.Message, True)
             Info(_MSG_ERR_GENERALE)
+        Finally
+            Singleton.close()
         End Try
     End Sub
 
@@ -183,18 +185,25 @@ Public Class vuePrincipale
         Const NOTPROTECT = "La base de données n'est pas protégé par l'interface, voulez vous activer la protection?"
         Const PROTECT = "La base de données est protégé par l'interface, voulez vous désactiver la protection?"
         Const ENTETE = "SQLite protection"
+        Try
+            If Singleton.getModeProtection = 0 Then
+                If MessageBox.Show(NOTPROTECT, ENTETE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
+                    Singleton.protectionBDD(True)
+                    MessageBox.Show("Protection Active", ENTETE, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            ElseIf Singleton.getModeProtection = 1 Then
+                If MessageBox.Show(PROTECT, ENTETE, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                    Singleton.protectionBDD(False)
+                    MessageBox.Show("Protection Désactivée", ENTETE, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+            End If
+        Catch ex As Exception
+            Info(ex.Message, True)
+            Info("Erreur lors du changement de mode de protection")
+        Finally
+            Singleton.close()
+        End Try
 
-        If Singleton.getModeProtection = 0 Then
-            If MessageBox.Show(NOTPROTECT, ENTETE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
-                Singleton.protectionBDD(True)
-                MessageBox.Show("Protection Active", ENTETE, MessageBoxButtons.OK, MessageBoxIcon.Information)
-            End If
-        ElseIf Singleton.getModeProtection = 1 Then
-            If MessageBox.Show(PROTECT, ENTETE, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                Singleton.protectionBDD(False)
-                MessageBox.Show("Protection Désactivée", ENTETE, MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
-        End If
     End Sub
 
     Private Sub TSMI_Outils_AjoutUtilisateur_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Outils_AjoutUtilisateur.Click
@@ -208,6 +217,8 @@ Public Class vuePrincipale
                     MessageBox.Show("enregistrement effectué", "ajout loggin utilisateur", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Catch ex As Exception
                     Info(String.Format(ERRUSER, nomUser, ex.Message))
+                Finally
+                    Singleton.close()
                 End Try
             Else
                 MessageBox.Show("Le loggin : " & nomUser & " n'est pas un loggin Fareva valide", "loggin invalide", MessageBoxButtons.OK, MessageBoxIcon.Error)

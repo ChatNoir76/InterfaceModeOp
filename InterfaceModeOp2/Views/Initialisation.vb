@@ -1,6 +1,6 @@
-﻿<Assembly: Reflection.AssemblyVersion("2.0.1.3")> 
-<Assembly: Reflection.AssemblyFileVersion("2.0.1.3")> 
-<Assembly: Reflection.AssemblyInformationalVersion("2300 FS 01 A")> 
+﻿<Assembly: Reflection.AssemblyVersion("2.0.1.4")> 
+<Assembly: Reflection.AssemblyFileVersion("2.0.1.4")> 
+<Assembly: Reflection.AssemblyInformationalVersion("2300 FS 01 B")> 
 'VERSION
 'Chiffre 1 : Nouvelle version logiciel (changement plateforme, de language...)
 'Chiffre 2 : Changement majeur pouvant entrainer une incompatibilité
@@ -65,7 +65,7 @@ Public Class Initialisation
             If Not System.IO.File.Exists(Configuration.getInstance.GetValueFromKey(Singleton.DBFOLDER)) Then
                 Throw New Exception(_BDD_NOFILE)
             End If
-            If IsNothing(DAOFactory.getConnexion()) Then
+            If IsNothing(Singleton.getInstance()) Then
                 Throw New Exception(_BDD_NOCONN)
             End If
             If Singleton.getModeProtection = -1 Then
@@ -75,6 +75,8 @@ Public Class Initialisation
             _BTVisible = False
             Info(_BDD_ERRCONN & vbNewLine & ex.Message, True)
             Exit Sub
+        Finally
+            Singleton.close()
         End Try
 
         Try
@@ -94,6 +96,8 @@ Public Class Initialisation
             _BTVisible = False
             Info("" & vbNewLine & ex.Message, True)
             Exit Sub
+        Finally
+            Singleton.close()
         End Try
     End Sub
     ''' <summary>
@@ -129,49 +133,58 @@ Public Class Initialisation
 
     End Sub
     Private Sub ResumeInfo()
-        TXT_Username.Text = __User.getUserName
-        TXT_PC.Text = __User.getPC
-        TXT_RepBase.Text = Configuration.getInstance.GetValueFromKey(Outils.INI_KEY_REPBASE)
-        TXT_Droit.Text = __User.getDroitDetermine.ToString
+        Try
+            TXT_Username.Text = __User.getUserName
+            TXT_PC.Text = __User.getPC
+            TXT_RepBase.Text = Configuration.getInstance.GetValueFromKey(Outils.INI_KEY_REPBASE)
+            TXT_Droit.Text = __User.getDroitDetermine.ToString
 
-        Dim ListeDossier = [Enum].GetValues(GetType(Outils.DossierProd))
-        Info()
-        For Each dossier As Outils.DossierProd In ListeDossier
-            Dim infostr As New System.Text.StringBuilder
-            Dim nom As String
-            With infostr
-                .Append(dossier.ToString)
-                .Append(" : ")
-                nom = Configuration.getInstance.GetValueFromKey(dossier.ToString)
-                .Append(If(nom = "", _INI_NOFOLDERNAME, nom))
-                .Append(" [")
-                .Append(__User.getArchDossProd.getAccess(dossier).ToString)
-                .Append("]")
+            Dim ListeDossier = [Enum].GetValues(GetType(Outils.DossierProd))
+            Info()
+            For Each dossier As Outils.DossierProd In ListeDossier
+                Dim infostr As New System.Text.StringBuilder
+                Dim nom As String
+                With infostr
+                    .Append(dossier.ToString)
+                    .Append(" : ")
+                    nom = Configuration.getInstance.GetValueFromKey(dossier.ToString)
+                    .Append(If(nom = "", _INI_NOFOLDERNAME, nom))
+                    .Append(" [")
+                    .Append(__User.getArchDossProd.getAccess(dossier).ToString)
+                    .Append("]")
 
-                Info(.ToString)
+                    Info(.ToString)
 
-            End With
-        Next
-        Info(_INI_TEST)
+                End With
+            Next
+            Info(_INI_TEST)
 
-        If __User.getDroitDetermine <= Droits.NoUse Then
-            _BTVisible = False
-        End If
+            If __User.getDroitDetermine <= Droits.NoUse Then
+                _BTVisible = False
+            End If
 
-        If Singleton.getModeProtection = -1 Then
-            _BTVisible = False
-        End If
+            If Singleton.getModeProtection = -1 Then
+                _BTVisible = False
+            End If
 
-        Me.BT_Open.Visible = _BTVisible
-        Info()
-        Info(If(_BTVisible, _INI_OUV, _INI_FERM))
+            Me.BT_Open.Visible = _BTVisible
+            Info()
+            Info(If(_BTVisible, _INI_OUV, _INI_FERM))
 
-        'l'interface prévient l'adminDVLP que la bdd n'est pas protégé par un mot de passe
-        If Singleton.getModeProtection = 0 And __User.getDroitDetermine = Droits.AdminDvlp Then
+            'l'interface prévient l'adminDVLP que la bdd n'est pas protégé par un mot de passe
+            If Singleton.getModeProtection = 0 And __User.getDroitDetermine = Droits.AdminDvlp Then
+                Info("--------------------------------------------------------------------------------")
+                Info("-- ATTENTION : BDD EN PROTECTION DESACTIVEE --")
+                Info("--------------------------------------------------------------------------------")
+            End If
+        Catch ex As Exception
             Info("--------------------------------------------------------------------------------")
-            Info("-- ATTENTION : BDD EN PROTECTION DESACTIVEE --")
+            Info(ex.Message)
             Info("--------------------------------------------------------------------------------")
-        End If
+        Finally
+            Singleton.close()
+        End Try
+
 
     End Sub
     Private Sub Info(Optional ByVal txt As String = Nothing, Optional ByVal sautLigne As Boolean = False)
