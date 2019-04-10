@@ -564,14 +564,21 @@ no:
     ''' <param name="ListeMDP">Liste des mots de passes potentiellement utilisés</param>
     ''' <remarks></remarks>
     Private Sub Unlocked(ByVal ParamArray ListeMDP() As String)
+        Dim nbTentative As Integer = 0
         'traitement fichier inconnu 
         On Error Resume Next
         For Each mdp As String In ListeMDP
             _myDoc.Unprotect(mdp)
             If Err.Number <> 0 Then
+                nbTentative += 1
                 Err.Clear()
             End If
         Next
+
+        If nbTentative = ListeMDP.Count Then
+            Throw New WReaderException("Le mot de passe n'a pas été déterminé", System.Reflection.MethodBase.GetCurrentMethod.Name)
+        End If
+
     End Sub
 
     ''' <summary>
