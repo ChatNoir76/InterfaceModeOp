@@ -201,8 +201,8 @@ Public Class vuePrincipale
         Const ERRUSER = "Erreur lors de l'enregistrement de l'utilisateur {0} : {1}"
         Dim nomUser As String = InputBox("Veuillez choisir un nom de loggin Fareva, ce log sera défini en guest. Pour changer les droits, seul l'adminAQ est autorisé à le faire", "Ajout login utilisateur en GUEST")
 
-        If Not IsNothing(nomUser) Then
-            If System.Text.RegularExpressions.Regex.IsMatch(Replace(nomUser, " ", ""), "^[a-zA-Z0-9]{6}$") And Not nomUser.Contains(" ") Then
+        If Not String.IsNullOrEmpty(nomUser) Then
+            If System.Text.RegularExpressions.Regex.IsMatch(Replace(nomUser, " ", ""), "^[a-zA-Z0-9]{6}") And Not nomUser.Contains(" ") Then
                 Try
                     DAOFactory.getUtilisateur.dbInsert(New Utilisateur(nomUser.ToUpper))
                     MessageBox.Show("enregistrement effectué", "ajout loggin utilisateur", MessageBoxButtons.OK, MessageBoxIcon.Information)
