@@ -132,29 +132,36 @@ Public Class VueAuditrails
         Me.TSMI_TOOLS_PRINTSEL.Visible = False
         TSMI_Selection.Visible = False
 
-        Select Case maVue
-            Case DAOViews.views.AT_Printer_ALL
-                DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATPRINTER)
-            Case DAOViews.views.AT_IEA_ALL
-                DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATIEA)
-            Case DAOViews.views.User_ALL
-                DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_USERS)
-            Case DAOViews.views.AT_Printer_Signet
-                Dim _id As Integer = DGV_Main.SelectedCells(0).Value
-                DGV_Main.DataSource = DAOFactory.getViews.getById(_id, DAOViews.reqById.GetSignet, String.Format(VUE_ATPRINTER_SIGNETS, _id))
-            Case DAOViews.views.Histo_DroitUser
-                Dim _id As Integer = DGV_Main.SelectedCells(0).Value
-                DGV_Main.DataSource = DAOFactory.getViews.getById(_id, DAOViews.reqById.GetHistoDroit, String.Format(VUE_HISTODROITSUSER, _id))
-            Case DAOViews.views.Histo_VerifAT
-                Dim _id As Integer = DGV_Main.SelectedCells(0).Value
-                DGV_Main.DataSource = DAOFactory.getViews.getById(_id, DAOViews.reqById.GetHistoVerif, String.Format(VUE_HISTOVERIFICATION, _id))
-            Case DAOViews.views.AT_Printer_Encours
-                DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATPRINTER & " -->En cours de vérification")
-            Case DAOViews.views.AT_IEA_Encours
-                DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATIEA & " -->En cours de vérification")
-            Case Else
-                DGV_Main.DataSource = Nothing
-        End Select
+        Try
+            Select Case maVue
+                Case DAOViews.views.AT_Printer_ALL
+                    DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATPRINTER)
+                Case DAOViews.views.AT_IEA_ALL
+                    DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATIEA)
+                Case DAOViews.views.User_ALL
+                    DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_USERS)
+                Case DAOViews.views.AT_Printer_Signet
+                    Dim _id As Integer = DGV_Main.SelectedCells(0).Value
+                    DGV_Main.DataSource = DAOFactory.getViews.getById(_id, DAOViews.reqById.GetSignet, String.Format(VUE_ATPRINTER_SIGNETS, _id))
+                Case DAOViews.views.Histo_DroitUser
+                    Dim _id As Integer = DGV_Main.SelectedCells(0).Value
+                    DGV_Main.DataSource = DAOFactory.getViews.getById(_id, DAOViews.reqById.GetHistoDroit, String.Format(VUE_HISTODROITSUSER, _id))
+                Case DAOViews.views.Histo_VerifAT
+                    Dim _id As Integer = DGV_Main.SelectedCells(0).Value
+                    DGV_Main.DataSource = DAOFactory.getViews.getById(_id, DAOViews.reqById.GetHistoVerif, String.Format(VUE_HISTOVERIFICATION, _id))
+                Case DAOViews.views.AT_Printer_Encours
+                    DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATPRINTER & " -->En cours de vérification")
+                Case DAOViews.views.AT_IEA_Encours
+                    DGV_Main.DataSource = DAOFactory.getViews.getAll(maVue, VUE_ATIEA & " -->En cours de vérification")
+                Case Else
+                    DGV_Main.DataSource = Nothing
+            End Select
+        Catch ex As Exception
+            Throw ex
+        Finally
+            Singleton.close()
+        End Try
+        
 
         If maVue <> DAOViews.views.PasDeVue Then
             'cache les colonnes contenant l'id avec le vrai nom de colonne
@@ -210,12 +217,18 @@ Public Class VueAuditrails
         Dim message As String = String.Empty
 
         message = InputBox("Indiquer ici les raisons du changement", "Changement du statut de vérification")
+        Try
+            If Not String.Empty = message Then
+                DAOFactory.getHistoVerification.dbInsert(New HistoVerification(String.Format(CHG_VERIFICATION, Environment.UserName.ToUpper, message), Now, DGV_Main.SelectedCells(0).Value, newStatut))
+            Else
+                MessageBox.Show("Annulé")
+            End If
+        Catch ex As Exception
+            Throw ex
+        Finally
+            Singleton.close()
+        End Try
 
-        If Not String.Empty = message Then
-            DAOFactory.getHistoVerification.dbInsert(New HistoVerification(String.Format(CHG_VERIFICATION, Environment.UserName.ToUpper, message), Now, DGV_Main.SelectedCells(0).Value, newStatut))
-        Else
-            MessageBox.Show("Annulé")
-        End If
         changerVue(_Vue_Encours)
     End Sub
     Private Sub TSMI_Selection_Verification_AVerif_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Selection_Verification_AVerif.Click
@@ -234,12 +247,18 @@ Public Class VueAuditrails
         Dim message As String = String.Empty
 
         message = InputBox("Indiquer ici les raisons du changement", "Changement des droits utilisateurs")
+        Try
+            If Not String.Empty = message Then
+                DAOFactory.getHistoDroit.dbInsert(New HistoDroits(String.Format(CHG_DROITS, Environment.UserName.ToUpper, message), Now, DGV_Main.SelectedCells(0).Value, drt))
+            Else
+                MessageBox.Show("Annulé")
+            End If
+        Catch ex As Exception
+            Throw ex
+        Finally
+            Singleton.close()
+        End Try
 
-        If Not String.Empty = message Then
-            DAOFactory.getHistoDroit.dbInsert(New HistoDroits(String.Format(CHG_DROITS, Environment.UserName.ToUpper, message), Now, DGV_Main.SelectedCells(0).Value, drt))
-        Else
-            MessageBox.Show("Annulé")
-        End If
         changerVue(_Vue_Encours)
     End Sub
     Private Sub TSMI_Selection_ChangementDroit_NoUse_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Selection_ChangementDroit_NoUse.Click
