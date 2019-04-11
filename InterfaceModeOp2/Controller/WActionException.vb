@@ -2,7 +2,7 @@
     Inherits Exception
 
     Private Const _NOSOURCE = "pas d'erreur source"
-    Private Const _SOURCEWREADER = "WReader est la source de l'erreur {0} ayant comme cause {1}"
+    Private Const _SOURCEWREADER = "WReader est la source de l'erreur : {0}"
     Private _ErreurSource As String
 
     Public ReadOnly Property getErreurSource As String
@@ -36,7 +36,7 @@
         If IsNothing(ex) Then
             _ErreurSource = _NOSOURCE
         Else
-            _ErreurSource = String.Format(_SOURCEWREADER, ex.Message, ex.getErreurSource)
+            _ErreurSource = String.Format(_SOURCEWREADER, ex.Message)
         End If
     End Sub
 

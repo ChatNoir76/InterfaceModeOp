@@ -121,8 +121,7 @@ Module WAction
             Info(ex.Message)
             Info(_MSG_ERR_DAO)
         Catch ex As WReaderException
-            Info("Source : " & ex.getErreurSource, True)
-            Info(ex.Message)
+            Info(ex.Message, True)
             Info("Procédure : " & ex.getProcedureOrigineErreur)
             Info("document ayant généré l'erreur: " & ex.getNomDocumentWordErreur)
             Info(_MSG_ERR_WREADER)
@@ -447,7 +446,7 @@ Module WAction
                 System.IO.File.Delete(FileC.getResultatFull)
             End With
         Catch ex As WReaderException
-            Throw New WActionException(_MSG_ERR_IM_2, ex)
+            Throw ex
         Catch ex As Exception
             Throw New WActionException(_MSG_ERR_IM_2, ex)
         Finally
@@ -517,7 +516,7 @@ Module WAction
                 End With
             End If
         Catch ex As WReaderException
-            Throw New WActionException(_MSG_ERR_IMP_1, ex)
+            Throw ex
         Catch ex As Exception
             Throw New WActionException(_MSG_ERR_IMP_1, ex)
         Finally
