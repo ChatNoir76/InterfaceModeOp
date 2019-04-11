@@ -570,8 +570,13 @@ no:
             _myDoc.Unprotect(mdp)
             If Err.Number <> 0 Then
                 Err.Clear()
+            Else
+                Exit Sub
             End If
         Next
+
+        Throw New WReaderException("Le mot de passe est inconnu de l'interface", System.Reflection.MethodBase.GetCurrentMethod.Name)
+
     End Sub
 
     ''' <summary>
