@@ -1,5 +1,4 @@
-﻿
-Public Class vuePrincipale
+﻿Public Class vuePrincipale
 
     Private Shared _Instance As vuePrincipale = Nothing
     Private Shared ReadOnly mylock As New Object()
@@ -164,11 +163,13 @@ Public Class vuePrincipale
     End Sub
 #End Region
 
+#Region "Outils et Protection BDD"
     Private Sub TSMI_Outils_AuditTrails_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Outils_AuditTrails.Click
         Const _MSG_ERR_DAO = "DAO ERROR"
         Const _MSG_ERR_GENERALE = "GENERAL ERROR"
         Try
-            VueAuditrails.ShowDialog()
+            Dim vueAT As New VueAuditrails
+            vueAT.ShowDialog()
         Catch ex As DAOException
             Info("Source : " & ex.getErrSource, True)
             Info(ex.Message)
@@ -178,41 +179,51 @@ Public Class vuePrincipale
             Info(_MSG_ERR_GENERALE)
         End Try
     End Sub
-
     Private Sub TSMI_Developpeur_ProtectionBDD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Developpeur_ProtectionBDD.Click
         Const NOTPROTECT = "La base de données n'est pas protégé par l'interface, voulez vous activer la protection?"
         Const PROTECT = "La base de données est protégé par l'interface, voulez vous désactiver la protection?"
         Const ENTETE = "SQLite protection"
+        Try
+            If Singleton.getModeProtection = 0 Then
+                If MessageBox.Show(NOTPROTECT, ENTETE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
+                    Singleton.protectionBDD(True)
+                    MessageBox.Show("Protection Active", ENTETE, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            ElseIf Singleton.getModeProtection = 1 Then
+                If MessageBox.Show(PROTECT, ENTETE, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
+                    Singleton.protectionBDD(False)
+                    MessageBox.Show("Protection Désactivée", ENTETE, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+            End If
+        Catch ex As Exception
+            Info(ex.Message)
+        End Try
 
-        If Singleton.getModeProtection = 0 Then
-            If MessageBox.Show(NOTPROTECT, ENTETE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
-                Singleton.protectionBDD(True)
-                MessageBox.Show("Protection Active", ENTETE, MessageBoxButtons.OK, MessageBoxIcon.Information)
-            End If
-        ElseIf Singleton.getModeProtection = 1 Then
-            If MessageBox.Show(PROTECT, ENTETE, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                Singleton.protectionBDD(False)
-                MessageBox.Show("Protection Désactivée", ENTETE, MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
-        End If
     End Sub
-
     Private Sub TSMI_Outils_AjoutUtilisateur_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Outils_AjoutUtilisateur.Click
         Const ERRUSER = "Erreur lors de l'enregistrement de l'utilisateur {0} : {1}"
         Dim nomUser As String = InputBox("Veuillez choisir un nom de loggin Fareva, ce log sera défini en guest. Pour changer les droits, seul l'adminAQ est autorisé à le faire", "Ajout login utilisateur en GUEST")
 
-        If Not String.IsNullOrEmpty(nomUser) Then
-            If System.Text.RegularExpressions.Regex.IsMatch(Replace(nomUser, " ", ""), "^[a-zA-Z0-9]{6}") And Not nomUser.Contains(" ") Then
-                Try
-                    DAOFactory.getUtilisateur.dbInsert(New Utilisateur(nomUser.ToUpper))
-                    MessageBox.Show("enregistrement effectué", "ajout loggin utilisateur", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Catch ex As Exception
-                    Info(String.Format(ERRUSER, nomUser, ex.Message))
-                End Try
-            Else
-                MessageBox.Show("Le loggin : " & nomUser & " n'est pas un loggin Fareva valide", "loggin invalide", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Try
+            If Not String.IsNullOrEmpty(nomUser) Then
+                If System.Text.RegularExpressions.Regex.IsMatch(Replace(nomUser, " ", ""), "^[a-zA-Z0-9]{6}") And Not nomUser.Contains(" ") Then
+                    Try
+                        DAOFactory.getUtilisateur.dbInsert(New Utilisateur(nomUser.ToUpper))
+                        MessageBox.Show("enregistrement effectué", "ajout loggin utilisateur", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Catch ex As Exception
+                        Info(String.Format(ERRUSER, nomUser, ex.Message))
+                    End Try
+                Else
+                    MessageBox.Show("Le loggin : " & nomUser & " n'est pas un loggin Fareva valide", "loggin invalide", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             End If
-        End If
+        Catch ex As Exception
+            Info(ex.Message)
+        End Try
+
 
     End Sub
+#End Region
+
+
 End Class
