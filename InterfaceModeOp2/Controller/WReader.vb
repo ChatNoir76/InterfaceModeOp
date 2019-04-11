@@ -176,7 +176,9 @@ Public Class WReader
         Try
             'déprotection du document
             If _myDoc.ProtectionType <> Word.WdProtectionType.wdNoProtection Then
-                Unlocked(Outils.LISTE_MDP_PRODUCTION.Split("|"))
+                If Not Unlocked(Outils.LISTE_MDP_PRODUCTION.Split("|")) Then
+                    Throw New WReaderException("Le mot de passe du document Word est inconnu", "Unlocked")
+                End If
             End If
         Catch ex As Exception
             Throw New WReaderException("Erreur lors du traitement post ouverture du document Word", System.Reflection.MethodBase.GetCurrentMethod().Name, ex)
@@ -563,21 +565,19 @@ no:
     ''' </summary>
     ''' <param name="ListeMDP">Liste des mots de passes potentiellement utilisés</param>
     ''' <remarks></remarks>
-    Private Sub Unlocked(ByVal ParamArray ListeMDP() As String)
-        'traitement fichier inconnu 
+    Private Function Unlocked(ByVal ParamArray ListeMDP() As String) As Boolean
+        'traitement fichier inconnu
         On Error Resume Next
         For Each mdp As String In ListeMDP
             _myDoc.Unprotect(mdp)
             If Err.Number <> 0 Then
                 Err.Clear()
             Else
-                Exit Sub
+                Return True
             End If
         Next
-
-        Throw New WReaderException("Le mot de passe est inconnu de l'interface", System.Reflection.MethodBase.GetCurrentMethod.Name)
-
-    End Sub
+        Return False
+    End Function
 
     ''' <summary>
     ''' Récupère les signets renseignés par l'utilisateur
