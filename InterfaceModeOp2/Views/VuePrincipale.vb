@@ -141,6 +141,7 @@
             mesInfo.AppendLine.AppendLine()
             mesInfo.Append(.Copyright).AppendLine()
             mesInfo.Append(String.Format("Version {0}.{1:00}", .Version.Major, .Version.Minor))
+            mesInfo.Append(" [").Append(.Version).Append("]")
 #If DEBUG Then
             mesInfo.AppendLine.Append("--Mode Debug--")
 #End If
