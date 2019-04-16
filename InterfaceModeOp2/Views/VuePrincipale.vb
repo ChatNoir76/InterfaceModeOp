@@ -203,7 +203,7 @@
     End Sub
     Private Sub TSMI_Outils_AjoutUtilisateur_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TSMI_Outils_AjoutUtilisateur.Click
         Const ERRUSER = "Erreur lors de l'enregistrement de l'utilisateur {0} : {1}"
-        Dim nomUser As String = InputBox("Veuillez choisir un nom de loggin Fareva, ce log sera défini en guest. Pour changer les droits, seul l'adminAQ est autorisé à le faire", "Ajout login utilisateur en GUEST")
+        Dim nomUser As String = InputBox("Veuillez choisir un nom de login Fareva, ce log sera défini en guest. Pour changer les droits, seul l'adminAQ est autorisé à le faire", "Ajout login utilisateur en GUEST")
 
         Try
             If Not String.IsNullOrEmpty(nomUser) Then
