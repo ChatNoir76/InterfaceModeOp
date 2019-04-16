@@ -221,8 +221,6 @@ Module WAction
                 DAOFactory.getAuditrails.dbInsert(at)
                 Info(String.Format(_GEN_BDD_2, at.idAuditrails))
 
-                Info(_GEN_INFO_DEL_SOURCE)
-                System.IO.File.Delete(FileExp.getResultatFull)
             End With
         Catch ex As WReaderException
             Throw New WActionException(_MSG_ERR_EX_6, ex)
