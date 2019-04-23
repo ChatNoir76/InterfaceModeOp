@@ -257,8 +257,8 @@ Public Class WReader
         On Error Resume Next
         Close()
         _myWord.Quit()
-        _Instance = Nothing
         Err.Clear()
+        _Instance = Nothing
     End Sub
 #End Region
 
