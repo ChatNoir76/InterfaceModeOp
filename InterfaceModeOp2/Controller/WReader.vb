@@ -588,6 +588,17 @@ no:
     Private Sub extractionFields(Optional ByRef Locked As Boolean = True)
         Try
             _ListeSignet.Clear()
+            'récupération des signets des anciens mode opératoire
+            For Each element As Word.Field In _myDoc.Sections(1).Headers(1).Range.Fields
+                If element.Type = Word.WdFieldType.wdFieldFillIn Then
+                    Dim sgt As New Signets(extractClefSignet(element.Code.Text), element.Result.Text, element.Code.Text)
+                    If Not _ListeSignet.Contains(sgt) Then
+                        _ListeSignet.Add(sgt)
+                    End If
+                End If
+                element.Locked = True
+            Next
+
             'récupération dans le corps du document
             For Each element As Word.Field In _myDoc.Range.Fields
                 If element.Type = Word.WdFieldType.wdFieldSet Then
@@ -595,8 +606,8 @@ no:
                     If Not _ListeSignet.Contains(sgt) Then
                         _ListeSignet.Add(sgt)
                     End If
-                    element.Locked = Locked 'pour bloquer l'ouverture type popup intempestif
                 End If
+                element.Locked = Locked 'pour bloquer l'ouverture type popup intempestif
             Next
 
             For Each sec As Word.Section In _myDoc.Sections
@@ -606,8 +617,8 @@ no:
                         If Not _ListeSignet.Contains(sgt) Then
                             _ListeSignet.Add(sgt)
                         End If
-                        element.Locked = Locked 'pour bloquer l'ouverture type popup intempestif
                     End If
+                    element.Locked = Locked 'pour bloquer l'ouverture type popup intempestif
                 Next
             Next
         Catch ex As Exception
