@@ -174,7 +174,7 @@ Public Class VueImpression
         End If
         _AuditTrails = TXT_AT.Text
     End Sub
-    Private Sub NumericUpDown1_ValueChanged() Handles NUD_1.ValueChanged, NUD_2.ValueChanged
+    Private Sub NumericUpDowns_ValueChanged() Handles NUD_1.ValueChanged, NUD_2.ValueChanged
         NUD_2.Minimum = NUD_1.Value
         _ZoneImpression = NUD_1.Value & " - " & NUD_2.Value
     End Sub
@@ -187,6 +187,7 @@ Public Class VueImpression
         'et si GB 2 visible alors GB1 ne l'est plus
         If RB_OPT1.Checked Then
             GB_OPT2.Visible = False
+            Call NumericUpDowns_ValueChanged()
         Else
             GB_OPT2.Visible = True
         End If
