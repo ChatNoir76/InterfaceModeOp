@@ -78,14 +78,15 @@ Partial Class VueImpression
         'TXT_AT
         '
         Me.TXT_AT.Location = New System.Drawing.Point(27, 302)
+        Me.TXT_AT.MaxLength = 1000
         Me.TXT_AT.Multiline = True
         Me.TXT_AT.Name = "TXT_AT"
-        Me.TXT_AT.Size = New System.Drawing.Size(493, 107)
+        Me.TXT_AT.Size = New System.Drawing.Size(493, 65)
         Me.TXT_AT.TabIndex = 6
         '
         'BT_Validation
         '
-        Me.BT_Validation.Location = New System.Drawing.Point(543, 386)
+        Me.BT_Validation.Location = New System.Drawing.Point(543, 344)
         Me.BT_Validation.Name = "BT_Validation"
         Me.BT_Validation.Size = New System.Drawing.Size(31, 23)
         Me.BT_Validation.TabIndex = 7
@@ -235,7 +236,7 @@ Partial Class VueImpression
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(583, 421)
+        Me.ClientSize = New System.Drawing.Size(583, 377)
         Me.Controls.Add(Me.GB_OPT1)
         Me.Controls.Add(Me.GB_PrintPages)
         Me.Controls.Add(Me.CB_AT)
