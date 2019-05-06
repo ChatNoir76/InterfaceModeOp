@@ -48,6 +48,7 @@ Module WAction
     Private Const _GEN_Copy = "Fichier {0} vers {1}"
     Private Const _GEN_CopyBackup = "Fichier {0} vers {1} et copie {2}"
 
+    Private Const _GEN_INFO_SIGNETS = "vous pouvez renseigner les signets"
     Private Const _GEN_INFO_FILIGRANE = "Création du filigrane"
     Private Const _GEN_INFO_NETTBASPAGE = "Nettoyage du bas de page"
     Private Const _GEN_INFO_COPYTO = "Copie dans le dossier {0}"
@@ -455,6 +456,7 @@ Module WAction
         Else
             Info(String.Format(_GEN_IMPRESSION_3, OpenFileDiag.getResultatSimple))
             With WReader.GetMyWord
+                Info(_GEN_INFO_SIGNETS)
                 .OpenWord(OpenFileDiag.getResultatFull, WReader.method.add)
 
                 Dim WPrinter As New VueImpression(.getFields, Configuration.getInstance.getListePhraseAT, .getPages)
@@ -525,6 +527,7 @@ Module WAction
         Else
             Info(String.Format(_GEN_CONSULTATION_3, OpenFileDiag.getResultatSimple))
             With WReader.GetMyWord
+                Info(_GEN_INFO_SIGNETS)
                 .OpenWord(OpenFileDiag.getResultatFull, WReader.method.add)
                 Info(_GEN_INFO_FILIGRANE)
                 .Filigrane(monFiligrane, _Rouge)
