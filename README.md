@@ -21,13 +21,16 @@
 
     Le fichier InterfaceModeOp2.ini permet la configuration de l'exécutable.
 
-* **Format Word**
+* **Format Word pour importation**
 
-    Les fichiers Words être présent dans le dossier C.<br>
-    Avoir le mot "ORIGINAL" en entête.<br>
-    Avoir des signets à remplir à l'ouverture.<br>
+    Les fichiers Words doivent :
+    - être présent dans le dossier C
+    - avoir le mot clef "ORIGINAL" en entête
+    - avoir un minimum de deux pages
+
+    *il n'y a pas de minimum de signet à respecter dans le document Word*
     
-
+Pour plus de renseignement, veuillez consulter les documents dans le dossier "Documentation"
 
 
 
