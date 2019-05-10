@@ -207,7 +207,7 @@
 
         Try
             If Not String.IsNullOrEmpty(nomUser) Then
-                If System.Text.RegularExpressions.Regex.IsMatch(Replace(nomUser, " ", ""), "^[a-zA-Z0-9]{6}") And Not nomUser.Contains(" ") Then
+                If System.Text.RegularExpressions.Regex.IsMatch(Replace(nomUser, " ", ""), "^[a-zA-Z0-9]{4}") And Not nomUser.Contains(" ") Then
                     Try
                         DAOFactory.getUtilisateur.dbInsert(New Utilisateur(nomUser.ToUpper))
                         MessageBox.Show("enregistrement effectué", "ajout loggin utilisateur", MessageBoxButtons.OK, MessageBoxIcon.Information)
